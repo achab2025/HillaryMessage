@@ -61,7 +61,20 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				spa: {
+          blue: '#6E9ED8',
+          teal: '#77C3CE',
+          green: '#97C6A5',
+          sand: '#E4DBCF',
+          cream: '#F8F5F2',
+          lavender: '#BFC1E5',
+          blush: '#F4DDD8'
+        }
+			},
+			fontFamily: {
+				'playfair': ['Playfair Display', 'serif'],
+				'inter': ['Inter', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,12 +97,42 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'wave-flow': {
+					'0%': { 
+						transform: 'translateX(0) translateY(0)',
+						opacity: '0.8'
+					},
+					'50%': { 
+						transform: 'translateX(-25%) translateY(10%)',
+						opacity: '0.6'
+					},
+					'100%': { 
+						transform: 'translateX(0) translateY(0)',
+						opacity: '0.8'
+					}
+				},
+				'floating': {
+					'0%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' },
+					'100%': { transform: 'translateY(0)' }
+				},
+				'fade-in': {
+					'0%': { opacity: '0', transform: 'translateY(10px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'wave-flow': 'wave-flow 8s ease-in-out infinite',
+				'floating': 'floating 3s ease-in-out infinite',
+				'fade-in': 'fade-in 0.5s ease-out'
+			},
+			backgroundImage: {
+        'wave-pattern': "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MDAiIGhlaWdodD0iNTAwIj48c3R5bGU+LndhdmUge29wYWNpdHk6IDAuMTt9PC9zdHlsZT48cGF0aCBjbGFzcz0id2F2ZSIgZD0iTTAgMjUwYzUwIDAgNzUgLTI1IDEyNSAtMjVzNzUgMjUgMTI1IDI1IDc1IC0yNSAxMjUgLTI1IDc1IDI1IDEyNSAyNSA3NSAtMjUgMTI1IC0yNSA3NSAyNSA3NSAyNXYyNTBIMHoiIGZpbGw9IiM3N0MzQ0UiLz48L3N2Zz4=')",
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
