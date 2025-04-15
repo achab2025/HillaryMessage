@@ -4,7 +4,8 @@ import { AuthContext } from "@/App";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Menu, X, ChevronRight, Calendar, Clock, Star, Heart, Gift } from "lucide-react";
+import { Menu, X, ChevronRight, Calendar, Clock, Star, Heart, Gift, MessageSquare } from "lucide-react";
+import { ChatWidget } from "@/components/ChatWidget";
 
 // Mock testimonials
 const testimonials = [
@@ -62,138 +63,151 @@ const services = [
 const Index = () => {
   const { isLoggedIn, user } = useContext(AuthContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-spa-cream">
-      {/* Hero section with animated background */}
-      <header className="relative overflow-hidden">
-        <div className="absolute inset-0 z-0 bg-gradient-to-r from-spa-blue to-spa-teal opacity-10" />
-        <div className="absolute inset-0 z-0 bg-wave-pattern opacity-10 animate-wave-flow" />
+    <div className="min-h-screen bg-gradient-to-b from-violet-50 to-white">
+      {/* Hero section with background image overlay */}
+      <header className="relative min-h-screen flex items-center">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-violet-900/80 to-purple-900/80" />
+          <img
+            src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070"
+            alt="Spa background"
+            className="w-full h-full object-cover"
+          />
+        </div>
         
-        <div className="relative z-10">
-          {/* Navigation */}
-          <nav className="container mx-auto p-4 flex justify-between items-center">
-            <div className="flex items-center">
-              <Link to="/" className="text-2xl font-bold text-spa-blue">
+        {/* Navigation */}
+        <nav className="absolute top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-sm border-b border-white/20">
+          <div className="container mx-auto px-4">
+            <div className="flex justify-between items-center h-20">
+              <Link to="/" className="text-2xl font-bold text-white">
                 Serene Touch
               </Link>
-            </div>
 
-            {/* Desktop menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="font-medium hover:text-spa-blue transition-colors">Home</Link>
-              <Link to="#services" className="font-medium hover:text-spa-blue transition-colors">Services</Link>
-              <Link to="#about" className="font-medium hover:text-spa-blue transition-colors">About</Link>
-              <Link to="#contact" className="font-medium hover:text-spa-blue transition-colors">Contact</Link>
-              
-              {isLoggedIn ? (
-                <div className="flex items-center space-x-4">
-                  <Link to="/booking">
-                    <Button>Book Now</Button>
-                  </Link>
-                  <Link to="/dashboard">
-                    <Button variant="outline">Dashboard</Button>
-                  </Link>
-                </div>
-              ) : (
-                <div className="flex items-center space-x-4">
-                  <Link to="/booking">
-                    <Button>Book Now</Button>
-                  </Link>
-                  <Link to="/login">
-                    <Button variant="outline">Sign In</Button>
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                {isMobileMenuOpen ? <X /> : <Menu />}
-              </Button>
-            </div>
-          </nav>
-
-          {/* Mobile menu */}
-          {isMobileMenuOpen && (
-            <div className="fixed inset-0 bg-white z-50 pt-20 px-4">
-              <div className="flex flex-col space-y-4">
-                <Link 
-                  to="/" 
-                  className="p-3 border-b text-lg font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Home
-                </Link>
-                <Link 
-                  to="#services" 
-                  className="p-3 border-b text-lg font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Services
-                </Link>
-                <Link 
-                  to="#about" 
-                  className="p-3 border-b text-lg font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  About
-                </Link>
-                <Link 
-                  to="#contact" 
-                  className="p-3 border-b text-lg font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Contact
-                </Link>
+              {/* Desktop menu */}
+              <div className="hidden md:flex items-center space-x-8">
+                <Link to="/" className="font-medium text-white hover:text-violet-200 transition-colors">Home</Link>
+                <Link to="#services" className="font-medium text-white hover:text-violet-200 transition-colors">Services</Link>
+                <Link to="#about" className="font-medium text-white hover:text-violet-200 transition-colors">About</Link>
+                <Link to="#contact" className="font-medium text-white hover:text-violet-200 transition-colors">Contact</Link>
                 
                 {isLoggedIn ? (
-                  <div className="mt-4 space-y-3">
-                    <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Button className="w-full">Book Now</Button>
+                  <div className="flex items-center space-x-4">
+                    <Link to="/booking">
+                      <Button className="bg-violet-600 hover:bg-violet-700">Book Now</Button>
                     </Link>
-                    <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Button variant="outline" className="w-full">Dashboard</Button>
+                    <Link to="/dashboard">
+                      <Button variant="outline" className="border-white text-white hover:bg-white/20">
+                        Dashboard
+                      </Button>
                     </Link>
                   </div>
                 ) : (
-                  <div className="mt-4 space-y-3">
-                    <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Button className="w-full">Book Now</Button>
+                  <div className="flex items-center space-x-4">
+                    <Link to="/booking">
+                      <Button className="bg-violet-600 hover:bg-violet-700">Book Now</Button>
                     </Link>
-                    <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Button variant="outline" className="w-full">Sign In</Button>
+                    <Link to="/login">
+                      <Button variant="outline" className="border-white text-white hover:bg-white/20">
+                        Sign In
+                      </Button>
                     </Link>
                   </div>
                 )}
               </div>
-            </div>
-          )}
 
-          {/* Hero content */}
-          <div className="container mx-auto px-4 py-20 md:py-32 flex flex-col items-center text-center">
-            <div className="animate-fade-in">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                Experience the Art of <span className="text-spa-blue">Relaxation</span>
-              </h1>
-              <p className="text-xl max-w-3xl mx-auto mb-10 text-muted-foreground">
-                Discover a sanctuary of tranquility where skilled therapists help you find
-                balance, relief from pain, and deep relaxation through our premium massage services.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Link to="/booking">
-                  <Button size="lg" className="text-lg px-8">
-                    Book Your Session
-                    <ChevronRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link to="#services">
-                  <Button size="lg" variant="outline" className="text-lg px-8">
-                    Explore Services
-                  </Button>
-                </Link>
+              {/* Mobile menu button */}
+              <div className="md:hidden">
+                <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="text-white hover:bg-white/20">
+                  {isMobileMenuOpen ? <X /> : <Menu />}
+                </Button>
               </div>
+            </div>
+          </div>
+        </nav>
+
+        {/* Mobile menu */}
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 bg-violet-900/95 z-40 pt-20 px-4">
+            <div className="flex flex-col space-y-4">
+              <Link 
+                to="/" 
+                className="p-3 border-b text-lg font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
+                to="#services" 
+                className="p-3 border-b text-lg font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Services
+              </Link>
+              <Link 
+                to="#about" 
+                className="p-3 border-b text-lg font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About
+              </Link>
+              <Link 
+                to="#contact" 
+                className="p-3 border-b text-lg font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact
+              </Link>
+              
+              {isLoggedIn ? (
+                <div className="mt-4 space-y-3">
+                  <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button className="w-full">Book Now</Button>
+                  </Link>
+                  <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button variant="outline" className="w-full">Dashboard</Button>
+                  </Link>
+                </div>
+              ) : (
+                <div className="mt-4 space-y-3">
+                  <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button className="w-full">Book Now</Button>
+                  </Link>
+                  <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button variant="outline" className="w-full">Sign In</Button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Hero content */}
+        <div className="container relative z-10 mx-auto px-4 pt-20 text-center text-white">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight font-lora">
+              Experience True <span className="text-violet-300">Relaxation</span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-10 text-violet-100 max-w-2xl mx-auto">
+              Discover a sanctuary of tranquility where skilled therapists help you find
+              balance, relief, and deep relaxation through our premium massage services.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link to="/booking">
+                <Button size="lg" className="bg-violet-600 hover:bg-violet-700 text-lg px-8">
+                  Book Your Session
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link to="#services">
+                <Button size="lg" variant="outline" 
+                  className="border-white text-white hover:bg-white/20 text-lg px-8">
+                  View Services
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -489,6 +503,19 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Chat Widget Button */}
+      <button
+        onClick={() => setIsChatOpen(true)}
+        className="fixed bottom-6 right-6 bg-violet-600 text-white p-4 rounded-full shadow-lg hover:bg-violet-700 transition-colors z-50"
+      >
+        <MessageSquare className="h-6 w-6" />
+      </button>
+
+      {/* Chat Widget */}
+      {isChatOpen && (
+        <ChatWidget onClose={() => setIsChatOpen(false)} />
+      )}
     </div>
   );
 };
