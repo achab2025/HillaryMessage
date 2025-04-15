@@ -32,40 +32,13 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
             onSelect={onSelectDate}
             disabled={{ before: new Date() }}
             className="rounded-md border border-violet-100"
-            styles={{
-              head_cell: { 
-                width: "100%",
-                fontSize: "0.875rem",
-                fontWeight: 500,
-                color: "#7c3aed",
-              },
-              cell: {
-                width: "100%",
-                fontSize: "0.875rem",
-                color: "#1f2937",
-              },
-              day: {
-                margin: "0 auto",
-                width: "36px",
-                height: "36px",
-                fontSize: "0.875rem",
-              },
-              day_selected: {
-                backgroundColor: "#8b5cf6",
-                color: "white",
-              },
-              day_today: {
-                color: "#7c3aed",
-                fontWeight: 500,
-              },
-              nav_button: {
-                color: "#7c3aed",
-              },
-              caption: {
-                color: "#4b5563",
-                fontSize: "1rem",
-                fontWeight: 500,
-              },
+            classNames={{
+              day_selected: "bg-violet-600 text-white hover:bg-violet-600 hover:text-white",
+              day_today: "text-violet-800 font-medium",
+              caption: "text-violet-800",
+              nav_button: "text-violet-600 hover:bg-violet-100",
+              head_cell: "text-violet-600 font-medium",
+              cell: "text-gray-700",
             }}
           />
         </CardContent>
