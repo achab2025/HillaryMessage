@@ -62,12 +62,12 @@ const Login = () => {
       <div className="container mx-auto flex flex-col items-center justify-center min-h-screen z-10 px-4">
         <div className="w-full max-w-md animate-fade-in">
           <Link to="/" className="flex items-center justify-center mb-12">
-            <h1 className="text-4xl font-playfair font-bold text-gray-800">Serene Touch</h1>
+            <h1 className="text-4xl font-lora font-bold text-violet-800">Harmony Haven</h1>
           </Link>
           
-          <Card className="backdrop-blur-md bg-white/80 border-none shadow-2xl">
+          <Card className="backdrop-blur-md bg-white/80 border-none shadow-xl">
             <CardHeader className="space-y-3">
-              <CardTitle className="text-3xl font-playfair text-center">Welcome Back</CardTitle>
+              <CardTitle className="text-3xl font-lora text-center text-violet-800">Welcome Back</CardTitle>
               <CardDescription className="text-center text-base">
                 Sign in to your wellness journey
               </CardDescription>
@@ -93,7 +93,7 @@ const Login = () => {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <Label htmlFor="password" className="text-sm font-medium">Password</Label>
-                      <Link to="/forgot-password" className="text-sm text-spa-blue hover:underline">
+                      <Link to="/forgot-password" className="text-sm text-violet-600 hover:underline">
                         Forgot password?
                       </Link>
                     </div>
@@ -130,7 +130,7 @@ const Login = () => {
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-gradient-to-r from-spa-blue to-spa-teal hover:opacity-90 transition-all duration-300" 
+                  className="w-full bg-gradient-to-r from-violet-500 to-purple-600 hover:opacity-90 transition-all duration-300 shadow-md" 
                   disabled={isLoading}
                 >
                   {isLoading ? "Signing in..." : "Sign In"}
@@ -140,7 +140,7 @@ const Login = () => {
             <CardFooter className="flex flex-col space-y-4 text-center">
               <div className="text-sm">
                 Don't have an account?{" "}
-                <Link to="/signup" className="text-spa-blue hover:underline font-medium">
+                <Link to="/signup" className="text-violet-600 hover:underline font-medium">
                   Create an account
                 </Link>
               </div>

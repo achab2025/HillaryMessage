@@ -1,8 +1,9 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Lora:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -15,16 +16,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 198 47% 63%;
+    --primary: 243 75% 59%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 183 40% 63%;
+    --secondary: 280 84% 80%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 178 32% 68%;
+    --accent: 262 83% 58%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -32,7 +33,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 198 47% 63%;
+    --ring: 243 75% 59%;
 
     --radius: 0.5rem;
 
@@ -40,7 +41,7 @@
 
     --sidebar-foreground: 240 5.3% 26.1%;
 
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary: 243 75% 59%;
 
     --sidebar-primary-foreground: 0 0% 98%;
 
@@ -50,7 +51,7 @@
 
     --sidebar-border: 220 13% 91%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 243 75% 59%;
   }
 
   .dark {
@@ -63,16 +64,16 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 198 47% 63%;
+    --primary: 243 75% 59%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 183 40% 63%;
+    --secondary: 280 84% 80%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 178 32% 68%;
+    --accent: 262 83% 58%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -80,15 +81,15 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 198 47% 63%;
+    --ring: 243 75% 59%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary: 243 75% 59%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 243 75% 59%;
   }
 }
 
@@ -98,21 +99,21 @@
   }
 
   body {
-    @apply bg-background text-foreground font-inter;
+    @apply bg-background text-foreground font-montserrat;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-playfair;
+    @apply font-lora;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-spa-teal hover:bg-spa-blue text-white px-6 py-2 rounded-md transition-colors duration-300;
+    @apply bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 text-white px-6 py-2 rounded-md transition-colors duration-300 shadow-md;
   }
   
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border border-violet-100;
   }
   
   .section-padding {
@@ -120,8 +121,8 @@
   }
   
   .animated-gradient {
-    background: linear-gradient(120deg, #77C3CE, #6E9ED8, #97C6A5);
-    background-size: 200% 200%;
+    background: linear-gradient(-45deg, #7c3aed, #8b5cf6, #c084fc, #a78bfa);
+    background-size: 400% 400%;
     animation: gradient-shift 15s ease infinite;
   }
   
@@ -139,7 +140,7 @@
   right: 0;
   bottom: 0;
   z-index: 0;
-  background: linear-gradient(135deg, #E5D1FA 0%, #FDF4F5 100%);
+  background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
   overflow: hidden;
 }
 
@@ -151,7 +152,7 @@
   height: 300%;
   top: -100%;
   left: -100%;
-  background-image: radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%);
+  background-image: radial-gradient(circle at center, rgba(167, 139, 250, 0.4) 0%, rgba(167, 139, 250, 0) 50%);
   animation: wave-flow 20s infinite linear;
   opacity: 0.6;
 }

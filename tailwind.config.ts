@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -62,19 +63,37 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				spa: {
-          blue: '#6E9ED8',
-          teal: '#77C3CE',
-          green: '#97C6A5',
-          sand: '#E4DBCF',
-          cream: '#F8F5F2',
-          lavender: '#BFC1E5',
-          blush: '#F4DDD8'
-        }
+				// New modern color palette
+                violet: {
+                    50: '#f5f3ff',
+                    100: '#ede9fe',
+                    200: '#ddd6fe',
+                    300: '#c4b5fd',
+                    400: '#a78bfa',
+                    500: '#8b5cf6',
+                    600: '#7c3aed',
+                    700: '#6d28d9',
+                    800: '#5b21b6',
+                    900: '#4c1d95',
+                    950: '#2e1065',
+                },
+                purple: {
+                    50: '#faf5ff',
+                    100: '#f3e8ff',
+                    200: '#e9d5ff',
+                    300: '#d8b4fe',
+                    400: '#c084fc',
+                    500: '#a855f7',
+                    600: '#9333ea',
+                    700: '#7e22ce',
+                    800: '#6b21a8',
+                    900: '#581c87',
+                    950: '#3b0764',
+                }
 			},
 			fontFamily: {
-				'playfair': ['Playfair Display', 'serif'],
-				'inter': ['Inter', 'sans-serif'],
+				'lora': ['Lora', 'serif'],
+				'montserrat': ['Montserrat', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -130,9 +149,10 @@ export default {
 				'fade-in': 'fade-in 0.5s ease-out'
 			},
 			backgroundImage: {
-        'wave-pattern': "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MDAiIGhlaWdodD0iNTAwIj48c3R5bGU+LndhdmUge29wYWNpdHk6IDAuMTt9PC9zdHlsZT48cGF0aCBjbGFzcz0id2F2ZSIgZD0iTTAgMjUwYzUwIDAgNzUgLTI1IDEyNSAtMjVzNzUgMjUgMTI1IDI1IDc1IC0yNSAxMjUgLTI1IDc1IDI1IDEyNSAyNSA3NSAtMjUgMTI1IC0yNSA3NSAyNSA3NSAyNXYyNTBIMHoiIGZpbGw9IiM3N0MzQ0UiLz48L3N2Zz4=')",
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-      }
+                'wave-pattern': "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MDAiIGhlaWdodD0iNTAwIj48c3R5bGU+LndhdmUge29wYWNpdHk6IDAuMTt9PC9zdHlsZT48cGF0aCBjbGFzcz0id2F2ZSIgZD0iTTAgMjUwYzUwIDAgNzUgLTI1IDEyNSAtMjVzNzUgMjUgMTI1IDI1IDc1IC0yNSAxMjUgLTI1IDc1IDI1IDEyNSAyNSA3NSAtMjUgMTI1IC0yNSA3NSAyNSA3NSAyNXYyNTBIMHoiIGZpbGw9IiM3YzNhZWQiLz48L3N2Zz4=')",
+                'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                'purple-gradient': 'linear-gradient(135deg, #7c3aed 0%, #c084fc 100%)',
+			}
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
