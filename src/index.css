@@ -139,7 +139,7 @@
   right: 0;
   bottom: 0;
   z-index: 0;
-  background-color: #77C3CE;
+  background: linear-gradient(135deg, #E5D1FA 0%, #FDF4F5 100%);
   overflow: hidden;
 }
 
@@ -151,9 +151,9 @@
   height: 300%;
   top: -100%;
   left: -100%;
-  background-image: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+  background-image: radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%);
   animation: wave-flow 20s infinite linear;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .wave-animation::after {
@@ -161,4 +161,10 @@
   left: -150%;
   animation-duration: 30s;
   animation-delay: -5s;
+  opacity: 0.4;
+}
+
+@keyframes wave-flow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
