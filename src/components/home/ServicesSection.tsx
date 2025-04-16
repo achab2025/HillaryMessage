@@ -8,34 +8,34 @@ import { Clock } from "lucide-react";
 const services = [
   {
     id: 1,
-    name: "Массаж лица",
-    description: "Расслабляющий массаж для улучшения тонуса кожи и снятия напряжения.",
-    duration: "45 мин",
-    price: "3200 ₽",
+    name: "Facial Massage",
+    description: "Relaxing massage to improve skin tone and relieve tension.",
+    duration: "45 min",
+    price: "$40",
     image: "bg-[url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1470')]"
   },
   {
     id: 2,
-    name: "Массаж спины",
-    description: "Глубокий массаж спины для облегчения боли и напряжения в мышцах.",
-    duration: "60 мин",
-    price: "4500 ₽",
+    name: "Back Massage",
+    description: "Deep tissue massage to relieve pain and muscle tension.",
+    duration: "60 min",
+    price: "$55",
     image: "bg-[url('https://images.unsplash.com/photo-1519823551278-5a109f4235c5?q=80&w=1374')]"
   },
   {
     id: 3,
-    name: "Спа программа",
-    description: "Комплексный уход за телом с использованием натуральных компонентов.",
-    duration: "90 мин",
-    price: "6800 ₽",
+    name: "Spa Package",
+    description: "Comprehensive body care using natural ingredients.",
+    duration: "90 min",
+    price: "$85",
     image: "bg-[url('https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=1470')]"
   },
   {
     id: 4,
-    name: "Уход за лицом",
-    description: "Процедуры по очищению, питанию и омоложению кожи лица.",
-    duration: "60 мин",
-    price: "4200 ₽",
+    name: "Facial Treatment",
+    description: "Cleansing, nourishing, and rejuvenating facial procedures.",
+    duration: "60 min",
+    price: "$50",
     image: "bg-[url('https://images.unsplash.com/photo-1616394584738-fc6970f15c1b?q=80&w=1470')]"
   }
 ];
@@ -45,10 +45,10 @@ export const ServicesSection = () => {
     <section id="services" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-spa-green-dark">Наши СПА-ритуалы</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-spa-green-dark">Our Spa Rituals</h2>
           <p className="text-lg text-spa-gray">
-            Мы предлагаем различные виды спа-процедур для удовлетворения ваших
-            индивидуальных потребностей, от релаксации до снятия боли.
+            We offer various types of spa treatments to meet your individual needs,
+            from relaxation to pain relief.
           </p>
         </div>
 

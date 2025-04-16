@@ -17,24 +17,23 @@ export const HeroSection = () => {
       <div className="container relative z-10 mx-auto px-4 pt-20 text-left text-white">
         <div className="max-w-4xl">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight font-lora">
-            Территория <span className="text-spa-cream">умиротворения</span> и красоты
+            A Haven of <span className="text-spa-cream">Peace</span> and Beauty
           </h1>
           <p className="text-xl md:text-2xl mb-10 text-spa-cream max-w-2xl">
-            Откройте для себя убежище спокойствия, где опытные терапевты помогут вам 
-            обрести баланс, облегчение и глубокую релаксацию благодаря нашим 
-            высококачественным спа-услугам.
+            Discover a sanctuary of tranquility where expert therapists help you find
+            balance, relief, and deep relaxation through our premium spa services.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link to="/booking">
               <Button size="lg" className="bg-spa-green hover:bg-spa-green-dark text-lg px-8">
-                Записаться на прием
+                Book Appointment
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link to="#services">
               <Button size="lg" variant="outline" 
                 className="border-white text-white hover:bg-white/20 text-lg px-8">
-                Наши услуги
+                Our Services
               </Button>
             </Link>
           </div>
