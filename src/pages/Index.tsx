@@ -15,7 +15,7 @@ const Index = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 to-white">
+    <div className="min-h-screen bg-spa-cream">
       <Navigation isLoggedIn={isLoggedIn} />
       <HeroSection />
       <FeaturesSection />
@@ -26,7 +26,7 @@ const Index = () => {
       {/* Chat Widget Button */}
       <button
         onClick={() => setIsChatOpen(true)}
-        className="fixed bottom-6 right-6 bg-violet-600 text-white p-4 rounded-full shadow-lg hover:bg-violet-700 transition-colors z-50"
+        className="fixed bottom-6 right-6 bg-spa-green text-white p-4 rounded-full shadow-lg hover:bg-spa-green-dark transition-colors z-50"
       >
         <MessageSquare className="h-6 w-6" />
       </button>
