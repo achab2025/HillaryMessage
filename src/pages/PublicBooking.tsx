@@ -1,31 +1,13 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { 
-  Card, 
-  CardContent, 
-  CardFooter, 
-  CardHeader, 
-  CardTitle,
-  CardDescription 
-} from "@/components/ui/card";
-import { format, addDays } from "date-fns";
-import { cn } from "@/lib/utils";
-import { 
-  ArrowLeft, 
-  ArrowRight, 
-  Clock, 
-  Calendar,
-  Check, 
-  Info, 
-  CreditCard,
-  User 
-} from "lucide-react";
-import GuestDetailsForm from "@/components/GuestDetailsForm";
-import BookingCalendar from "@/components/BookingCalendar";
+import { ArrowLeft } from "lucide-react";
 import ServiceSelector from "@/components/ServiceSelector";
+import BookingCalendar from "@/components/BookingCalendar";
+import GuestDetailsForm from "@/components/GuestDetailsForm";
 import PaymentForm from "@/components/PaymentForm";
+import BookingSteps from "@/components/booking/BookingSteps";
+import BookingConfirmation from "@/components/booking/BookingConfirmation";
+import NavigationButtons from "@/components/booking/NavigationButtons";
 import { useToast } from "@/components/ui/use-toast";
 
 // Mock data for services
@@ -116,8 +98,33 @@ const PublicBooking = () => {
   });
   const [password, setPassword] = useState("");
   const [generatedPassword, setGeneratedPassword] = useState("");
-  
-  // Update available time slots when date changes
+
+  const steps = [
+    "Choose Service",
+    "Select Date & Time",
+    "Choose Therapist",
+    "Your Details",
+    "Payment",
+    "Confirm"
+  ];
+
+  const isNextDisabled = () => {
+    switch (currentStep) {
+      case 1:
+        return !selectedService;
+      case 2:
+        return !selectedDate || !selectedTime;
+      case 3:
+        return !selectedTherapist;
+      case 4:
+        return !isGuestInfoValid();
+      case 5:
+        return !isPaymentInfoValid();
+      default:
+        return false;
+    }
+  };
+
   useEffect(() => {
     if (selectedDate) {
       setAvailableTimeSlots(generateTimeSlots(selectedDate));
@@ -215,7 +222,7 @@ const PublicBooking = () => {
       currency: 'USD'
     }).format(amount);
   };
-  
+
   return (
     <div className="min-h-screen bg-purple-50 py-8 px-4">
       <div className="max-w-5xl mx-auto">
@@ -227,33 +234,9 @@ const PublicBooking = () => {
         <h1 className="text-3xl font-bold mb-2 text-violet-800">Book Your Appointment</h1>
         <p className="text-muted-foreground mb-8">Follow the steps below to schedule your massage session.</p>
         
-        {/* Progress indicator */}
-        <div className="w-full mb-8">
-          <div className="flex justify-between mb-2">
-            {["Choose Service", "Select Date & Time", "Choose Therapist", "Your Details", "Payment", "Confirm"].map((step, index) => (
-              <div 
-                key={index} 
-                className={cn(
-                  "text-sm font-medium text-center flex-1",
-                  currentStep > index + 1 ? "text-violet-600" : 
-                  currentStep === index + 1 ? "text-violet-600" : "text-muted-foreground"
-                )}
-              >
-                {step}
-              </div>
-            ))}
-          </div>
-          <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
-            <div 
-              className="bg-gradient-to-r from-violet-500 to-purple-600 h-full transition-all duration-300 ease-in-out"
-              style={{ width: `${(currentStep - 1) * 20}%` }}
-            />
-          </div>
-        </div>
+        <BookingSteps currentStep={currentStep} steps={steps} />
         
-        {/* Booking steps */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          {/* Step 1: Choose Service */}
           {currentStep === 1 && (
             <div className="p-6">
               <h2 className="text-2xl font-medium mb-6 text-violet-800">Select a Service</h2>
@@ -265,7 +248,6 @@ const PublicBooking = () => {
             </div>
           )}
           
-          {/* Step 2: Select Date and Time */}
           {currentStep === 2 && (
             <div className="p-6">
               <h2 className="text-2xl font-medium mb-6 text-violet-800">Select Date & Time</h2>
@@ -279,7 +261,6 @@ const PublicBooking = () => {
             </div>
           )}
           
-          {/* Step 3: Select Therapist */}
           {currentStep === 3 && (
             <div className="p-6">
               <h2 className="text-2xl font-medium mb-6 text-violet-800">Choose a Therapist</h2>
@@ -315,164 +296,44 @@ const PublicBooking = () => {
             </div>
           )}
           
-          {/* Step 4: Guest Details */}
           {currentStep === 4 && (
             <div className="p-6">
               <h2 className="text-2xl font-medium mb-6 text-violet-800">Your Details</h2>
               <GuestDetailsForm guestInfo={guestInfo} setGuestInfo={setGuestInfo} />
-              <div className="mt-6 bg-purple-50 p-4 rounded-md border border-purple-200">
-                <div className="flex items-start">
-                  <Info className="h-5 w-5 text-violet-600 mr-3 mt-0.5" />
-                  <p className="text-sm text-violet-800">
-                    We'll create an account for you using these details so you can track your appointment. 
-                    You'll receive your login credentials after booking.
-                  </p>
-                </div>
-              </div>
             </div>
           )}
           
-          {/* Step 5: Payment */}
           {currentStep === 5 && (
             <div className="p-6">
               <h2 className="text-2xl font-medium mb-6 text-violet-800">Payment Information</h2>
               <PaymentForm paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} />
-              <div className="mt-6 bg-purple-50 p-4 rounded-md border border-purple-200">
-                <div className="flex items-start">
-                  <CreditCard className="h-5 w-5 text-violet-600 mr-3 mt-0.5" />
-                  <p className="text-sm text-violet-800">
-                    Your payment information is secured with advanced encryption. 
-                    Your card will be charged once your booking is confirmed.
-                  </p>
-                </div>
-              </div>
             </div>
           )}
           
-          {/* Step 6: Confirm Booking */}
           {currentStep === 6 && (
             <div className="p-6">
               <h2 className="text-2xl font-medium mb-6 text-violet-800">Confirm Your Booking</h2>
-              
-              {bookingComplete ? (
-                <div className="text-center py-8 animate-fade-in">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-4">
-                    <Check className="h-8 w-8" />
-                  </div>
-                  <h3 className="text-xl font-medium mb-2">Booking Complete!</h3>
-                  <p className="text-muted-foreground mb-6">
-                    Your appointment has been scheduled successfully.
-                  </p>
-                  <div className="bg-violet-50 p-6 max-w-md mx-auto rounded-lg border border-violet-200 text-left mb-6">
-                    <h4 className="text-lg font-semibold mb-3 text-violet-800 flex items-center">
-                      <User className="mr-2 h-5 w-5" /> Your Account Details
-                    </h4>
-                    <p className="mb-2">
-                      <span className="font-medium">Email:</span> {guestInfo.email}
-                    </p>
-                    <p className="mb-4">
-                      <span className="font-medium">Password:</span> {generatedPassword}
-                    </p>
-                    <div className="text-sm text-violet-700 bg-violet-100 p-3 rounded-md">
-                      Please save these credentials to access your account dashboard and manage your appointments.
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Redirecting to login page...
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-6">
-                  <Card>
-                    <CardContent className="pt-6">
-                      <div className="space-y-4">
-                        <div className="flex justify-between border-b pb-2">
-                          <span className="font-medium">Service:</span>
-                          <span>{selectedService?.name}</span>
-                        </div>
-                        <div className="flex justify-between border-b pb-2">
-                          <span className="font-medium">Date:</span>
-                          <span>{selectedDate ? format(selectedDate, "EEEE, MMMM do, yyyy") : ""}</span>
-                        </div>
-                        <div className="flex justify-between border-b pb-2">
-                          <span className="font-medium">Time:</span>
-                          <span>{selectedTime}</span>
-                        </div>
-                        <div className="flex justify-between border-b pb-2">
-                          <span className="font-medium">Therapist:</span>
-                          <span>
-                            {therapists.find(t => t.id === selectedTherapist)?.name}
-                          </span>
-                        </div>
-                        <div className="flex justify-between border-b pb-2">
-                          <span className="font-medium">Duration:</span>
-                          <span>{selectedService?.duration} minutes</span>
-                        </div>
-                        <div className="flex justify-between border-b pb-2">
-                          <span className="font-medium">Name:</span>
-                          <span>{guestInfo.firstName} {guestInfo.lastName}</span>
-                        </div>
-                        <div className="flex justify-between border-b pb-2">
-                          <span className="font-medium">Contact:</span>
-                          <span>{guestInfo.email} | {guestInfo.phone}</span>
-                        </div>
-                        <div className="flex justify-between text-lg font-medium">
-                          <span>Total:</span>
-                          <span className="text-violet-600">
-                            {formatCurrency(selectedService?.price || 0)}
-                          </span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  
-                  <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 text-sm text-violet-800">
-                    <p className="mb-2">
-                      <strong>Note:</strong> By confirming your booking, you agree to our terms and conditions.
-                    </p>
-                    <p>
-                      We'll create an account for you so you can manage your appointments. Your login credentials will be displayed after booking is complete.
-                    </p>
-                  </div>
-                </div>
-              )}
+              <BookingConfirmation
+                bookingComplete={bookingComplete}
+                selectedService={selectedService}
+                selectedDate={selectedDate}
+                selectedTime={selectedTime}
+                selectedTherapist={selectedTherapist}
+                therapists={therapists}
+                guestInfo={guestInfo}
+                generatedPassword={generatedPassword}
+              />
             </div>
           )}
           
-          {/* Navigation buttons */}
-          <CardFooter className="flex justify-between p-6 bg-muted/20">
-            {currentStep > 1 && !bookingComplete && (
-              <Button 
-                variant="outline" 
-                onClick={handlePrevStep}
-              >
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back
-              </Button>
-            )}
-            {currentStep < 6 && (
-              <Button 
-                className="ml-auto bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700"
-                onClick={handleNextStep}
-                disabled={
-                  (currentStep === 1 && !selectedService) ||
-                  (currentStep === 2 && (!selectedDate || !selectedTime)) ||
-                  (currentStep === 3 && !selectedTherapist)
-                }
-              >
-                Next
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            )}
-            {currentStep === 6 && !bookingComplete && (
-              <Button 
-                className="ml-auto bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700"
-                onClick={handleSubmit}
-              >
-                Confirm Booking
-              </Button>
-            )}
-          </CardFooter>
+          <NavigationButtons
+            currentStep={currentStep}
+            handlePrevStep={handlePrevStep}
+            handleNextStep={handleNextStep}
+            handleSubmit={handleSubmit}
+            bookingComplete={bookingComplete}
+            disableNext={isNextDisabled()}
+          />
         </div>
       </div>
     </div>
