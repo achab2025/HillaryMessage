@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -42,11 +41,13 @@ export const Navigation = ({ isLoggedIn }: NavigationProps) => {
                 <Link to="/booking">
                   <Button className="bg-white text-spa-green-dark hover:bg-spa-cream">Book Now</Button>
                 </Link>
-                <Link to="/login">
-                  <Button variant="outline" className="border-white text-white hover:bg-white/20">
-                    Sign In
-                  </Button>
-                </Link>
+                <Button 
+                  variant="outline" 
+                  className="bg-spa-green text-white hover:bg-spa-green-dark transition-colors duration-300"
+                  asChild
+                >
+                  <Link to="/login">Login</Link>
+                </Button>
               </div>
             )}
           </div>
@@ -109,7 +110,7 @@ export const Navigation = ({ isLoggedIn }: NavigationProps) => {
                   <Button className="w-full bg-white text-spa-green-dark hover:bg-spa-cream">Book Now</Button>
                 </Link>
                 <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button variant="outline" className="w-full text-white border-white">Sign In</Button>
+                  <Button variant="outline" className="w-full text-white border-white">Login</Button>
                 </Link>
               </div>
             )}

@@ -2,45 +2,44 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Clock } from "lucide-react";
 
-const services = [
-  {
-    id: 1,
-    name: "Facial Massage",
-    description: "Relaxing massage to improve skin tone and relieve tension.",
-    duration: "45 min",
-    price: "$40",
-    image: "bg-[url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1470')]"
-  },
-  {
-    id: 2,
-    name: "Back Massage",
-    description: "Deep tissue massage to relieve pain and muscle tension.",
-    duration: "60 min",
-    price: "$55",
-    image: "bg-[url('https://images.unsplash.com/photo-1519823551278-5a109f4235c5?q=80&w=1374')]"
-  },
-  {
-    id: 3,
-    name: "Spa Package",
-    description: "Comprehensive body care using natural ingredients.",
-    duration: "90 min",
-    price: "$85",
-    image: "bg-[url('https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=1470')]"
-  },
-  {
-    id: 4,
-    name: "Facial Treatment",
-    description: "Cleansing, nourishing, and rejuvenating facial procedures.",
-    duration: "60 min",
-    price: "$50",
-    image: "bg-[url('https://images.unsplash.com/photo-1616394584738-fc6970f15c1b?q=80&w=1470')]"
-  }
-];
-
 export const ServicesSection = () => {
+  const services = [
+    {
+      id: 1,
+      name: "Facial Massage",
+      description: "Relaxing massage to improve skin tone and relieve tension.",
+      duration: "45 min",
+      price: "$40",
+      image: "bg-[url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1470')]"
+    },
+    {
+      id: 2,
+      name: "Back Massage",
+      description: "Deep tissue massage to relieve pain and muscle tension.",
+      duration: "60 min",
+      price: "$55",
+      image: "bg-[url('https://images.unsplash.com/photo-1519823551278-5a109f4235c5?q=80&w=1374')]"
+    },
+    {
+      id: 3,
+      name: "Spa Package",
+      description: "Comprehensive body care using natural ingredients.",
+      duration: "90 min",
+      price: "$85",
+      image: "bg-[url('https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=1470')]"
+    },
+    {
+      id: 4,
+      name: "Facial Treatment",
+      description: "Cleansing, nourishing, and rejuvenating facial procedures.",
+      duration: "60 min",
+      price: "$50",
+      image: "bg-[url('https://images.unsplash.com/photo-1616394584738-fc6970f15c1b?q=80&w=1470')]"
+    }
+  ];
+
   return (
     <section id="services" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -68,7 +67,9 @@ export const ServicesSection = () => {
                     <span className="text-spa-green font-medium">{service.price}</span>
                   </div>
                   <Link to="/booking">
-                    <Button variant="outline" size="sm" className="border-spa-green text-spa-green hover:bg-spa-green hover:text-white">Записаться</Button>
+                    <Button variant="outline" size="sm" className="border-spa-green text-spa-green hover:bg-spa-green hover:text-white">
+                      Book Now
+                    </Button>
                   </Link>
                 </div>
               </CardContent>
@@ -78,7 +79,7 @@ export const ServicesSection = () => {
 
         <div className="text-center">
           <Link to="/booking">
-            <Button className="bg-spa-green hover:bg-spa-green-dark">Все услуги</Button>
+            <Button className="bg-spa-green hover:bg-spa-green-dark">View All Services</Button>
           </Link>
         </div>
       </div>
