@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
@@ -8,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, Lock, Eye, EyeOff } from "lucide-react";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -56,61 +56,55 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden">
-      <div className="wave-animation absolute inset-0 z-0"></div>
-      
-      <div className="container mx-auto flex flex-col items-center justify-center min-h-screen z-10 px-4">
-        <div className="w-full max-w-md animate-fade-in">
-          <Link to="/" className="flex items-center justify-center mb-12">
-            <h1 className="text-4xl font-lora font-bold text-violet-800">Harmony Haven</h1>
-          </Link>
-          
-          <Card className="backdrop-blur-md bg-white/80 border-none shadow-xl">
+    <AnimatedBackground>
+      <div className="container mx-auto flex flex-col items-center justify-center min-h-screen px-4">
+        <div className="w-full max-w-sm animate-fade-in">
+          <Card className="backdrop-blur-xl bg-white/10 border-spa-green/20 shadow-xl">
             <CardHeader className="space-y-3">
-              <CardTitle className="text-3xl font-lora text-center text-violet-800">Welcome Back</CardTitle>
-              <CardDescription className="text-center text-base">
+              <CardTitle className="text-2xl text-center text-spa-green-dark">Welcome Back</CardTitle>
+              <CardDescription className="text-center text-spa-green">
                 Sign in to your wellness journey
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleLogin} className="space-y-6">
+              <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-sm font-medium">Email</Label>
+                    <Label htmlFor="email" className="text-sm font-medium text-spa-green-dark">Email</Label>
                     <div className="relative">
-                      <User className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                      <User className="absolute left-3 top-2.5 h-5 w-5 text-spa-green" />
                       <Input
                         id="email"
                         type="email"
                         placeholder="name@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 bg-white/30 border-spa-green/20 text-spa-green-dark placeholder:text-spa-green/60"
                         required
                       />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="password" className="text-sm font-medium">Password</Label>
-                      <Link to="/forgot-password" className="text-sm text-violet-600 hover:underline">
+                      <Label htmlFor="password" className="text-sm font-medium text-spa-green-dark">Password</Label>
+                      <Link to="/forgot-password" className="text-sm text-spa-green hover:text-spa-green-dark">
                         Forgot password?
                       </Link>
                     </div>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                      <Lock className="absolute left-3 top-2.5 h-5 w-5 text-spa-green" />
                       <Input
                         id="password"
                         type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 bg-white/30 border-spa-green/20 text-spa-green-dark"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"
+                        className="absolute right-3 top-2.5 text-spa-green hover:text-spa-green-dark"
                       >
                         {showPassword ? (
                           <EyeOff className="h-5 w-5" />
@@ -123,14 +117,14 @@ const Login = () => {
                 </div>
 
                 {error && (
-                  <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm">
+                  <div className="bg-red-50/80 text-red-600 p-3 rounded-md text-sm backdrop-blur-sm">
                     {error}
                   </div>
                 )}
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-gradient-to-r from-violet-500 to-purple-600 hover:opacity-90 transition-all duration-300 shadow-md" 
+                  className="w-full bg-spa-green hover:bg-spa-green-dark text-white transition-all duration-300 shadow-md" 
                   disabled={isLoading}
                 >
                   {isLoading ? "Signing in..." : "Sign In"}
@@ -138,13 +132,13 @@ const Login = () => {
               </form>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4 text-center">
-              <div className="text-sm">
+              <div className="text-sm text-spa-green-dark">
                 Don't have an account?{" "}
-                <Link to="/signup" className="text-violet-600 hover:underline font-medium">
+                <Link to="/signup" className="text-spa-green hover:text-spa-green-dark font-medium">
                   Create an account
                 </Link>
               </div>
-              <div className="text-xs text-muted-foreground">
+              <div className="text-xs text-spa-green-dark/70">
                 <p>Demo credentials</p>
                 <p>User: user@example.com / password</p>
                 <p>Admin: admin@example.com / admin</p>
@@ -153,7 +147,7 @@ const Login = () => {
           </Card>
         </div>
       </div>
-    </div>
+    </AnimatedBackground>
   );
 };
 
