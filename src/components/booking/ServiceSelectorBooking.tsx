@@ -3,7 +3,8 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useBooking, Service } from '@/contexts/BookingContext';
+import { useBooking } from '@/contexts/BookingContext';
+import { Service } from '@/data/bookingMockData';
 
 interface ServiceSelectorBookingProps {
   services: Service[];

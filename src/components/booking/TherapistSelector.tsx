@@ -3,7 +3,8 @@ import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useBooking, Therapist } from '@/contexts/BookingContext';
+import { useBooking } from '@/contexts/BookingContext';
+import { Therapist } from '@/data/bookingMockData';
 
 interface TherapistSelectorProps {
   therapists: Therapist[];

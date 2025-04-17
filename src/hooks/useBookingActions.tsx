@@ -1,6 +1,7 @@
 
 import { useState, useCallback } from 'react';
-import { GuestInfo, PaymentInfo, Service } from '@/contexts/BookingContext';
+import { GuestInfo, PaymentInfo } from '@/contexts/BookingContext';
+import { Service } from '@/data/bookingMockData';
 
 // This hook separates all the booking actions from the state management
 export const useBookingActions = () => {
