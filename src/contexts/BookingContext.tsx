@@ -1,5 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useBookingActions } from '@/hooks/useBookingActions';
 
 // Define types
 export interface Service {
@@ -121,32 +122,16 @@ const therapistsMockData: Therapist[] = [
   { id: "3", name: "Sarah Williams", specialization: "Hot Stone Therapy" }
 ];
 
-// Generate time slots for a given date
-const generateTimeSlots = (date: Date | undefined): string[] => {
-  if (!date) return [];
-  
-  // In a real app, you'd fetch this from the server based on the selected date
-  const baseSlots = [
-    "09:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"
-  ];
-  
-  // Simulate some slots being unavailable on different days
-  const day = date.getDay();
-  if (day === 0) { // Sunday
-    return baseSlots.filter((_, i) => i % 3 !== 0); // Remove every 3rd slot
-  } else if (day === 6) { // Saturday
-    return baseSlots.filter((_, i) => i % 2 !== 0); // Remove every 2nd slot
-  } else if (day === 1) { // Monday
-    return baseSlots.slice(2); // Remove first two slots
-  } else if (day === 5) { // Friday
-    return baseSlots.slice(0, -2); // Remove last two slots
-  }
-  return baseSlots;
-};
-
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
 
 export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Get booking actions from our custom hook
+  const { 
+    generateTimeSlots, 
+    formatCurrency, 
+    createNavigationHandlers 
+  } = useBookingActions();
+
   // Initialize state
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
@@ -176,95 +161,27 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ child
       setAvailableTimeSlots(generateTimeSlots(selectedDate));
       setSelectedTime(""); // Reset selected time when date changes
     }
-  }, [selectedDate]);
+  }, [selectedDate, generateTimeSlots]);
 
-  // Format currency for displaying prices
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
-
-  // Generate random password for account creation
-  const generateRandomPassword = () => {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let password = "";
-    for (let i = 0; i < 8; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return password;
-  };
-
-  // Validation helpers
-  const isGuestInfoValid = () => {
-    return (
-      guestInfo.firstName.trim() !== "" &&
-      guestInfo.lastName.trim() !== "" &&
-      guestInfo.email.trim() !== "" &&
-      guestInfo.phone.trim() !== ""
-    );
-  };
-
-  const isPaymentInfoValid = () => {
-    return (
-      paymentInfo.cardholderName.trim() !== "" &&
-      paymentInfo.cardNumber.trim() !== "" &&
-      paymentInfo.expiryDate.trim() !== "" &&
-      paymentInfo.cvv.trim() !== ""
-    );
-  };
-
-  // Navigation logic
-  const isNextDisabled = () => {
-    switch (currentStep) {
-      case 1:
-        return !selectedService;
-      case 2:
-        return !selectedDate || !selectedTime;
-      case 3:
-        return !selectedTherapist;
-      case 4:
-        return !isGuestInfoValid();
-      case 5:
-        return !isPaymentInfoValid();
-      default:
-        return false;
-    }
-  };
-
-  const handleNextStep = () => {
-    if (
-      (currentStep === 1 && selectedService) || 
-      (currentStep === 2 && selectedDate && selectedTime) || 
-      (currentStep === 3 && selectedTherapist) ||
-      (currentStep === 4 && isGuestInfoValid()) ||
-      (currentStep === 5 && isPaymentInfoValid())
-    ) {
-      setCurrentStep(currentStep + 1);
-      
-      // If moving to the final confirmation step, generate a password
-      if (currentStep === 5) {
-        const generated = generateRandomPassword();
-        setGeneratedPassword(generated);
-        setPassword(generated);
-      }
-    }
-  };
-
-  const handlePrevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
-  const handleSubmit = async () => {
-    // Here you would normally send the booking to your backend
-    // For this demo, we'll just simulate a successful booking
-    setTimeout(() => {
-      setBookingComplete(true);
-    }, 2000);
-  };
+  // Create navigation handlers using the action hook
+  const { 
+    isNextDisabled, 
+    handleNextStep, 
+    handlePrevStep, 
+    handleSubmit 
+  } = createNavigationHandlers(
+    currentStep,
+    setCurrentStep,
+    selectedService,
+    selectedDate,
+    selectedTime,
+    selectedTherapist,
+    guestInfo,
+    paymentInfo,
+    setGeneratedPassword,
+    setPassword,
+    setBookingComplete
+  );
 
   const value = {
     currentStep,
