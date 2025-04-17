@@ -1,7 +1,7 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import ServiceSelector from "@/components/ServiceSelector";
 import BookingCalendar from "@/components/BookingCalendar";
 import GuestDetailsForm from "@/components/GuestDetailsForm";
 import PaymentForm from "@/components/PaymentForm";
@@ -9,6 +9,7 @@ import BookingSteps from "@/components/booking/BookingSteps";
 import BookingConfirmation from "@/components/booking/BookingConfirmation";
 import NavigationButtons from "@/components/booking/NavigationButtons";
 import TherapistSelector from "@/components/booking/TherapistSelector";
+import ServiceSelectorBooking from "@/components/booking/ServiceSelectorBooking";
 import { useToast } from "@/components/ui/use-toast";
 
 // Mock data for services
@@ -241,7 +242,7 @@ const PublicBooking = () => {
           {currentStep === 1 && (
             <div className="p-6">
               <h2 className="text-2xl font-medium mb-6 text-violet-800">Select a Service</h2>
-              <ServiceSelector 
+              <ServiceSelectorBooking 
                 services={services} 
                 selectedService={selectedService} 
                 setSelectedService={setSelectedService} 
