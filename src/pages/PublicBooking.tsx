@@ -8,6 +8,7 @@ import PaymentForm from "@/components/PaymentForm";
 import BookingSteps from "@/components/booking/BookingSteps";
 import BookingConfirmation from "@/components/booking/BookingConfirmation";
 import NavigationButtons from "@/components/booking/NavigationButtons";
+import TherapistSelector from "@/components/booking/TherapistSelector";
 import { useToast } from "@/components/ui/use-toast";
 
 // Mock data for services
@@ -264,35 +265,11 @@ const PublicBooking = () => {
           {currentStep === 3 && (
             <div className="p-6">
               <h2 className="text-2xl font-medium mb-6 text-violet-800">Choose a Therapist</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {therapists.map((therapist) => (
-                  <Card 
-                    key={therapist.id}
-                    className={cn(
-                      "cursor-pointer transition-all hover:shadow-md border border-violet-100",
-                      selectedTherapist === therapist.id ? "ring-2 ring-violet-500" : ""
-                    )}
-                    onClick={() => setSelectedTherapist(therapist.id)}
-                  >
-                    <CardContent className="pt-6">
-                      <div className="text-center">
-                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-violet-100 to-purple-200 mx-auto mb-4 flex items-center justify-center">
-                          <span className="text-2xl text-violet-600 font-bold">
-                            {therapist.name.split(' ').map(n => n[0]).join('')}
-                          </span>
-                        </div>
-                        <h3 className="font-medium text-lg">{therapist.name}</h3>
-                        <p className="text-muted-foreground text-sm">{therapist.specialization}</p>
-                      </div>
-                    </CardContent>
-                    {selectedTherapist === therapist.id && (
-                      <div className="absolute top-4 right-4 bg-violet-600 text-white rounded-full p-1">
-                        <Check className="h-4 w-4" />
-                      </div>
-                    )}
-                  </Card>
-                ))}
-              </div>
+              <TherapistSelector 
+                therapists={therapists}
+                selectedTherapist={selectedTherapist}
+                setSelectedTherapist={setSelectedTherapist}
+              />
             </div>
           )}
           
