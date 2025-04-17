@@ -3,12 +3,7 @@ import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface Therapist {
-  id: string;
-  name: string;
-  specialization: string;
-}
+import { useBooking, Therapist } from '@/contexts/BookingContext';
 
 interface TherapistSelectorProps {
   therapists: Therapist[];

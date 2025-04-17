@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Check } from "lucide-react";
 import { format } from "date-fns";
+import { useBooking } from '@/contexts/BookingContext';
 
 interface BookingConfirmationProps {
   bookingComplete: boolean;
@@ -25,12 +26,7 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
   guestInfo,
   generatedPassword
 }) => {
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
+  const { formatCurrency } = useBooking();
 
   if (bookingComplete) {
     return (

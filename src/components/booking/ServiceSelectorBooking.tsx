@@ -3,15 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface Service {
-  id: string;
-  name: string;
-  description: string;
-  duration: number;
-  price: number;
-  image: string;
-}
+import { useBooking, Service } from '@/contexts/BookingContext';
 
 interface ServiceSelectorBookingProps {
   services: Service[];
@@ -24,12 +16,7 @@ const ServiceSelectorBooking: React.FC<ServiceSelectorBookingProps> = ({
   selectedService,
   setSelectedService
 }) => {
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
+  const { formatCurrency } = useBooking();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
