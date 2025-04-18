@@ -7,8 +7,6 @@ import { Navigation } from "@/components/layout/Navigation";
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturesSection } from "@/components/home/FeaturesSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
-import { AboutSection } from "@/components/home/AboutSection";
-import { ContactSection } from "@/components/home/ContactSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { Footer } from "@/components/layout/Footer";
 
@@ -20,10 +18,9 @@ const Index = () => {
     <div className="min-h-screen bg-spa-cream">
       <Navigation isLoggedIn={isLoggedIn} />
       <HeroSection />
-      <AboutSection />
+      <FeaturesSection />
       <ServicesSection />
       <TestimonialsSection />
-      <ContactSection />
       <Footer />
 
       {/* Chat Widget Button */}
