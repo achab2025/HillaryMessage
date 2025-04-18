@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useBookingActions } from '@/hooks/useBookingActions';
-import { servicesMockData, therapistsMockData } from '@/data/bookingMockData';
+import { servicesMockData, therapistsMockData, Service } from '@/data/bookingMockData';
 import type { BookingContextType, GuestInfo, PaymentInfo } from './BookingTypes';
 
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
