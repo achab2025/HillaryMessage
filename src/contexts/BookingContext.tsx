@@ -1,76 +1,12 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useBookingActions } from '@/hooks/useBookingActions';
-import { servicesMockData, therapistsMockData, Service, Therapist } from '@/data/bookingMockData';
-
-// Define types that are not moved to the mock data file
-export type { Service, Therapist } from '@/data/bookingMockData';
-
-export interface GuestInfo {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-}
-
-export interface PaymentInfo {
-  cardholderName: string;
-  cardNumber: string;
-  expiryDate: string;
-  cvv: string;
-}
-
-interface BookingContextType {
-  // Current step
-  currentStep: number;
-  setCurrentStep: (step: number) => void;
-  
-  // Service selection
-  services: Service[];
-  selectedService: Service | null;
-  setSelectedService: (service: Service) => void;
-  
-  // Date and time selection
-  selectedDate: Date | undefined;
-  setSelectedDate: (date: Date | undefined) => void;
-  selectedTime: string;
-  setSelectedTime: (time: string) => void;
-  availableTimeSlots: string[];
-  
-  // Therapist selection
-  therapists: Therapist[];
-  selectedTherapist: string;
-  setSelectedTherapist: (id: string) => void;
-  
-  // Guest information
-  guestInfo: GuestInfo;
-  setGuestInfo: (info: GuestInfo) => void;
-  
-  // Payment information
-  paymentInfo: PaymentInfo;
-  setPaymentInfo: (info: PaymentInfo) => void;
-  
-  // Password for account creation
-  password: string;
-  setPassword: (password: string) => void;
-  generatedPassword: string;
-  
-  // Booking completion status
-  bookingComplete: boolean;
-  setBookingComplete: (complete: boolean) => void;
-  
-  // Helper functions
-  handleNextStep: () => void;
-  handlePrevStep: () => void;
-  handleSubmit: () => void;
-  isNextDisabled: () => boolean;
-  formatCurrency: (amount: number) => string;
-}
+import { servicesMockData, therapistsMockData } from '@/data/bookingMockData';
+import type { BookingContextType, GuestInfo, PaymentInfo } from './BookingTypes';
 
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
 
 export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Get booking actions from our custom hook
   const { 
     generateTimeSlots, 
     formatCurrency, 
@@ -108,7 +44,7 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   }, [selectedDate, generateTimeSlots]);
 
-  // Create navigation handlers using the action hook
+  // Create navigation handlers
   const { 
     isNextDisabled, 
     handleNextStep, 
@@ -173,3 +109,6 @@ export const useBooking = () => {
   }
   return context;
 };
+
+// Re-export types
+export type { BookingContextType, GuestInfo, PaymentInfo };
