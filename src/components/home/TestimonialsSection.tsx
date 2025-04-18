@@ -5,24 +5,24 @@ import { Card, CardContent } from "@/components/ui/card";
 const testimonials = [
   {
     id: 1,
-    name: "Ольга К.",
+    name: "Olga K.",
     image: "bg-spa-green-light",
     stars: 5,
-    text: "Я регулярно посещаю этот спа-салон уже больше года и не могу представить, что пойду куда-то еще. Их терапевты невероятно профессиональны, а атмосфера очень успокаивающая."
+    text: "I've been regularly visiting this spa for over a year and can't imagine going anywhere else. Their therapists are incredibly professional, and the atmosphere is very calming."
   },
   {
     id: 2,
-    name: "Михаил В.",
+    name: "Michael V.",
     image: "bg-spa-beige",
     stars: 5,
-    text: "Массаж спины здесь просто невероятный. Я пришел с серьезной болью в спине и ушел, чувствуя себя новым человеком. Очень рекомендую!"
+    text: "The back massage here is simply incredible. I came with severe back pain and left feeling like a new person. Highly recommend!"
   },
   {
     id: 3,
-    name: "Елена С.",
+    name: "Elena S.",
     image: "bg-spa-green-light",
     stars: 5,
-    text: "Красивое пространство, профессиональный персонал, а процедуры с горячими камнями - это просто божественно. Обязательно вернусь за другими процедурами."
+    text: "Beautiful space, professional staff, and the hot stone treatments are simply divine. I'll definitely be back for more treatments."
   }
 ];
 
@@ -31,9 +31,9 @@ export const TestimonialsSection = () => {
     <section className="py-20 bg-spa-cream">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-spa-green-dark">Отзывы наших клиентов</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-spa-green-dark">Customer Reviews</h2>
           <p className="text-lg text-spa-gray">
-            Узнайте, что говорят наши довольные клиенты о своем опыте в нашем спа-салоне.
+            Discover what our satisfied clients are saying about their experience at our spa.
           </p>
         </div>
 
@@ -56,7 +56,7 @@ export const TestimonialsSection = () => {
                   </div>
                   <div>
                     <h4 className="font-bold text-spa-green-dark">{testimonial.name}</h4>
-                    <p className="text-sm text-spa-gray">Постоянный клиент</p>
+                    <p className="text-sm text-spa-gray">Regular Client</p>
                   </div>
                 </div>
               </CardContent>
