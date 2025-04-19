@@ -5,6 +5,7 @@ interface Bubble {
   id: number;
   size: number;
   left: number;
+  opacity: number;
   animationDuration: number;
   delay: number;
 }
@@ -22,16 +23,17 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
 
   useEffect(() => {
     const generateBubbles = () => {
-      const numberOfBubbles = 15;
+      const numberOfBubbles = 25; // Increased number of bubbles
       const newBubbles: Bubble[] = [];
 
       for (let i = 0; i < numberOfBubbles; i++) {
         newBubbles.push({
           id: i,
-          size: Math.random() * (100 - 20) + 20,
+          size: Math.random() * (120 - 20) + 20, // Varied sizes
           left: Math.random() * 100,
-          animationDuration: Math.random() * (20 - 10) + 10,
-          delay: Math.random() * 5
+          opacity: Math.random() * (0.5 - 0.2) + 0.2, // Varied opacity for subtle effect
+          animationDuration: Math.random() * (25 - 10) + 10, // Varied animation speeds
+          delay: Math.random() * 8 // Varied delays
         });
       }
 
@@ -39,6 +41,10 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
     };
 
     generateBubbles();
+    
+    // Regenerate bubbles periodically for continuous effect
+    const interval = setInterval(generateBubbles, 15000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -50,14 +56,16 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
       {bubbles.map((bubble) => (
         <div
           key={bubble.id}
-          className="absolute rounded-full opacity-30 bg-spa-green-light"
+          className="absolute rounded-full bg-spa-green-light blur-sm"
           style={{
             width: `${bubble.size}px`,
             height: `${bubble.size}px`,
             left: `${bubble.left}%`,
-            bottom: '-20%',
+            bottom: '-10%',
+            opacity: bubble.opacity,
             animation: `float ${bubble.animationDuration}s infinite ease-in-out`,
             animationDelay: `${bubble.delay}s`,
+            boxShadow: '0 0 10px rgba(255, 255, 255, 0.5)',
           }}
         />
       ))}
@@ -72,17 +80,22 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
         {`
           @keyframes float {
             0% {
-              transform: translateY(0);
+              transform: translateY(0) rotate(0deg);
               opacity: 0;
             }
             10% {
-              opacity: 0.3;
+              opacity: var(--bubble-opacity, 0.3);
+              transform: translateY(0) rotate(0deg);
+            }
+            50% {
+              transform: translateY(-60vh) rotate(180deg);
             }
             90% {
-              opacity: 0.2;
+              opacity: var(--bubble-opacity, 0.2);
+              transform: translateY(-110vh) rotate(360deg);
             }
             100% {
-              transform: translateY(-120vh);
+              transform: translateY(-120vh) rotate(360deg);
               opacity: 0;
             }
           }
