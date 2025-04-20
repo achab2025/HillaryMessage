@@ -1,11 +1,10 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 
 export const HeroSection = () => {
   return (
-    <header className="relative min-h-screen flex items-center justify-center">
+    <header id="home" className="relative min-h-screen flex items-center justify-center">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-spa-green/80 to-spa-green-dark/80" />
         <img
