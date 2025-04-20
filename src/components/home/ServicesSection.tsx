@@ -43,7 +43,7 @@ export const ServicesSection = () => {
   return (
     <section id="services" className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-spa-green-dark">Our Spa Rituals</h2>
           <p className="text-lg text-spa-gray">
             We offer various types of spa treatments to meet your individual needs,
@@ -53,7 +53,7 @@ export const ServicesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {services.map((service) => (
-            <Card key={service.id} className="overflow-hidden card-hover border-spa-beige bg-white">
+            <Card key={service.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-spa-beige bg-white">
               <div className={`h-48 ${service.image} bg-cover bg-center`} />
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2 text-spa-green-dark">{service.name}</h3>

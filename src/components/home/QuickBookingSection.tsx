@@ -5,11 +5,14 @@ import { Calendar, Clock, Star } from "lucide-react";
 
 export const QuickBookingSection = () => {
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="py-16 bg-white relative overflow-hidden">
+      <div className="absolute inset-0 opacity-10">
+        <div className="wave-animation" />
+      </div>
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-spa-cream p-8 rounded-lg text-center">
+            <div className="bg-spa-cream p-8 rounded-lg text-center transform hover:scale-105 transition-transform duration-300 shadow-lg">
               <Calendar className="h-10 w-10 mx-auto mb-4 text-spa-green" />
               <h3 className="text-xl font-bold mb-3 text-spa-green-dark">Quick Booking</h3>
               <p className="text-spa-gray mb-4">Book your next appointment in under 2 minutes</p>
@@ -20,7 +23,7 @@ export const QuickBookingSection = () => {
               </Link>
             </div>
             
-            <div className="bg-spa-cream p-8 rounded-lg text-center">
+            <div className="bg-spa-cream p-8 rounded-lg text-center transform hover:scale-105 transition-transform duration-300 shadow-lg">
               <Clock className="h-10 w-10 mx-auto mb-4 text-spa-green" />
               <h3 className="text-xl font-bold mb-3 text-spa-green-dark">Today's Availability</h3>
               <p className="text-spa-gray mb-4">Check real-time slot availability</p>
@@ -31,7 +34,7 @@ export const QuickBookingSection = () => {
               </Link>
             </div>
             
-            <div className="bg-spa-cream p-8 rounded-lg text-center">
+            <div className="bg-spa-cream p-8 rounded-lg text-center transform hover:scale-105 transition-transform duration-300 shadow-lg">
               <Star className="h-10 w-10 mx-auto mb-4 text-spa-green" />
               <h3 className="text-xl font-bold mb-3 text-spa-green-dark">Special Offers</h3>
               <p className="text-spa-gray mb-4">View our current promotions</p>
