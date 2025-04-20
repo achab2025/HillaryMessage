@@ -36,35 +36,6 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [password, setPassword] = useState("");
   const [generatedPassword, setGeneratedPassword] = useState("");
 
-  // Restore session from storage on initial load
-  useEffect(() => {
-    const savedProgress = sessionStorage.getItem('bookingProgress');
-    
-    if (savedProgress) {
-      try {
-        const {
-          currentStep: savedStep,
-          selectedService: savedService,
-          selectedDate: savedDateString,
-          selectedTime: savedTime,
-          selectedTherapist: savedTherapist,
-          guestInfo: savedGuestInfo
-        } = JSON.parse(savedProgress);
-        
-        // Restore state from session storage
-        if (savedStep) setCurrentStep(savedStep);
-        if (savedService) setSelectedService(savedService);
-        if (savedDateString) setSelectedDate(new Date(savedDateString));
-        if (savedTime) setSelectedTime(savedTime);
-        if (savedTherapist) setSelectedTherapist(savedTherapist);
-        if (savedGuestInfo) setGuestInfo(savedGuestInfo);
-      } catch (err) {
-        console.error("Error restoring booking session:", err);
-        sessionStorage.removeItem('bookingProgress');
-      }
-    }
-  }, []);
-
   // Update available time slots when date changes
   useEffect(() => {
     if (selectedDate) {
