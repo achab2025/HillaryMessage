@@ -9,8 +9,9 @@ import { FeaturesSection } from "@/components/home/FeaturesSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { ContactSection } from "@/components/home/ContactSection";
-import { AboutSection } from "@/components/home/AboutSection";
 import { Footer } from "@/components/layout/Footer";
+import { QuickBookingSection } from "@/components/home/QuickBookingSection";
+import { PromoSection } from "@/components/home/PromoSection";
 
 const Index = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -20,9 +21,10 @@ const Index = () => {
     <div className="min-h-screen bg-spa-cream">
       <Navigation isLoggedIn={isLoggedIn} />
       <HeroSection />
+      <QuickBookingSection />
       <FeaturesSection />
+      <PromoSection />
       <ServicesSection />
-      <AboutSection />
       <TestimonialsSection />
       <ContactSection />
       <Footer />
