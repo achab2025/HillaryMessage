@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,8 +12,10 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Booking from "./pages/Booking";
 import PublicBooking from "./pages/PublicBooking";
 import NotFound from "./pages/NotFound";
+import Services from "./pages/Services";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
-// Create auth context
 export const AuthContext = createContext<{
   isLoggedIn: boolean;
   user: User | null;
@@ -27,7 +28,6 @@ export const AuthContext = createContext<{
   logout: () => {},
 });
 
-// User type
 export type User = {
   id: string;
   name: string;
@@ -38,15 +38,12 @@ export type User = {
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Auth state
   const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Auth functions
   const login = (userData: User) => {
     setUser(userData);
     setIsLoggedIn(true);
-    // In a real app, you'd store tokens in localStorage or cookies
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
@@ -56,7 +53,6 @@ const App = () => {
     localStorage.removeItem('user');
   };
 
-  // Check for saved login on app startup
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
@@ -65,7 +61,6 @@ const App = () => {
         setUser(userData);
         setIsLoggedIn(true);
       } catch (err) {
-        // Handle invalid stored data
         localStorage.removeItem('user');
       }
     }
@@ -80,13 +75,15 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/dashboard" element={<UserDashboard />} />
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/booking" element={<Booking />} />
               <Route path="/book-now" element={<PublicBooking />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

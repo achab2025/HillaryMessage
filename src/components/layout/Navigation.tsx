@@ -10,14 +10,6 @@ interface NavigationProps {
 export const Navigation = ({ isLoggedIn }: NavigationProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleSectionClick = (sectionId: string) => {
-    setIsMobileMenuOpen(false);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
     <nav className="absolute top-0 left-0 right-0 z-50 bg-spa-green-dark border-b border-spa-green">
       <div className="container mx-auto px-4">
@@ -28,30 +20,30 @@ export const Navigation = ({ isLoggedIn }: NavigationProps) => {
 
           {/* Desktop menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <button 
-              onClick={() => handleSectionClick('home')} 
+            <Link 
+              to="/" 
               className="font-medium text-white hover:text-spa-green-light transition-colors"
             >
               Home
-            </button>
-            <button 
-              onClick={() => handleSectionClick('services')} 
+            </Link>
+            <Link 
+              to="/services" 
               className="font-medium text-white hover:text-spa-green-light transition-colors"
             >
               Services
-            </button>
-            <button 
-              onClick={() => handleSectionClick('about')} 
+            </Link>
+            <Link 
+              to="/about" 
               className="font-medium text-white hover:text-spa-green-light transition-colors"
             >
               About
-            </button>
-            <button 
-              onClick={() => handleSectionClick('contact')} 
+            </Link>
+            <Link 
+              to="/contact" 
               className="font-medium text-white hover:text-spa-green-light transition-colors"
             >
               Contact
-            </button>
+            </Link>
             
             {isLoggedIn ? (
               <div className="flex items-center space-x-4">
@@ -94,30 +86,34 @@ export const Navigation = ({ isLoggedIn }: NavigationProps) => {
       {isMobileMenuOpen && (
         <div className="fixed inset-0 bg-spa-green-dark/95 z-40 pt-20 px-4">
           <div className="flex flex-col space-y-4">
-            <button 
-              onClick={() => handleSectionClick('home')} 
+            <Link 
+              to="/"
               className="p-3 border-b border-spa-green text-lg font-medium text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
               Home
-            </button>
-            <button 
-              onClick={() => handleSectionClick('services')} 
+            </Link>
+            <Link 
+              to="/services"
               className="p-3 border-b border-spa-green text-lg font-medium text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
               Services
-            </button>
-            <button 
-              onClick={() => handleSectionClick('about')} 
+            </Link>
+            <Link 
+              to="/about"
               className="p-3 border-b border-spa-green text-lg font-medium text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
               About
-            </button>
-            <button 
-              onClick={() => handleSectionClick('contact')} 
+            </Link>
+            <Link 
+              to="/contact"
               className="p-3 border-b border-spa-green text-lg font-medium text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
               Contact
-            </button>
+            </Link>
             
             {isLoggedIn ? (
               <div className="mt-4 space-y-3">
