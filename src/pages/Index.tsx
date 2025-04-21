@@ -8,7 +8,7 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturesSection } from "@/components/home/FeaturesSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
-import { ContactSection } from "@/components/home/ContactSection";
+// Removed ContactSection import
 import { Footer } from "@/components/layout/Footer";
 import { QuickBookingSection } from "@/components/home/QuickBookingSection";
 import { PromoSection } from "@/components/home/PromoSection";
@@ -26,7 +26,7 @@ const Index = () => {
       <PromoSection />
       <ServicesSection />
       <TestimonialsSection />
-      <ContactSection />
+      {/* Removed <ContactSection /> */}
       <Footer />
 
       {/* Chat Widget Button */}
