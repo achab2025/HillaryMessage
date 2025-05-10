@@ -8,9 +8,9 @@ export const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold text-spa-cream mb-4">Spa & Wellness</h3>
+            <h3 className="text-xl font-bold text-spa-cream mb-4">Hillar Massage</h3>
             <p className="text-spa-green-light mb-4">
-              Your sanctuary for relaxation and wellness through expert spa treatments.
+              Your sanctuary for relaxation and wellness through expert massage treatments.
             </p>
           </div>
           <div>
@@ -50,7 +50,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className="border-t border-spa-green mt-8 pt-8 text-center text-spa-green-light">
-          <p>&copy; {new Date().getFullYear()} Spa & Wellness. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Hillar Massage. All rights reserved.</p>
         </div>
       </div>
     </footer>

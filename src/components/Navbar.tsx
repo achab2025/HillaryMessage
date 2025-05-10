@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between h-16">
           <Link to="/" className="text-2xl font-bold text-spa-blue">
-            Serene Touch
+            Hillar Massage
           </Link>
           
           {/* Desktop navigation */}

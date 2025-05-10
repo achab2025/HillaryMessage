@@ -12,7 +12,7 @@ export const HeroSection = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-spa-green/80 to-spa-green-dark/80" />
           <img
             src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1470"
-            alt="Spa background"
+            alt="Massage background"
             className="w-full h-full object-cover"
           />
         </div>
@@ -22,7 +22,7 @@ export const HeroSection = () => {
               Experience Pure <span className="text-spa-cream">Relaxation</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-spa-cream max-w-2xl mx-auto animate-fade-in">
-              Discover a sanctuary of tranquility where expert therapists help you find
+              Discover a sanctuary of tranquility at Hillar Massage where expert therapists help you find
               balance, relief, and deep relaxation.
             </p>
             <p className="text-lg mb-12 text-spa-cream/90 max-w-xl mx-auto animate-fade-in">
