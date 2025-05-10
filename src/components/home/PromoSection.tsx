@@ -5,8 +5,15 @@ import { Heart, Star, Gift } from "lucide-react";
 
 export const PromoSection = () => {
   return (
-    <section className="py-20 bg-spa-green-dark text-white">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-spa-green-dark text-white relative overflow-hidden">
+      <div className="absolute inset-0 opacity-20">
+        <img 
+          src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1470" 
+          alt="Background texture" 
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left: Offer Details */}
@@ -46,7 +53,7 @@ export const PromoSection = () => {
               </div>
             </div>
             {/* Right: Animated Features */}
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 gap-6 relative">
               <div className="bg-spa-cream/80 rounded-xl px-8 py-7 shadow-lg flex items-center gap-6 animate-fade-in hover:scale-105 transition-transform duration-300">
                 <Heart className="h-10 w-10 text-spa-green-dark animate-floating" />
                 <div>
@@ -77,6 +84,11 @@ export const PromoSection = () => {
               <div className="absolute top-4 right-4 bg-spa-green text-white px-6 py-3 rounded-full shadow-xl animate-floating">
                 <span className="text-lg font-bold">Save 20%</span>
               </div>
+              <img 
+                src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=1470"
+                alt="Relaxation package" 
+                className="absolute -bottom-20 -right-20 w-40 h-40 object-cover rounded-full opacity-30 animate-floating"
+              />
             </div>
           </div>
         </div>

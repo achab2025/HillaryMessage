@@ -24,7 +24,10 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 }) => {
   return (
     <Card className="overflow-hidden card-hover">
-      <div className={`h-40 ${image}`} />
+      <div 
+        className="h-40 bg-cover bg-center" 
+        style={{ backgroundImage: `url(${image})` }}
+      />
       <CardContent className="p-6">
         <h3 className="text-xl font-bold mb-2">{name}</h3>
         <p className="text-muted-foreground mb-4">{description}</p>

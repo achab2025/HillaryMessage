@@ -42,7 +42,10 @@ const ServiceSelector: React.FC<ServiceSelectorProps> = ({
           )}
           onClick={() => setSelectedService(service)}
         >
-          <div className={cn("h-24 w-full", service.image)} />
+          <div 
+            className="h-24 w-full bg-cover bg-center" 
+            style={{ backgroundImage: `url(${service.image})` }}
+          />
           <CardHeader className="pb-2">
             <CardTitle className="flex justify-between">
               <span>{service.name}</span>
