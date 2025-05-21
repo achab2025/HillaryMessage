@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -39,6 +38,7 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
     if (!receiptRef.current) return;
     
     try {
+      // Use html2canvas to create a canvas from the receipt
       const canvas = await html2canvas(receiptRef.current, {
         scale: 2,
         backgroundColor: '#ffffff'
