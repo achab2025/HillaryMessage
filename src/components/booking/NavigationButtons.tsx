@@ -21,11 +21,12 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   disableNext
 }) => {
   return (
-    <div className="flex justify-between p-6 bg-muted/20">
+    <div className="flex justify-between p-4 sm:p-6 bg-spa-cream/30">
       {currentStep > 1 && !bookingComplete && (
         <Button 
           variant="outline" 
           onClick={handlePrevStep}
+          className="border-spa-beige hover:bg-spa-cream text-spa-green-dark"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
@@ -33,7 +34,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       )}
       {currentStep < 6 && (
         <Button 
-          className="ml-auto bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700"
+          className="ml-auto bg-spa-green hover:bg-spa-green-dark"
           onClick={handleNextStep}
           disabled={disableNext}
         >
@@ -43,7 +44,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       )}
       {currentStep === 6 && !bookingComplete && (
         <Button 
-          className="ml-auto bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700"
+          className="ml-auto bg-spa-green hover:bg-spa-green-dark"
           onClick={handleSubmit}
         >
           Confirm Booking

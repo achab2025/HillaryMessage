@@ -26,35 +26,35 @@ const GuestDetailsForm: React.FC<GuestDetailsFormProps> = ({ guestInfo, setGuest
   };
 
   return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="space-y-4 max-w-xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="firstName">First Name*</Label>
+          <Label htmlFor="firstName" className="text-spa-green-dark">First Name*</Label>
           <div className="relative">
-            <User className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+            <User className="absolute left-3 top-2.5 h-5 w-5 text-spa-green" />
             <Input
               id="firstName"
               name="firstName"
               value={guestInfo.firstName}
               onChange={handleChange}
               placeholder="John"
-              className="pl-10"
+              className="pl-10 border-spa-beige focus-visible:ring-spa-green"
               required
             />
           </div>
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="lastName">Last Name*</Label>
+          <Label htmlFor="lastName" className="text-spa-green-dark">Last Name*</Label>
           <div className="relative">
-            <User className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+            <User className="absolute left-3 top-2.5 h-5 w-5 text-spa-green" />
             <Input
               id="lastName"
               name="lastName"
               value={guestInfo.lastName}
               onChange={handleChange}
               placeholder="Doe"
-              className="pl-10"
+              className="pl-10 border-spa-beige focus-visible:ring-spa-green"
               required
             />
           </div>
@@ -62,9 +62,9 @@ const GuestDetailsForm: React.FC<GuestDetailsFormProps> = ({ guestInfo, setGuest
       </div>
       
       <div className="space-y-2">
-        <Label htmlFor="email">Email Address*</Label>
+        <Label htmlFor="email" className="text-spa-green-dark">Email Address*</Label>
         <div className="relative">
-          <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+          <Mail className="absolute left-3 top-2.5 h-5 w-5 text-spa-green" />
           <Input
             id="email"
             name="email"
@@ -72,23 +72,23 @@ const GuestDetailsForm: React.FC<GuestDetailsFormProps> = ({ guestInfo, setGuest
             value={guestInfo.email}
             onChange={handleChange}
             placeholder="john.doe@example.com"
-            className="pl-10"
+            className="pl-10 border-spa-beige focus-visible:ring-spa-green"
             required
           />
         </div>
       </div>
       
       <div className="space-y-2">
-        <Label htmlFor="phone">Phone Number*</Label>
+        <Label htmlFor="phone" className="text-spa-green-dark">Phone Number*</Label>
         <div className="relative">
-          <Phone className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+          <Phone className="absolute left-3 top-2.5 h-5 w-5 text-spa-green" />
           <Input
             id="phone"
             name="phone"
             value={guestInfo.phone}
             onChange={handleChange}
             placeholder="+1 (555) 123-4567"
-            className="pl-10"
+            className="pl-10 border-spa-beige focus-visible:ring-spa-green"
             required
           />
         </div>

@@ -20,16 +20,17 @@ const PublicBooking = () => {
   // Wrap the entire component with our BookingProvider
   return (
     <BookingProvider>
-      <div className="min-h-screen bg-purple-50 py-8 px-4">
+      <div className="min-h-screen bg-spa-cream/20 py-4 sm:py-6 md:py-8 px-2 sm:px-4">
         <div className="max-w-5xl mx-auto">
-          <Link to="/" className="inline-flex items-center text-violet-600 hover:underline mb-6">
+          <Link to="/" className="inline-flex items-center text-spa-green hover:underline mb-4 sm:mb-6">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Home
           </Link>
           
-          <h1 className="text-3xl font-bold mb-2 text-violet-800">Book Your Appointment</h1>
-          <p className="text-muted-foreground mb-8">
-            Follow the steps below to schedule your massage session. No account needed - we'll create one for you after booking.
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-spa-green-dark">Book Your Appointment</h1>
+          <p className="text-muted-foreground mb-6 sm:mb-8 text-sm sm:text-base">
+            Follow the steps below to schedule your massage session. 
+            <span className="hidden sm:inline"> No account needed - we'll create one for you after booking.</span>
           </p>
           
           <BookingContent navigate={navigate} />

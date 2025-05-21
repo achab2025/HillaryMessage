@@ -30,25 +30,25 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
 
   if (bookingComplete) {
     return (
-      <div className="text-center py-8 animate-fade-in">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-4">
-          <Check className="h-8 w-8" />
+      <div className="text-center py-6 sm:py-8 animate-fade-in">
+        <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-spa-cream text-spa-green mb-4">
+          <Check className="h-6 w-6 sm:h-8 sm:w-8" />
         </div>
-        <h3 className="text-xl font-medium mb-2">Booking Complete!</h3>
+        <h3 className="text-xl font-medium mb-2 text-spa-green-dark">Booking Complete!</h3>
         <p className="text-muted-foreground mb-6">
           Your appointment has been scheduled successfully.
         </p>
-        <div className="bg-violet-50 p-6 max-w-md mx-auto rounded-lg border border-violet-200 text-left mb-6">
-          <h4 className="text-lg font-semibold mb-3 text-violet-800 flex items-center">
+        <div className="bg-spa-cream p-4 sm:p-6 max-w-md mx-auto rounded-lg border border-spa-beige text-left mb-6">
+          <h4 className="text-lg font-semibold mb-3 text-spa-green-dark flex items-center">
             Your Account Has Been Created
           </h4>
-          <p className="mb-2">
+          <p className="mb-2 text-sm sm:text-base">
             <span className="font-medium">Email:</span> {guestInfo.email}
           </p>
-          <p className="mb-4">
+          <p className="mb-4 text-sm sm:text-base">
             <span className="font-medium">Password:</span> {generatedPassword}
           </p>
-          <div className="text-sm text-violet-700 bg-violet-100 p-3 rounded-md">
+          <div className="text-xs sm:text-sm text-spa-green-dark bg-white p-3 rounded-md border border-spa-beige">
             We've automatically created an account for you using the information you provided. 
             Please save these credentials to access your account dashboard and manage your appointments.
           </div>
@@ -62,42 +62,42 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
 
   return (
     <div className="space-y-6">
-      <Card>
+      <Card className="border-spa-beige">
         <CardContent className="pt-6">
           <div className="space-y-4">
-            <div className="flex justify-between border-b pb-2">
-              <span className="font-medium">Service:</span>
-              <span>{selectedService?.name}</span>
+            <div className="flex flex-wrap justify-between border-b border-spa-beige pb-2">
+              <span className="font-medium text-spa-green-dark">Service:</span>
+              <span className="text-right">{selectedService?.name}</span>
             </div>
-            <div className="flex justify-between border-b pb-2">
-              <span className="font-medium">Date:</span>
-              <span>{selectedDate ? format(selectedDate, "EEEE, MMMM do, yyyy") : ""}</span>
+            <div className="flex flex-wrap justify-between border-b border-spa-beige pb-2">
+              <span className="font-medium text-spa-green-dark">Date:</span>
+              <span className="text-right">{selectedDate ? format(selectedDate, "EEEE, MMMM do, yyyy") : ""}</span>
             </div>
-            <div className="flex justify-between border-b pb-2">
-              <span className="font-medium">Time:</span>
-              <span>{selectedTime}</span>
+            <div className="flex flex-wrap justify-between border-b border-spa-beige pb-2">
+              <span className="font-medium text-spa-green-dark">Time:</span>
+              <span className="text-right">{selectedTime}</span>
             </div>
-            <div className="flex justify-between border-b pb-2">
-              <span className="font-medium">Therapist:</span>
-              <span>
+            <div className="flex flex-wrap justify-between border-b border-spa-beige pb-2">
+              <span className="font-medium text-spa-green-dark">Therapist:</span>
+              <span className="text-right">
                 {therapists.find(t => t.id === selectedTherapist)?.name}
               </span>
             </div>
-            <div className="flex justify-between border-b pb-2">
-              <span className="font-medium">Duration:</span>
-              <span>{selectedService?.duration} minutes</span>
+            <div className="flex flex-wrap justify-between border-b border-spa-beige pb-2">
+              <span className="font-medium text-spa-green-dark">Duration:</span>
+              <span className="text-right">{selectedService?.duration} minutes</span>
             </div>
-            <div className="flex justify-between border-b pb-2">
-              <span className="font-medium">Name:</span>
-              <span>{guestInfo.firstName} {guestInfo.lastName}</span>
+            <div className="flex flex-wrap justify-between border-b border-spa-beige pb-2">
+              <span className="font-medium text-spa-green-dark">Name:</span>
+              <span className="text-right">{guestInfo.firstName} {guestInfo.lastName}</span>
             </div>
-            <div className="flex justify-between border-b pb-2">
-              <span className="font-medium">Contact:</span>
-              <span>{guestInfo.email} | {guestInfo.phone}</span>
+            <div className="flex flex-wrap justify-between border-b border-spa-beige pb-2">
+              <span className="font-medium text-spa-green-dark">Contact:</span>
+              <span className="text-right text-sm sm:text-base">{guestInfo.email} | {guestInfo.phone}</span>
             </div>
-            <div className="flex justify-between text-lg font-medium">
-              <span>Total:</span>
-              <span className="text-violet-600">
+            <div className="flex flex-wrap justify-between text-lg font-medium">
+              <span className="text-spa-green-dark">Total:</span>
+              <span className="text-spa-green">
                 {formatCurrency(selectedService?.price || 0)}
               </span>
             </div>
@@ -105,11 +105,11 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
         </CardContent>
       </Card>
       
-      <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 text-sm text-violet-800">
+      <div className="bg-spa-cream border border-spa-beige rounded-lg p-4 text-xs sm:text-sm text-spa-green-dark">
         <p>
           <strong>Note:</strong> By confirming your booking, you agree to our terms and conditions.
         </p>
-        <p>
+        <p className="mt-2">
           We'll automatically create an account for you so you can manage your appointments. 
           Your login credentials will be displayed after booking is complete.
         </p>

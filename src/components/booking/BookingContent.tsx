@@ -90,8 +90,8 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
       
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         {currentStep === 1 && (
-          <div className="p-6">
-            <h2 className="text-2xl font-medium mb-6 text-violet-800">Select a Service</h2>
+          <div className="p-4 md:p-6">
+            <h2 className="text-2xl font-medium mb-4 md:mb-6 text-spa-green-dark">Select a Service</h2>
             <ServiceSelectorBooking 
               services={services} 
               selectedService={selectedService} 
@@ -101,8 +101,8 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
         )}
         
         {currentStep === 2 && (
-          <div className="p-6">
-            <h2 className="text-2xl font-medium mb-6 text-violet-800">Select Date & Time</h2>
+          <div className="p-4 md:p-6">
+            <h2 className="text-2xl font-medium mb-4 md:mb-6 text-spa-green-dark">Select Date & Time</h2>
             <BookingCalendar
               onSelectDate={setSelectedDate}
               onSelectTime={setSelectedTime}
@@ -114,8 +114,8 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
         )}
         
         {currentStep === 3 && (
-          <div className="p-6">
-            <h2 className="text-2xl font-medium mb-6 text-violet-800">Choose a Therapist</h2>
+          <div className="p-4 md:p-6">
+            <h2 className="text-2xl font-medium mb-4 md:mb-6 text-spa-green-dark">Choose a Therapist</h2>
             <TherapistSelector 
               therapists={therapists}
               selectedTherapist={selectedTherapist}
@@ -125,22 +125,22 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
         )}
         
         {currentStep === 4 && (
-          <div className="p-6">
-            <h2 className="text-2xl font-medium mb-6 text-violet-800">Your Details</h2>
+          <div className="p-4 md:p-6">
+            <h2 className="text-2xl font-medium mb-4 md:mb-6 text-spa-green-dark">Your Details</h2>
             <GuestDetailsForm guestInfo={guestInfo} setGuestInfo={setGuestInfo} />
           </div>
         )}
         
         {currentStep === 5 && (
-          <div className="p-6">
-            <h2 className="text-2xl font-medium mb-6 text-violet-800">Payment Information</h2>
+          <div className="p-4 md:p-6">
+            <h2 className="text-2xl font-medium mb-4 md:mb-6 text-spa-green-dark">Payment Information</h2>
             <PaymentForm paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} />
           </div>
         )}
         
         {currentStep === 6 && (
-          <div className="p-6">
-            <h2 className="text-2xl font-medium mb-6 text-violet-800">Confirm Your Booking</h2>
+          <div className="p-4 md:p-6">
+            <h2 className="text-2xl font-medium mb-4 md:mb-6 text-spa-green-dark">Confirm Your Booking</h2>
             <BookingConfirmation
               bookingComplete={bookingComplete}
               selectedService={selectedService}

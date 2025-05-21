@@ -22,22 +22,22 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
   availableTimeSlots
 }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <Card className="border border-violet-100">
-        <CardContent className="p-6">
-          <h3 className="text-lg font-medium mb-4 text-violet-800">Select Date</h3>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+      <Card className="border border-spa-beige">
+        <CardContent className="p-3 sm:p-4 md:p-6">
+          <h3 className="text-lg font-medium mb-4 text-spa-green-dark">Select Date</h3>
           <Calendar
             mode="single"
             selected={selectedDate}
             onSelect={onSelectDate}
             disabled={{ before: new Date() }}
-            className="rounded-md border border-violet-100"
+            className="rounded-md border border-spa-beige"
             classNames={{
-              day_selected: "bg-violet-600 text-white hover:bg-violet-600 hover:text-white",
-              day_today: "text-violet-800 font-medium",
-              caption: "text-violet-800",
-              nav_button: "text-violet-600 hover:bg-violet-100",
-              head_cell: "text-violet-600 font-medium",
+              day_selected: "bg-spa-green text-white hover:bg-spa-green hover:text-white",
+              day_today: "text-spa-green-dark font-medium",
+              caption: "text-spa-green-dark",
+              nav_button: "text-spa-green hover:bg-spa-cream",
+              head_cell: "text-spa-green font-medium",
               cell: "text-gray-700",
             }}
           />
@@ -45,10 +45,10 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
       </Card>
       
       {selectedDate && (
-        <Card className="border border-violet-100">
-          <CardContent className="p-6">
-            <h3 className="text-lg font-medium mb-4 text-violet-800">Select Time</h3>
-            <p className="text-muted-foreground mb-4">
+        <Card className="border border-spa-beige">
+          <CardContent className="p-3 sm:p-4 md:p-6">
+            <h3 className="text-lg font-medium mb-4 text-spa-green-dark">Select Time</h3>
+            <p className="text-muted-foreground mb-4 text-sm">
               Available times for {selectedDate ? format(selectedDate, "EEEE, MMMM do, yyyy") : ""}
             </p>
             
@@ -59,8 +59,8 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
                     key={time}
                     variant={selectedTime === time ? "default" : "outline"}
                     className={cn(
-                      selectedTime === time ? "bg-violet-600 text-white border-violet-600" : "hover:bg-violet-50 border-violet-200",
-                      "transition-all duration-200"
+                      selectedTime === time ? "bg-spa-green text-white border-spa-green" : "hover:bg-spa-cream border-spa-beige hover:text-spa-green-dark",
+                      "transition-all duration-200 text-sm"
                     )}
                     onClick={() => onSelectTime(time)}
                   >
