@@ -55,14 +55,22 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
   // Redirect to login after successful booking
   useEffect(() => {
     if (bookingComplete) {
-      // In a real app, you'd redirect to the dashboard after a delay
+      // Send email receipt automatically when booking is complete
+      if (guestInfo.email) {
+        toast({
+          title: "Receipt Sent",
+          description: `A receipt with your booking details has been sent to ${guestInfo.email}`,
+        });
+      }
+      
+      // In a real app, you'd redirect to the login page after a delay
       const timeout = setTimeout(() => {
         navigate("/login");
-      }, 5000);
+      }, 10000);  // Extended time to allow user to download/view receipt
       
       return () => clearTimeout(timeout);
     }
-  }, [bookingComplete, navigate]);
+  }, [bookingComplete, navigate, guestInfo, toast]);
 
   // Show toast when validation fails
   const handleNext = () => {

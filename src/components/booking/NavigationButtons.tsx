@@ -32,24 +32,27 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
           Back
         </Button>
       )}
-      {currentStep < 6 && (
-        <Button 
-          className="ml-auto bg-spa-green hover:bg-spa-green-dark"
-          onClick={handleNextStep}
-          disabled={disableNext}
-        >
-          Next
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
-      )}
-      {currentStep === 6 && !bookingComplete && (
-        <Button 
-          className="ml-auto bg-spa-green hover:bg-spa-green-dark"
-          onClick={handleSubmit}
-        >
-          Confirm Booking
-        </Button>
-      )}
+      
+      <div className="ml-auto">
+        {currentStep < 6 && (
+          <Button 
+            className="bg-spa-green hover:bg-spa-green-dark"
+            onClick={handleNextStep}
+            disabled={disableNext}
+          >
+            Next
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        )}
+        {currentStep === 6 && !bookingComplete && (
+          <Button 
+            className="bg-spa-green hover:bg-spa-green-dark"
+            onClick={handleSubmit}
+          >
+            Confirm Booking
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

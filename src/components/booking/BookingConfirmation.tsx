@@ -1,9 +1,14 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Check, FileText, Download, Mail } from "lucide-react";
 import { format } from "date-fns";
 import { useBooking } from '@/contexts/BookingContext';
+import BookingReceipt from './BookingReceipt';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { useToast } from '@/components/ui/use-toast';
 
 interface BookingConfirmationProps {
   bookingComplete: boolean;
@@ -27,6 +32,53 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
   generatedPassword
 }) => {
   const { formatCurrency } = useBooking();
+  const { toast } = useToast();
+  const receiptRef = useRef<HTMLDivElement>(null);
+
+  const downloadReceipt = async () => {
+    if (!receiptRef.current) return;
+    
+    try {
+      const canvas = await html2canvas(receiptRef.current, {
+        scale: 2,
+        backgroundColor: '#ffffff'
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      const imgX = (pdfWidth - imgWidth * ratio) / 2;
+      const imgY = 20;
+      
+      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      pdf.save(`SereneTouch_Receipt_${guestInfo.lastName}.pdf`);
+      
+      toast({
+        title: "Receipt Downloaded",
+        description: "Your booking receipt has been downloaded successfully.",
+      });
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      toast({
+        title: "Download Failed",
+        description: "There was an issue downloading your receipt. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const sendEmailWithReceipt = () => {
+    // In a real application, this would send an API request to your backend
+    // For this demo, we'll just show a toast confirmation
+    toast({
+      title: "Email Sent",
+      description: `Your receipt has been sent to ${guestInfo.email}`,
+    });
+  };
 
   if (bookingComplete) {
     return (
@@ -38,6 +90,7 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
         <p className="text-muted-foreground mb-6">
           Your appointment has been scheduled successfully.
         </p>
+        
         <div className="bg-spa-cream p-4 sm:p-6 max-w-md mx-auto rounded-lg border border-spa-beige text-left mb-6">
           <h4 className="text-lg font-semibold mb-3 text-spa-green-dark flex items-center">
             Your Account Has Been Created
@@ -53,6 +106,39 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
             Please save these credentials to access your account dashboard and manage your appointments.
           </div>
         </div>
+        
+        <div className="flex flex-col md:flex-row gap-3 justify-center mb-6">
+          <Button 
+            onClick={downloadReceipt}
+            className="bg-spa-green hover:bg-spa-green-dark flex items-center"
+          >
+            <Download className="h-4 w-4 mr-2" />
+            Download Receipt
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={sendEmailWithReceipt}
+            className="border-spa-beige hover:bg-spa-cream text-spa-green-dark"
+          >
+            <Mail className="h-4 w-4 mr-2" />
+            Email Receipt
+          </Button>
+        </div>
+        
+        <div className="hidden">
+          <div ref={receiptRef}>
+            <BookingReceipt
+              selectedService={selectedService}
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              selectedTherapist={selectedTherapist}
+              therapists={therapists}
+              guestInfo={guestInfo}
+              generatedPassword={generatedPassword}
+            />
+          </div>
+        </div>
+        
         <p className="text-sm text-muted-foreground">
           You'll be redirected to login page in a moment...
         </p>
@@ -112,6 +198,9 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
         <p className="mt-2">
           We'll automatically create an account for you so you can manage your appointments. 
           Your login credentials will be displayed after booking is complete.
+        </p>
+        <p className="mt-2">
+          A receipt will be generated and sent to your email once your booking is confirmed.
         </p>
       </div>
     </div>
