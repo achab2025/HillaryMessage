@@ -11,9 +11,11 @@ import TherapistSelector from "@/components/booking/TherapistSelector";
 import ServiceSelectorBooking from "@/components/booking/ServiceSelectorBooking";
 import { BookingProvider } from "@/contexts/BookingContext";
 import BookingContent from "@/components/booking/BookingContent";
+import { useToast } from "@/components/ui/use-toast";
 
 const PublicBooking = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   // Wrap the entire component with our BookingProvider
   return (
@@ -26,7 +28,9 @@ const PublicBooking = () => {
           </Link>
           
           <h1 className="text-3xl font-bold mb-2 text-violet-800">Book Your Appointment</h1>
-          <p className="text-muted-foreground mb-8">Follow the steps below to schedule your massage session.</p>
+          <p className="text-muted-foreground mb-8">
+            Follow the steps below to schedule your massage session. No account needed - we'll create one for you after booking.
+          </p>
           
           <BookingContent navigate={navigate} />
         </div>

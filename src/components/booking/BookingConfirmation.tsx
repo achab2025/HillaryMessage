@@ -40,7 +40,7 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
         </p>
         <div className="bg-violet-50 p-6 max-w-md mx-auto rounded-lg border border-violet-200 text-left mb-6">
           <h4 className="text-lg font-semibold mb-3 text-violet-800 flex items-center">
-            Your Account Details
+            Your Account Has Been Created
           </h4>
           <p className="mb-2">
             <span className="font-medium">Email:</span> {guestInfo.email}
@@ -49,11 +49,12 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
             <span className="font-medium">Password:</span> {generatedPassword}
           </p>
           <div className="text-sm text-violet-700 bg-violet-100 p-3 rounded-md">
+            We've automatically created an account for you using the information you provided. 
             Please save these credentials to access your account dashboard and manage your appointments.
           </div>
         </div>
         <p className="text-sm text-muted-foreground">
-          Redirecting to login page...
+          You'll be redirected to login page in a moment...
         </p>
       </div>
     );
@@ -109,7 +110,8 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
           <strong>Note:</strong> By confirming your booking, you agree to our terms and conditions.
         </p>
         <p>
-          We'll create an account for you so you can manage your appointments. Your login credentials will be displayed after booking is complete.
+          We'll automatically create an account for you so you can manage your appointments. 
+          Your login credentials will be displayed after booking is complete.
         </p>
       </div>
     </div>

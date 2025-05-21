@@ -41,7 +41,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
               {typeof price === 'number' ? `$${price}` : price}
             </span>
           </div>
-          <Link to="/booking">
+          <Link to="/book-now">
             <Button variant="outline" size="sm">Book</Button>
           </Link>
         </div>
