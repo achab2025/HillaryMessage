@@ -63,7 +63,7 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center space-x-4">
             {isLoggedIn ? (
               <>
-                <Link to="/booking">
+                <Link to="/book-now">
                   <Button>Book Now</Button>
                 </Link>
                 <Link to="/dashboard">
@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
               </>
             ) : (
               <>
-                <Link to="/booking">
+                <Link to="/book-now">
                   <Button>Book Now</Button>
                 </Link>
                 <Link to="/login">
@@ -114,7 +114,7 @@ const Navbar: React.FC = () => {
             <div className="pt-4 border-t space-y-3">
               {isLoggedIn ? (
                 <>
-                  <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link to="/book-now" onClick={() => setIsMobileMenuOpen(false)}>
                     <Button className="w-full">Book Now</Button>
                   </Link>
                   <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
@@ -123,7 +123,7 @@ const Navbar: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link to="/book-now" onClick={() => setIsMobileMenuOpen(false)}>
                     <Button className="w-full">Book Now</Button>
                   </Link>
                   <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>

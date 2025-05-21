@@ -16,7 +16,7 @@ export const QuickBookingSection = () => {
               <Calendar className="h-10 w-10 mx-auto mb-4 text-spa-green" />
               <h3 className="text-xl font-bold mb-3 text-spa-green-dark">Quick Booking</h3>
               <p className="text-spa-gray mb-4">Book your next appointment in under 2 minutes</p>
-              <Link to="/booking">
+              <Link to="/book-now">
                 <Button className="w-full bg-spa-green hover:bg-spa-green-dark">
                   Book Now
                 </Button>
@@ -27,7 +27,7 @@ export const QuickBookingSection = () => {
               <Clock className="h-10 w-10 mx-auto mb-4 text-spa-green" />
               <h3 className="text-xl font-bold mb-3 text-spa-green-dark">Today's Availability</h3>
               <p className="text-spa-gray mb-4">Check real-time slot availability</p>
-              <Link to="/booking">
+              <Link to="/book-now">
                 <Button variant="outline" className="w-full border-spa-green text-spa-green hover:bg-spa-green hover:text-white">
                   View Times
                 </Button>
@@ -38,7 +38,7 @@ export const QuickBookingSection = () => {
               <Star className="h-10 w-10 mx-auto mb-4 text-spa-green" />
               <h3 className="text-xl font-bold mb-3 text-spa-green-dark">Special Offers</h3>
               <p className="text-spa-gray mb-4">View our current promotions</p>
-              <Link to="/booking">
+              <Link to="/book-now">
                 <Button variant="outline" className="w-full border-spa-green text-spa-green hover:bg-spa-green hover:text-white">
                   View Offers
                 </Button>

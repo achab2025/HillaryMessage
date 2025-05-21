@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -55,7 +56,7 @@ export const Navigation = ({ isLoggedIn }: NavigationProps) => {
             
             {isLoggedIn ? (
               <div className="flex items-center space-x-4">
-                <Link to="/booking">
+                <Link to="/book-now">
                   <Button className="bg-white text-spa-green-dark hover:bg-spa-cream">Book Now</Button>
                 </Link>
                 <Link to="/dashboard">
@@ -66,7 +67,7 @@ export const Navigation = ({ isLoggedIn }: NavigationProps) => {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Link to="/booking">
+                <Link to="/book-now">
                   <Button className="bg-white text-spa-green-dark hover:bg-spa-cream">Book Now</Button>
                 </Link>
                 <Button 
@@ -122,7 +123,7 @@ export const Navigation = ({ isLoggedIn }: NavigationProps) => {
             
             {isLoggedIn ? (
               <div className="mt-4 space-y-3">
-                <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link to="/book-now" onClick={() => setIsMobileMenuOpen(false)}>
                   <Button className="w-full bg-white text-spa-green-dark hover:bg-spa-cream">Book Now</Button>
                 </Link>
                 <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
@@ -131,7 +132,7 @@ export const Navigation = ({ isLoggedIn }: NavigationProps) => {
               </div>
             ) : (
               <div className="mt-4 space-y-3">
-                <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link to="/book-now" onClick={() => setIsMobileMenuOpen(false)}>
                   <Button className="w-full bg-white text-spa-green-dark hover:bg-spa-cream">Book Now</Button>
                 </Link>
                 <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
