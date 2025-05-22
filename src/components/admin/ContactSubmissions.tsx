@@ -30,7 +30,12 @@ export const ContactSubmissions = () => {
     // Load submissions from localStorage
     const loadSubmissions = () => {
       const storedSubmissions = JSON.parse(localStorage.getItem("contactSubmissions") || "[]");
-      setSubmissions(storedSubmissions);
+      // Type cast the submissions to ensure they conform to ContactSubmission type
+      const typedSubmissions = storedSubmissions.map((sub: any) => ({
+        ...sub,
+        status: sub.status as "read" | "unread" | "archived"
+      }));
+      setSubmissions(typedSubmissions);
     };
     
     loadSubmissions();
@@ -43,7 +48,7 @@ export const ContactSubmissions = () => {
   
   const markAsRead = (id: string) => {
     const updatedSubmissions = submissions.map(submission => 
-      submission.id === id ? { ...submission, status: "read" } : submission
+      submission.id === id ? { ...submission, status: "read" as const } : submission
     );
     setSubmissions(updatedSubmissions);
     localStorage.setItem("contactSubmissions", JSON.stringify(updatedSubmissions));
@@ -51,7 +56,7 @@ export const ContactSubmissions = () => {
   
   const archiveSubmission = (id: string) => {
     const updatedSubmissions = submissions.map(submission => 
-      submission.id === id ? { ...submission, status: "archived" } : submission
+      submission.id === id ? { ...submission, status: "archived" as const } : submission
     );
     setSubmissions(updatedSubmissions);
     localStorage.setItem("contactSubmissions", JSON.stringify(updatedSubmissions));

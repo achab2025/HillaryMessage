@@ -1,15 +1,17 @@
+
 import { useContext, useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@/App";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { 
-  Users, Clock, Calendar, Settings, Menu, X, LogOut, 
-  Search, BarChart3, CircleDollarSign, PlusCircle, Mail 
-} from "lucide-react";
+
+// Import our new components
+import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import { DashboardHeader } from "@/components/admin/DashboardHeader";
+import { DashboardStats } from "@/components/admin/DashboardStats";
+import { AppointmentsTab } from "@/components/admin/AppointmentsTab";
+import { CustomersTab } from "@/components/admin/CustomersTab";
 import { ContactSubmissions } from "@/components/admin/ContactSubmissions";
 
 // Mock data for appointments
@@ -144,130 +146,20 @@ const AdminDashboard = () => {
           ${isMobileMenuOpen ? 'block' : 'hidden'} md:block
           fixed md:sticky top-0 md:top-0 z-30 h-screen md:h-auto
         `}>
-          <div className="p-6">
-            <Link to="/" className="text-2xl font-bold text-spa-blue hidden md:block">
-              Serene Touch
-            </Link>
-            <div className="mt-8 space-y-2">
-              <div className="border-b pb-4 mb-4">
-                <h2 className="text-lg font-medium">Admin Panel</h2>
-                <p className="text-sm text-muted-foreground">{user.email}</p>
-              </div>
-
-              <Link to="/admin" className="flex items-center space-x-2 p-2 rounded-md bg-spa-blue/10 text-spa-blue">
-                <BarChart3 size={18} />
-                <span>Dashboard</span>
-              </Link>
-              
-              <div className="flex items-center space-x-2 p-2 rounded-md hover:bg-spa-blue/10 cursor-pointer">
-                <Calendar size={18} />
-                <span>Appointments</span>
-              </div>
-              
-              <div className="flex items-center space-x-2 p-2 rounded-md hover:bg-spa-blue/10 cursor-pointer">
-                <Users size={18} />
-                <span>Customers</span>
-              </div>
-
-              <div className="flex items-center justify-between p-2 rounded-md hover:bg-spa-blue/10 cursor-pointer">
-                <div className="flex items-center space-x-2">
-                  <Mail size={18} />
-                  <span>Contact Messages</span>
-                </div>
-                {contactCount > 0 && (
-                  <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {contactCount}
-                  </span>
-                )}
-              </div>
-              
-              <div className="flex items-center space-x-2 p-2 rounded-md hover:bg-spa-blue/10 cursor-pointer">
-                <CircleDollarSign size={18} />
-                <span>Finances</span>
-              </div>
-              
-              <div className="flex items-center space-x-2 p-2 rounded-md hover:bg-spa-blue/10 cursor-pointer">
-                <Settings size={18} />
-                <span>Settings</span>
-              </div>
-              
-              <button 
-                onClick={handleLogout}
-                className="flex items-center space-x-2 p-2 rounded-md hover:bg-red-100 text-red-600 w-full mt-8"
-              >
-                <LogOut size={18} />
-                <span>Log Out</span>
-              </button>
-            </div>
-          </div>
+          <AdminSidebar contactCount={contactCount} handleLogout={handleLogout} />
         </aside>
 
         {/* Main content */}
         <main className="flex-1 p-4 md:p-8">
           <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-              <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-              
-              <div className="relative w-full sm:w-auto">
-                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search appointments or customers..."
-                  className="pl-8 w-full"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-            </div>
+            <DashboardHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-              <Card className="card-hover">
-                <CardContent className="pt-6">
-                  <div className="text-center">
-                    <div className="inline-flex rounded-full p-3 bg-spa-blue/10 text-spa-blue mb-4">
-                      <Calendar size={24} />
-                    </div>
-                    <h3 className="text-2xl font-medium mb-1">{appointments.length}</h3>
-                    <p className="text-muted-foreground">Total Appointments</p>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="card-hover">
-                <CardContent className="pt-6">
-                  <div className="text-center">
-                    <div className="inline-flex rounded-full p-3 bg-spa-teal/10 text-spa-teal mb-4">
-                      <Users size={24} />
-                    </div>
-                    <h3 className="text-2xl font-medium mb-1">{customers.length}</h3>
-                    <p className="text-muted-foreground">Total Customers</p>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="card-hover">
-                <CardContent className="pt-6">
-                  <div className="text-center">
-                    <div className="inline-flex rounded-full p-3 bg-spa-green/10 text-spa-green mb-4">
-                      <CircleDollarSign size={24} />
-                    </div>
-                    <h3 className="text-2xl font-medium mb-1">$2,450</h3>
-                    <p className="text-muted-foreground">This Week's Revenue</p>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="card-hover">
-                <CardContent className="pt-6">
-                  <div className="text-center">
-                    <div className="inline-flex rounded-full p-3 bg-spa-lavender/10 text-spa-lavender mb-4">
-                      <Mail size={24} />
-                    </div>
-                    <h3 className="text-2xl font-medium mb-1">{contactCount}</h3>
-                    <p className="text-muted-foreground">Unread Messages</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <DashboardStats 
+              appointmentsCount={appointments.length}
+              customersCount={customers.length}
+              weeklyRevenue="$2,450"
+              unreadMessagesCount={contactCount}
+            />
             
             <Tabs defaultValue="appointments" className="w-full">
               <TabsList className="mb-6">
@@ -277,115 +169,14 @@ const AdminDashboard = () => {
               </TabsList>
               
               <TabsContent value="appointments">
-                <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-                  <div className="flex justify-between items-center p-4 border-b">
-                    <h3 className="text-lg font-medium">Upcoming Appointments</h3>
-                    <Button size="sm">
-                      <PlusCircle className="mr-2 h-4 w-4" />
-                      Add New
-                    </Button>
-                  </div>
-                  
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead>
-                        <tr className="bg-muted/50">
-                          <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Client</th>
-                          <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Service</th>
-                          <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Date & Time</th>
-                          <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Therapist</th>
-                          <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Status</th>
-                          <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y">
-                        {filteredAppointments.length > 0 ? (
-                          filteredAppointments.map((appointment) => (
-                            <tr key={appointment.id} className="hover:bg-muted/20">
-                              <td className="px-4 py-3 text-sm">{appointment.client}</td>
-                              <td className="px-4 py-3 text-sm">{appointment.service}</td>
-                              <td className="px-4 py-3 text-sm">
-                                {formatDate(appointment.date)}<br />
-                                {appointment.time} ({appointment.duration}min)
-                              </td>
-                              <td className="px-4 py-3 text-sm">{appointment.therapist}</td>
-                              <td className="px-4 py-3 text-sm">
-                                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                  ${appointment.status === 'confirmed' ? 'bg-green-100 text-green-800' : 
-                                    appointment.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 
-                                    'bg-red-100 text-red-800'}`}>
-                                  {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
-                                </span>
-                              </td>
-                              <td className="px-4 py-3 text-sm">
-                                <div className="flex space-x-2">
-                                  <Button variant="ghost" size="sm">Edit</Button>
-                                  <Button variant="ghost" size="sm" className="text-red-500">Cancel</Button>
-                                </div>
-                              </td>
-                            </tr>
-                          ))
-                        ) : (
-                          <tr>
-                            <td colSpan={6} className="px-4 py-6 text-center text-muted-foreground">
-                              No appointments found matching your search.
-                            </td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                <AppointmentsTab 
+                  appointments={filteredAppointments} 
+                  formatDate={formatDate} 
+                />
               </TabsContent>
               
               <TabsContent value="customers">
-                <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-                  <div className="flex justify-between items-center p-4 border-b">
-                    <h3 className="text-lg font-medium">Customer List</h3>
-                    <Button size="sm">
-                      <PlusCircle className="mr-2 h-4 w-4" />
-                      Add Customer
-                    </Button>
-                  </div>
-                  
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead>
-                        <tr className="bg-muted/50">
-                          <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Name</th>
-                          <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Email</th>
-                          <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Phone</th>
-                          <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Appointments</th>
-                          <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y">
-                        {filteredCustomers.length > 0 ? (
-                          filteredCustomers.map((customer) => (
-                            <tr key={customer.id} className="hover:bg-muted/20">
-                              <td className="px-4 py-3 text-sm font-medium">{customer.name}</td>
-                              <td className="px-4 py-3 text-sm">{customer.email}</td>
-                              <td className="px-4 py-3 text-sm">{customer.phone}</td>
-                              <td className="px-4 py-3 text-sm">{customer.appointments}</td>
-                              <td className="px-4 py-3 text-sm">
-                                <div className="flex space-x-2">
-                                  <Button variant="ghost" size="sm">View</Button>
-                                  <Button variant="ghost" size="sm">Edit</Button>
-                                </div>
-                              </td>
-                            </tr>
-                          ))
-                        ) : (
-                          <tr>
-                            <td colSpan={5} className="px-4 py-6 text-center text-muted-foreground">
-                              No customers found matching your search.
-                            </td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                <CustomersTab customers={filteredCustomers} />
               </TabsContent>
               
               <TabsContent value="contact">
