@@ -1,8 +1,63 @@
 
+import { useState } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 export const ContactSection = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Validate form
+    if (!name || !email || !message) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Create submission object
+    const submission = {
+      id: `sub_${Date.now()}`,
+      name,
+      email,
+      message,
+      date: new Date().toISOString(),
+      status: "unread",
+    };
+
+    // Get existing submissions or create empty array
+    const existingSubmissions = JSON.parse(localStorage.getItem("contactSubmissions") || "[]");
+    
+    // Add new submission
+    const updatedSubmissions = [submission, ...existingSubmissions];
+    
+    // Save to localStorage
+    localStorage.setItem("contactSubmissions", JSON.stringify(updatedSubmissions));
+
+    // Reset form
+    setName("");
+    setEmail("");
+    setMessage("");
+    setIsSubmitting(false);
+
+    // Show success message
+    toast({
+      title: "Message Sent",
+      description: "Thank you for your message. We'll get back to you soon!",
+    });
+  };
+
   return (
     <section id="contact" className="py-20 bg-spa-cream">
       <div className="container mx-auto px-4">
@@ -38,13 +93,15 @@ export const ContactSection = () => {
             </div>
           </div>
 
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium mb-2">Name</label>
               <input
                 type="text"
                 className="w-full p-3 border border-spa-beige rounded-md"
                 placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div>
@@ -53,6 +110,8 @@ export const ContactSection = () => {
                 type="email"
                 className="w-full p-3 border border-spa-beige rounded-md"
                 placeholder="Your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
@@ -60,10 +119,16 @@ export const ContactSection = () => {
               <textarea
                 className="w-full p-3 border border-spa-beige rounded-md h-32"
                 placeholder="Your message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
               ></textarea>
             </div>
-            <Button className="w-full bg-spa-green hover:bg-spa-green-dark">
-              Send Message
+            <Button 
+              className="w-full bg-spa-green hover:bg-spa-green-dark"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </div>

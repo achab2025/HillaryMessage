@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Navbar from "@/components/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/ChatWidget";
+import { useToast } from "@/components/ui/use-toast";
 
 // Form schema for validation
 const formSchema = z.object({
@@ -27,6 +28,7 @@ const Contact = () => {
   const [showChat, setShowChat] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [ticketNumber, setTicketNumber] = useState("");
+  const { toast } = useToast();
 
   // Initialize form
   const form = useForm<FormValues>({
@@ -45,6 +47,27 @@ const Contact = () => {
     const newTicketNumber = `HM${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`;
     setTicketNumber(newTicketNumber);
     setFormSubmitted(true);
+    
+    // Save contact form submission to localStorage
+    const submission = {
+      id: `sub_${Date.now()}`,
+      name: data.name,
+      email: data.email,
+      message: data.message,
+      subject: data.subject,
+      date: new Date().toISOString(),
+      status: "unread",
+    };
+
+    // Get existing submissions or create empty array
+    const existingSubmissions = JSON.parse(localStorage.getItem("contactSubmissions") || "[]");
+    
+    // Add new submission
+    const updatedSubmissions = [submission, ...existingSubmissions];
+    
+    // Save to localStorage
+    localStorage.setItem("contactSubmissions", JSON.stringify(updatedSubmissions));
+    
     // Reset form after submission
     form.reset();
     

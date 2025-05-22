@@ -1,4 +1,3 @@
-
 import { useContext, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "@/App";
@@ -9,8 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { 
   Users, Clock, Calendar, Settings, Menu, X, LogOut, 
-  Search, BarChart3, CircleDollarSign, PlusCircle 
+  Search, BarChart3, CircleDollarSign, PlusCircle, Mail 
 } from "lucide-react";
+import { ContactSubmissions } from "@/components/admin/ContactSubmissions";
 
 // Mock data for appointments
 const mockAppointments = [
@@ -71,6 +71,7 @@ const AdminDashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [contactCount, setContactCount] = useState(0);
 
   // Redirect if not logged in or not admin
   useEffect(() => {
@@ -84,6 +85,13 @@ const AdminDashboard = () => {
     // In a real app, you would fetch from an API
     setAppointments(mockAppointments);
     setCustomers(mockCustomers);
+  }, []);
+
+  // Load contact submissions count
+  useEffect(() => {
+    const submissions = JSON.parse(localStorage.getItem("contactSubmissions") || "[]");
+    const unreadSubmissions = submissions.filter(sub => sub.status === "unread");
+    setContactCount(unreadSubmissions.length);
   }, []);
 
   const handleLogout = () => {
@@ -159,6 +167,18 @@ const AdminDashboard = () => {
               <div className="flex items-center space-x-2 p-2 rounded-md hover:bg-spa-blue/10 cursor-pointer">
                 <Users size={18} />
                 <span>Customers</span>
+              </div>
+
+              <div className="flex items-center justify-between p-2 rounded-md hover:bg-spa-blue/10 cursor-pointer">
+                <div className="flex items-center space-x-2">
+                  <Mail size={18} />
+                  <span>Contact Messages</span>
+                </div>
+                {contactCount > 0 && (
+                  <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {contactCount}
+                  </span>
+                )}
               </div>
               
               <div className="flex items-center space-x-2 p-2 rounded-md hover:bg-spa-blue/10 cursor-pointer">
@@ -240,10 +260,10 @@ const AdminDashboard = () => {
                 <CardContent className="pt-6">
                   <div className="text-center">
                     <div className="inline-flex rounded-full p-3 bg-spa-lavender/10 text-spa-lavender mb-4">
-                      <Clock size={24} />
+                      <Mail size={24} />
                     </div>
-                    <h3 className="text-2xl font-medium mb-1">42h</h3>
-                    <p className="text-muted-foreground">Hours Booked</p>
+                    <h3 className="text-2xl font-medium mb-1">{contactCount}</h3>
+                    <p className="text-muted-foreground">Unread Messages</p>
                   </div>
                 </CardContent>
               </Card>
@@ -253,6 +273,7 @@ const AdminDashboard = () => {
               <TabsList className="mb-6">
                 <TabsTrigger value="appointments">Appointments</TabsTrigger>
                 <TabsTrigger value="customers">Customers</TabsTrigger>
+                <TabsTrigger value="contact">Contact Messages</TabsTrigger>
               </TabsList>
               
               <TabsContent value="appointments">
@@ -365,6 +386,10 @@ const AdminDashboard = () => {
                     </table>
                   </div>
                 </div>
+              </TabsContent>
+              
+              <TabsContent value="contact">
+                <ContactSubmissions />
               </TabsContent>
             </Tabs>
           </div>
