@@ -6,7 +6,6 @@ import { ChatWidget } from "@/components/ChatWidget";
 import { Navigation } from "@/components/layout/Navigation";
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturesSection } from "@/components/home/FeaturesSection";
-import { ServicesSection } from "@/components/home/ServicesSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { Footer } from "@/components/layout/Footer";
 import { QuickBookingSection } from "@/components/home/QuickBookingSection";
@@ -23,7 +22,6 @@ const Index = () => {
       <QuickBookingSection />
       <FeaturesSection />
       <PromoSection />
-      <ServicesSection />
       <TestimonialsSection />
       <Footer />
 

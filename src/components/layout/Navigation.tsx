@@ -35,12 +35,12 @@ export const Navigation = ({ isLoggedIn }: NavigationProps) => {
             >
               Home
             </button>
-            <button 
-              onClick={() => handleSectionClick('services')} 
+            <Link 
+              to="/services" 
               className="font-medium text-white hover:text-spa-green-light transition-colors"
             >
               Services
-            </button>
+            </Link>
             <Link 
               to="/about" 
               className="font-medium text-white hover:text-spa-green-light transition-colors"
@@ -101,12 +101,13 @@ export const Navigation = ({ isLoggedIn }: NavigationProps) => {
             >
               Home
             </button>
-            <button 
-              onClick={() => handleSectionClick('services')} 
+            <Link 
+              to="/services"
               className="p-3 border-b border-spa-green text-lg font-medium text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
               Services
-            </button>
+            </Link>
             <Link 
               to="/about"
               className="p-3 border-b border-spa-green text-lg font-medium text-white"
