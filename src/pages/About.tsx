@@ -1,25 +1,21 @@
-
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Book, Heart, Award, Globe } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useContext } from "react";
 import { AuthContext } from "@/App";
-
 const About = () => {
-  const { isLoggedIn } = useContext(AuthContext);
-
-  return (
-    <div className="min-h-screen bg-spa-cream">
+  const {
+    isLoggedIn
+  } = useContext(AuthContext);
+  return <div className="min-h-screen bg-spa-cream">
       <Navigation isLoggedIn={isLoggedIn} />
       
       <div className="pt-20">
         <section className="bg-spa-cream py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="mb-12 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-spa-green-dark mb-4">
-                About Hillar Massage
-              </h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-spa-green-dark mb-4">About Hillary Massage</h2>
               <div className="w-16 h-1 bg-spa-green mx-auto mb-6"></div>
               <p className="text-spa-gray max-w-3xl mx-auto">
                 A sanctuary of relaxation where ancient techniques meet modern comfort. 
@@ -28,7 +24,9 @@ const About = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
+              <div className="animate-fade-in" style={{
+              animationDelay: "0.2s"
+            }}>
                 <div className="relative h-full overflow-hidden rounded-lg shadow-md">
                   <div className="absolute inset-0 bg-spa-green-dark/20 z-10 flex items-center justify-center">
                     <div className="bg-white/90 p-6 rounded-lg max-w-md">
@@ -40,15 +38,13 @@ const About = () => {
                       </p>
                     </div>
                   </div>
-                  <img 
-                    src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                    alt="Massage therapist working" 
-                    className="w-full h-full object-cover"
-                  />
+                  <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Massage therapist working" className="w-full h-full object-cover" />
                 </div>
               </div>
 
-              <div className="animate-fade-in" style={{ animationDelay: "0.4s" }}>
+              <div className="animate-fade-in" style={{
+              animationDelay: "0.4s"
+            }}>
                 <div className="h-full bg-white rounded-lg shadow-md p-8">
                   <h3 className="text-xl font-bold text-spa-green-dark mb-4">Our Mission</h3>
                   <p className="text-spa-gray mb-6">
@@ -80,24 +76,19 @@ const About = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: "Expert Therapists",
-                  description: "Our licensed therapists bring years of experience and specialized training to every session.",
-                  icon: <Award className="h-10 w-10 text-spa-green mb-4" />
-                },
-                {
-                  title: "Personalized Approach",
-                  description: "We tailor each treatment to your specific needs and preferences for maximum benefit.",
-                  icon: <Heart className="h-10 w-10 text-spa-green mb-4" />
-                },
-                {
-                  title: "Continuous Growth",
-                  description: "We regularly update our techniques and offerings to incorporate the best practices in wellness.",
-                  icon: <Book className="h-10 w-10 text-spa-green mb-4" />
-                }
-              ].map((item, index) => (
-                <Card key={index} className="border-spa-beige hover:shadow-lg transition-all duration-300">
+              {[{
+              title: "Expert Therapists",
+              description: "Our licensed therapists bring years of experience and specialized training to every session.",
+              icon: <Award className="h-10 w-10 text-spa-green mb-4" />
+            }, {
+              title: "Personalized Approach",
+              description: "We tailor each treatment to your specific needs and preferences for maximum benefit.",
+              icon: <Heart className="h-10 w-10 text-spa-green mb-4" />
+            }, {
+              title: "Continuous Growth",
+              description: "We regularly update our techniques and offerings to incorporate the best practices in wellness.",
+              icon: <Book className="h-10 w-10 text-spa-green mb-4" />
+            }].map((item, index) => <Card key={index} className="border-spa-beige hover:shadow-lg transition-all duration-300">
                   <CardContent className="pt-6 text-center">
                     <div className="flex justify-center">
                       {item.icon}
@@ -105,16 +96,13 @@ const About = () => {
                     <h3 className="text-xl font-semibold text-spa-green-dark mb-2">{item.title}</h3>
                     <p className="text-spa-gray">{item.description}</p>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
           </div>
         </section>
       </div>
       
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default About;
