@@ -10,7 +10,7 @@ export const ServicesSection = () => {
       name: "Facial Massage",
       description: "Relaxing massage to improve skin tone and relieve tension.",
       duration: "45 min",
-      price: "$40",
+      price: "₵160",
       image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1470"
     },
     {
@@ -18,7 +18,7 @@ export const ServicesSection = () => {
       name: "Back Massage",
       description: "Deep tissue massage to relieve pain and muscle tension.",
       duration: "60 min",
-      price: "$55",
+      price: "₵220",
       image: "https://images.unsplash.com/photo-1519823551278-5a109f4235c5?q=80&w=1374"
     },
     {
@@ -26,7 +26,7 @@ export const ServicesSection = () => {
       name: "Spa Package",
       description: "Comprehensive body care using natural ingredients.",
       duration: "90 min",
-      price: "$85",
+      price: "₵340",
       image: "https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=1470"
     },
     {
@@ -34,7 +34,7 @@ export const ServicesSection = () => {
       name: "Facial Treatment",
       description: "Cleansing, nourishing, and rejuvenating facial procedures.",
       duration: "60 min",
-      price: "$50",
+      price: "₵200",
       image: "https://images.unsplash.com/photo-1616394584738-fc6970f15c1b?q=80&w=1470"
     }
   ];

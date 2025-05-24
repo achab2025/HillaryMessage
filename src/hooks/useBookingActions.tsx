@@ -1,4 +1,3 @@
-
 import { useState, useCallback } from 'react';
 import { GuestInfo, PaymentInfo } from '@/contexts/BookingContext';
 import { Service } from '@/data/bookingMockData';
@@ -28,11 +27,11 @@ export const useBookingActions = () => {
     return baseSlots;
   }, []);
 
-  // Format currency for displaying prices
+  // Format currency for displaying prices in Ghana Cedis
   const formatCurrency = useCallback((amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-GH', {
       style: 'currency',
-      currency: 'USD'
+      currency: 'GHS'
     }).format(amount);
   }, []);
 
