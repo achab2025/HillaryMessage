@@ -160,7 +160,7 @@ const AdminDashboard = () => {
             <DashboardStats 
               appointmentsCount={appointments.length}
               customersCount={customers.length}
-              weeklyRevenue="$2,450"
+              weeklyRevenue="GHS 4,200"
               unreadMessagesCount={contactCount}
             />
             
