@@ -1,6 +1,8 @@
 
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Calendar } from "lucide-react";
+import { PlusCircle, Calendar, Edit, X, Eye } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 interface Appointment {
   id: string;
@@ -19,11 +21,52 @@ interface AppointmentsTabProps {
 }
 
 export const AppointmentsTab = ({ appointments, formatDate }: AppointmentsTabProps) => {
+  const { toast } = useToast();
+  const [selectedAppointment, setSelectedAppointment] = useState<string | null>(null);
+
+  const handleEdit = (appointmentId: string) => {
+    setSelectedAppointment(appointmentId);
+    toast({
+      title: "Edit Appointment",
+      description: "Opening appointment editor...",
+    });
+    // In a real app, this would open an edit modal or navigate to edit page
+  };
+
+  const handleCancel = (appointmentId: string, clientName: string) => {
+    toast({
+      title: "Appointment Cancelled",
+      description: `${clientName}'s appointment has been cancelled.`,
+      variant: "destructive",
+    });
+    // In a real app, this would update the appointment status
+  };
+
+  const handleView = (appointmentId: string, clientName: string) => {
+    toast({
+      title: "Appointment Details",
+      description: `Viewing details for ${clientName}'s appointment.`,
+    });
+    // In a real app, this would open a details modal
+  };
+
+  const handleAddNew = () => {
+    toast({
+      title: "New Appointment",
+      description: "Opening new appointment form...",
+    });
+    // In a real app, this would open a new appointment modal or navigate to create page
+  };
+
   return (
     <div className="bg-white/60 backdrop-blur-md rounded-xl shadow-lg overflow-hidden border border-spa-green/10">
       <div className="flex justify-between items-center p-6 border-b border-spa-green/10 bg-gradient-to-r from-spa-green/5 to-spa-green-dark/5">
         <h3 className="text-xl font-semibold text-spa-green">Upcoming Appointments</h3>
-        <Button size="sm" className="bg-gradient-to-r from-spa-green to-spa-green-dark hover:from-spa-green-dark hover:to-spa-green transition-all duration-300 shadow-md hover:shadow-lg">
+        <Button 
+          size="sm" 
+          onClick={handleAddNew}
+          className="bg-gradient-to-r from-spa-green to-spa-green-dark hover:from-spa-green-dark hover:to-spa-green transition-all duration-300 shadow-md hover:shadow-lg"
+        >
           <PlusCircle className="mr-2 h-4 w-4" />
           Add New
         </Button>
@@ -46,7 +89,9 @@ export const AppointmentsTab = ({ appointments, formatDate }: AppointmentsTabPro
               appointments.map((appointment, index) => (
                 <tr 
                   key={appointment.id} 
-                  className="hover:bg-gradient-to-r hover:from-spa-green/5 hover:to-transparent transition-all duration-300 group"
+                  className={`hover:bg-gradient-to-r hover:from-spa-green/5 hover:to-transparent transition-all duration-300 group ${
+                    selectedAppointment === appointment.id ? 'bg-spa-green/10' : ''
+                  }`}
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <td className="px-6 py-4 text-sm font-medium text-gray-900 group-hover:text-spa-green transition-colors duration-300">{appointment.client}</td>
@@ -67,9 +112,31 @@ export const AppointmentsTab = ({ appointments, formatDate }: AppointmentsTabPro
                     </span>
                   </td>
                   <td className="px-6 py-4 text-sm">
-                    <div className="flex space-x-2">
-                      <Button variant="ghost" size="sm" className="hover:bg-spa-green/10 hover:text-spa-green transition-all duration-300">Edit</Button>
-                      <Button variant="ghost" size="sm" className="text-red-500 hover:bg-red-50 hover:text-red-700 transition-all duration-300">Cancel</Button>
+                    <div className="flex space-x-1">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => handleView(appointment.id, appointment.client)}
+                        className="hover:bg-blue-50 hover:text-blue-600 transition-all duration-300"
+                      >
+                        <Eye className="h-3 w-3" />
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => handleEdit(appointment.id)}
+                        className="hover:bg-spa-green/10 hover:text-spa-green transition-all duration-300"
+                      >
+                        <Edit className="h-3 w-3" />
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => handleCancel(appointment.id, appointment.client)}
+                        className="text-red-500 hover:bg-red-50 hover:text-red-700 transition-all duration-300"
+                      >
+                        <X className="h-3 w-3" />
+                      </Button>
                     </div>
                   </td>
                 </tr>
