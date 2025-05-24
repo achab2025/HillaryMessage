@@ -61,18 +61,17 @@ const ServiceSelectorBooking: React.FC<ServiceSelectorBookingProps> = ({
             </p>
             <div className="flex items-center justify-between">
               <p className="text-xs sm:text-sm flex items-center text-spa-green-dark">
-                <Clock className="h-3 w-3 mr-1 text-spa-green group-hover:animate-pulse" />
+                <Clock className="h-3 w-3 mr-1 text-spa-green" />
                 <span className="font-medium">{service.duration} minutes</span>
               </p>
-              <div className="w-2 h-2 bg-spa-green rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
+              <div className="w-2 h-2 bg-spa-green rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </CardContent>
           
           {/* Animated border gradient */}
           <div className={cn(
             "absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300",
-            "bg-gradient-to-r from-spa-green via-spa-green-dark to-spa-green",
-            "animate-pulse"
+            "bg-gradient-to-r from-spa-green via-spa-green-dark to-spa-green"
           )} style={{ padding: '1px', margin: '-1px' }}>
             <div className="h-full w-full bg-white rounded-lg" />
           </div>

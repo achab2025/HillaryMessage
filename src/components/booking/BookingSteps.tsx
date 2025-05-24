@@ -21,7 +21,7 @@ const BookingSteps: React.FC<BookingStepsProps> = ({ currentStep, steps }) => {
               currentStep > index + 1 
                 ? "bg-spa-green border-spa-green text-white shadow-lg shadow-spa-green/30 scale-110" 
                 : currentStep === index + 1 
-                ? "bg-spa-green-dark border-spa-green-dark text-white animate-pulse shadow-lg shadow-spa-green-dark/30 scale-110" 
+                ? "bg-spa-green-dark border-spa-green-dark text-white shadow-lg shadow-spa-green-dark/30 scale-110" 
                 : "bg-white border-spa-beige text-spa-beige hover:border-spa-green/30 transition-colors duration-300"
             )}>
               {currentStep > index + 1 ? (
@@ -63,7 +63,7 @@ const BookingSteps: React.FC<BookingStepsProps> = ({ currentStep, steps }) => {
           className="bg-gradient-to-r from-spa-green via-spa-green-dark to-spa-green h-full transition-all duration-500 ease-out relative overflow-hidden"
           style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
         </div>
       </div>
     </div>
