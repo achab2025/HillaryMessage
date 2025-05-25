@@ -38,23 +38,61 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
     if (!receiptRef.current) return;
     
     try {
+      console.log('Starting PDF generation...');
+      
       // Use html2canvas to create a canvas from the receipt
       const canvas = await html2canvas(receiptRef.current, {
         scale: 2,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        allowTaint: true
       });
+      
+      console.log('Canvas created, dimensions:', canvas.width, 'x', canvas.height);
       
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
+      
+      // Get PDF dimensions
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-      const imgX = (pdfWidth - imgWidth * ratio) / 2;
-      const imgY = 20;
       
-      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      // Calculate scaling to fit the image in the PDF with some margin
+      const margin = 10;
+      const availableWidth = pdfWidth - (2 * margin);
+      const availableHeight = pdfHeight - (2 * margin);
+      
+      // Calculate the aspect ratio
+      const imgAspectRatio = canvas.width / canvas.height;
+      
+      let imgWidth, imgHeight;
+      
+      // Scale the image to fit within the available space
+      if (availableWidth / availableHeight > imgAspectRatio) {
+        // Height is the limiting factor
+        imgHeight = availableHeight;
+        imgWidth = imgHeight * imgAspectRatio;
+      } else {
+        // Width is the limiting factor
+        imgWidth = availableWidth;
+        imgHeight = imgWidth / imgAspectRatio;
+      }
+      
+      // Center the image
+      const imgX = (pdfWidth - imgWidth) / 2;
+      const imgY = (pdfHeight - imgHeight) / 2;
+      
+      console.log('PDF dimensions:', pdfWidth, 'x', pdfHeight);
+      console.log('Image position:', imgX, imgY);
+      console.log('Image size:', imgWidth, 'x', imgHeight);
+      
+      // Ensure coordinates are valid numbers
+      if (isNaN(imgX) || isNaN(imgY) || isNaN(imgWidth) || isNaN(imgHeight) || 
+          imgX < 0 || imgY < 0 || imgWidth <= 0 || imgHeight <= 0) {
+        throw new Error('Invalid image dimensions calculated');
+      }
+      
+      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth, imgHeight);
       pdf.save(`SereneTouch_Receipt_${guestInfo.lastName}.pdf`);
       
       toast({
