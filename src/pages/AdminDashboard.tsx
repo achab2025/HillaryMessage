@@ -13,6 +13,8 @@ import { DashboardStats } from "@/components/admin/DashboardStats";
 import { AppointmentsTab } from "@/components/admin/AppointmentsTab";
 import { CustomersTab } from "@/components/admin/CustomersTab";
 import { ContactSubmissions } from "@/components/admin/ContactSubmissions";
+import { FinancesTab } from "@/components/admin/FinancesTab";
+import { SettingsTab } from "@/components/admin/SettingsTab";
 
 // Mock data for appointments
 const mockAppointments = [
@@ -74,6 +76,7 @@ const AdminDashboard = () => {
   const [customers, setCustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [contactCount, setContactCount] = useState(0);
+  const [activeTab, setActiveTab] = useState("dashboard");
 
   // Redirect if not logged in or not admin
   useEffect(() => {
@@ -125,6 +128,66 @@ const AdminDashboard = () => {
     return null; // Redirecting via useEffect
   }
 
+  const renderActiveContent = () => {
+    switch (activeTab) {
+      case "dashboard":
+        return (
+          <div className="space-y-6">
+            <DashboardStats 
+              appointmentsCount={appointments.length}
+              customersCount={customers.length}
+              weeklyRevenue="$2,450"
+              unreadMessagesCount={contactCount}
+            />
+            
+            <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-spa-green/10 overflow-hidden">
+              <Tabs defaultValue="appointments" className="w-full">
+                <TabsList className="mb-6 bg-spa-green/5 border-b border-spa-green/10 rounded-none w-full justify-start p-1">
+                  <TabsTrigger 
+                    value="appointments" 
+                    className="data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-spa-green rounded-lg transition-all duration-300"
+                  >
+                    Recent Appointments
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="customers"
+                    className="data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-spa-green rounded-lg transition-all duration-300"
+                  >
+                    Recent Customers
+                  </TabsTrigger>
+                </TabsList>
+                
+                <div className="p-6">
+                  <TabsContent value="appointments">
+                    <AppointmentsTab 
+                      appointments={filteredAppointments.slice(0, 5)} 
+                      formatDate={formatDate} 
+                    />
+                  </TabsContent>
+                  
+                  <TabsContent value="customers">
+                    <CustomersTab customers={filteredCustomers.slice(0, 5)} />
+                  </TabsContent>
+                </div>
+              </Tabs>
+            </div>
+          </div>
+        );
+      case "appointments":
+        return <AppointmentsTab appointments={filteredAppointments} formatDate={formatDate} />;
+      case "customers":
+        return <CustomersTab customers={filteredCustomers} />;
+      case "contact":
+        return <ContactSubmissions />;
+      case "finances":
+        return <FinancesTab />;
+      case "settings":
+        return <SettingsTab />;
+      default:
+        return <div>Content not found</div>;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-spa-cream via-spa-beige to-spa-cream">
       {/* Mobile Header */}
@@ -149,62 +212,22 @@ const AdminDashboard = () => {
           ${isMobileMenuOpen ? 'block' : 'hidden'} md:block
           fixed md:sticky top-0 md:top-0 z-30 h-screen md:h-auto
         `}>
-          <AdminSidebar contactCount={contactCount} handleLogout={handleLogout} />
+          <AdminSidebar 
+            contactCount={contactCount} 
+            handleLogout={handleLogout} 
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
         </aside>
 
         {/* Main content */}
         <main className="flex-1 p-4 md:p-8">
           <div className="max-w-6xl mx-auto">
-            <DashboardHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+            {activeTab === "dashboard" && (
+              <DashboardHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+            )}
             
-            <DashboardStats 
-              appointmentsCount={appointments.length}
-              customersCount={customers.length}
-              weeklyRevenue="$2,450"
-              unreadMessagesCount={contactCount}
-            />
-            
-            <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-spa-green/10 overflow-hidden">
-              <Tabs defaultValue="appointments" className="w-full">
-                <TabsList className="mb-6 bg-spa-green/5 border-b border-spa-green/10 rounded-none w-full justify-start p-1">
-                  <TabsTrigger 
-                    value="appointments" 
-                    className="data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-spa-green rounded-lg transition-all duration-300"
-                  >
-                    Appointments
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="customers"
-                    className="data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-spa-green rounded-lg transition-all duration-300"
-                  >
-                    Customers
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="contact"
-                    className="data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-spa-green rounded-lg transition-all duration-300"
-                  >
-                    Contact Messages
-                  </TabsTrigger>
-                </TabsList>
-                
-                <div className="p-6">
-                  <TabsContent value="appointments">
-                    <AppointmentsTab 
-                      appointments={filteredAppointments} 
-                      formatDate={formatDate} 
-                    />
-                  </TabsContent>
-                  
-                  <TabsContent value="customers">
-                    <CustomersTab customers={filteredCustomers} />
-                  </TabsContent>
-                  
-                  <TabsContent value="contact">
-                    <ContactSubmissions />
-                  </TabsContent>
-                </div>
-              </Tabs>
-            </div>
+            {renderActiveContent()}
           </div>
         </main>
       </div>

@@ -10,19 +10,25 @@ import {
 interface AdminSidebarProps {
   contactCount: number;
   handleLogout: () => void;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
 }
 
-export const AdminSidebar = ({ contactCount, handleLogout }: AdminSidebarProps) => {
+export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveTab }: AdminSidebarProps) => {
   const { user } = useContext(AuthContext);
 
   const menuItems = [
-    { icon: BarChart3, label: "Dashboard", active: true },
-    { icon: Calendar, label: "Appointments", active: false },
-    { icon: Users, label: "Customers", active: false },
-    { icon: Mail, label: "Contact Messages", active: false, badge: contactCount },
-    { icon: CircleDollarSign, label: "Finances", active: false },
-    { icon: Settings, label: "Settings", active: false },
+    { icon: BarChart3, label: "Dashboard", id: "dashboard", active: activeTab === "dashboard" },
+    { icon: Calendar, label: "Appointments", id: "appointments", active: activeTab === "appointments" },
+    { icon: Users, label: "Customers", id: "customers", active: activeTab === "customers" },
+    { icon: Mail, label: "Contact Messages", id: "contact", active: activeTab === "contact", badge: contactCount },
+    { icon: CircleDollarSign, label: "Finances", id: "finances", active: activeTab === "finances" },
+    { icon: Settings, label: "Settings", id: "settings", active: activeTab === "settings" },
   ];
+
+  const handleMenuClick = (id: string) => {
+    setActiveTab(id);
+  };
 
   return (
     <div className="p-6 h-full">
@@ -51,6 +57,7 @@ export const AdminSidebar = ({ contactCount, handleLogout }: AdminSidebarProps) 
                   : 'hover:bg-gradient-to-r hover:from-spa-green/10 hover:to-spa-green-dark/10 hover:shadow-md hover:-translate-y-0.5'
               }`}
               style={{ animationDelay: `${index * 50}ms` }}
+              onClick={() => handleMenuClick(item.id)}
             >
               <div className="flex items-center space-x-3">
                 <div className={`p-1 rounded-lg transition-all duration-300 ${
