@@ -1,6 +1,6 @@
 
 import { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "@/App";
 import { 
   BarChart3, Calendar, Users, Mail, CircleDollarSign, 
@@ -14,15 +14,14 @@ interface AdminSidebarProps {
 
 export const AdminSidebar = ({ contactCount, handleLogout }: AdminSidebarProps) => {
   const { user } = useContext(AuthContext);
-  const location = useLocation();
 
   const menuItems = [
-    { icon: BarChart3, label: "Dashboard", path: "/admin", active: location.pathname === "/admin" },
-    { icon: Calendar, label: "Appointments", path: "/admin/appointments", active: location.pathname === "/admin/appointments" },
-    { icon: Users, label: "Customers", path: "/admin/customers", active: location.pathname === "/admin/customers" },
-    { icon: Mail, label: "Contact Messages", path: "/admin/contact", active: location.pathname === "/admin/contact", badge: contactCount },
-    { icon: CircleDollarSign, label: "Finances", path: "/admin/finances", active: location.pathname === "/admin/finances" },
-    { icon: Settings, label: "Settings", path: "/admin/settings", active: location.pathname === "/admin/settings" },
+    { icon: BarChart3, label: "Dashboard", active: true },
+    { icon: Calendar, label: "Appointments", active: false },
+    { icon: Users, label: "Customers", active: false },
+    { icon: Mail, label: "Contact Messages", active: false, badge: contactCount },
+    { icon: CircleDollarSign, label: "Finances", active: false },
+    { icon: Settings, label: "Settings", active: false },
   ];
 
   return (
@@ -44,10 +43,9 @@ export const AdminSidebar = ({ contactCount, handleLogout }: AdminSidebarProps) 
         {menuItems.map((item, index) => {
           const Icon = item.icon;
           return (
-            <Link
+            <div 
               key={item.label}
-              to={item.path}
-              className={`group relative flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all duration-300 block ${
+              className={`group relative flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all duration-300 ${
                 item.active 
                   ? 'bg-gradient-to-r from-spa-green to-spa-green-dark text-white shadow-lg' 
                   : 'hover:bg-gradient-to-r hover:from-spa-green/10 hover:to-spa-green-dark/10 hover:shadow-md hover:-translate-y-0.5'
@@ -71,9 +69,10 @@ export const AdminSidebar = ({ contactCount, handleLogout }: AdminSidebarProps) 
               
               {item.badge && item.badge > 0 && (
                 <div className="relative">
-                  <span className="bg-gradient-to-r from-red-500 to-red-600 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold shadow-lg">
+                  <span className="bg-gradient-to-r from-red-500 to-red-600 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold shadow-lg animate-pulse">
                     {item.badge}
                   </span>
+                  <span className="absolute top-0 right-0 w-6 h-6 bg-red-400 rounded-full animate-ping opacity-75"></span>
                 </div>
               )}
               
@@ -81,7 +80,7 @@ export const AdminSidebar = ({ contactCount, handleLogout }: AdminSidebarProps) 
               {!item.active && (
                 <div className="absolute inset-0 bg-gradient-to-r from-spa-green/5 to-spa-green-dark/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               )}
-            </Link>
+            </div>
           );
         })}
         
