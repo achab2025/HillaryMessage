@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, createContext, useEffect } from "react";
 import Index from "./pages/Index";
@@ -27,14 +28,15 @@ interface AuthContextType {
 
 interface User {
   id: string;
+  name: string;
   email: string;
   isAdmin: boolean;
 }
 
 // Mock users for demonstration
 const mockUsers = [
-  { id: "1", email: "user@example.com", isAdmin: false },
-  { id: "2", email: "admin@example.com", isAdmin: true }
+  { id: "1", name: "John Doe", email: "user@example.com", isAdmin: false },
+  { id: "2", name: "Admin User", email: "admin@example.com", isAdmin: true }
 ];
 
 const AuthContext = createContext<AuthContextType>({
