@@ -53,7 +53,7 @@ export const servicesMockData: Service[] = [
 
 // Mock data for therapists
 export const therapistsMockData: Therapist[] = [
-  { id: "1", name: "Jane Smith", specialization: "Swedish Massage" },
-  { id: "2", name: "Michael Johnson", specialization: "Deep Tissue" },
-  { id: "3", name: "Sarah Williams", specialization: "Hot Stone Therapy" }
+  { id: "1", name: "Asare Phillipina", specialization: "Swedish Massage" },
+  { id: "2", name: "Abigail Owusu", specialization: "Deep Tissue" },
+  { id: "3", name: "James Brown", specialization: "Hot Stone Therapy" }
 ];
