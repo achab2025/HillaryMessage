@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { NavigateFunction } from "react-router-dom";
 import BookingCalendar from "@/components/BookingCalendar";
 import GuestDetailsForm from "@/components/GuestDetailsForm";
-import PaymentForm from "@/components/PaymentForm";
+import PaystackPayment from "@/components/PaystackPayment";
 import BookingSteps from "@/components/booking/BookingSteps";
 import BookingConfirmation from "@/components/booking/BookingConfirmation";
 import NavigationButtons from "@/components/booking/NavigationButtons";
@@ -40,7 +40,9 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
     handleNextStep,
     handlePrevStep,
     handleSubmit,
-    isNextDisabled
+    handlePaymentSuccess,
+    isNextDisabled,
+    paymentReference
   } = useBooking();
 
   const steps = [
@@ -81,15 +83,16 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
           description: "Please fill in all required fields",
           variant: "destructive",
         });
-      } else if (currentStep === 5) {
-        toast({
-          title: "Invalid Payment Information",
-          description: "Please check your payment details",
-          variant: "destructive",
-        });
       }
     }
     handleNextStep();
+  };
+
+  const handlePaymentClose = () => {
+    toast({
+      title: "Payment Cancelled",
+      description: "You can try again when you're ready",
+    });
   };
 
   return (
@@ -141,8 +144,17 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
         
         {currentStep === 5 && (
           <div className="p-4 md:p-6">
-            <h2 className="text-2xl font-medium mb-4 md:mb-6 text-spa-green-dark">Payment Information</h2>
-            <PaymentForm paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} />
+            <h2 className="text-2xl font-medium mb-4 md:mb-6 text-spa-green-dark">Complete Payment</h2>
+            <PaystackPayment
+              amount={selectedService?.price || 0}
+              email={guestInfo.email}
+              firstName={guestInfo.firstName}
+              lastName={guestInfo.lastName}
+              phone={guestInfo.phone}
+              onSuccess={handlePaymentSuccess}
+              onClose={handlePaymentClose}
+              disabled={!guestInfo.email || !guestInfo.firstName || !guestInfo.lastName}
+            />
           </div>
         )}
         

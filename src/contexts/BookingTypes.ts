@@ -45,6 +45,10 @@ export interface BookingContextType {
   paymentInfo: PaymentInfo;
   setPaymentInfo: (info: PaymentInfo) => void;
   
+  // Payment reference from Paystack
+  paymentReference: string;
+  setPaymentReference: (reference: string) => void;
+  
   // Password for account creation
   password: string;
   setPassword: (password: string) => void;
@@ -58,6 +62,7 @@ export interface BookingContextType {
   handleNextStep: () => void;
   handlePrevStep: () => void;
   handleSubmit: () => void;
+  handlePaymentSuccess: (reference: any) => void;
   isNextDisabled: () => boolean;
   formatCurrency: (amount: number) => string;
 }

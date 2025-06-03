@@ -21,6 +21,7 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [selectedTherapist, setSelectedTherapist] = useState("");
   const [availableTimeSlots, setAvailableTimeSlots] = useState<string[]>([]);
   const [bookingComplete, setBookingComplete] = useState(false);
+  const [paymentReference, setPaymentReference] = useState("");
   const [guestInfo, setGuestInfo] = useState<GuestInfo>({
     firstName: "",
     lastName: "",
@@ -49,7 +50,8 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ child
     isNextDisabled, 
     handleNextStep, 
     handlePrevStep, 
-    handleSubmit 
+    handleSubmit,
+    handlePaymentSuccess
   } = createNavigationHandlers(
     currentStep,
     setCurrentStep,
@@ -61,7 +63,8 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ child
     paymentInfo,
     setGeneratedPassword,
     setPassword,
-    setBookingComplete
+    setBookingComplete,
+    setPaymentReference
   );
 
   const value = {
@@ -87,9 +90,12 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ child
     generatedPassword,
     bookingComplete,
     setBookingComplete,
+    paymentReference,
+    setPaymentReference,
     handleNextStep,
     handlePrevStep,
     handleSubmit,
+    handlePaymentSuccess,
     isNextDisabled,
     formatCurrency
   };

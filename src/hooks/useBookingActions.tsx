@@ -1,3 +1,4 @@
+
 import { useState, useCallback } from 'react';
 import { GuestInfo, PaymentInfo } from '@/contexts/BookingContext';
 import { Service } from '@/data/bookingMockData';
@@ -55,13 +56,10 @@ export const useBookingActions = () => {
     );
   }, []);
 
+  // For Paystack integration, we don't need payment form validation
   const isPaymentInfoValid = useCallback((paymentInfo: PaymentInfo) => {
-    return (
-      paymentInfo.cardholderName.trim() !== "" &&
-      paymentInfo.cardNumber.trim() !== "" &&
-      paymentInfo.expiryDate.trim() !== "" &&
-      paymentInfo.cvv.trim() !== ""
-    );
+    // This is kept for compatibility but not used with Paystack
+    return true;
   }, []);
 
   // Higher-level booking actions
@@ -76,7 +74,8 @@ export const useBookingActions = () => {
     paymentInfo: PaymentInfo,
     setGeneratedPassword: (password: string) => void,
     setPassword: (password: string) => void,
-    setBookingComplete: (complete: boolean) => void
+    setBookingComplete: (complete: boolean) => void,
+    setPaymentReference?: (reference: string) => void
   ) => {
     // Check if next button should be disabled
     const isNextDisabled = () => {
@@ -90,7 +89,7 @@ export const useBookingActions = () => {
         case 4:
           return !isGuestInfoValid(guestInfo);
         case 5:
-          return !isPaymentInfoValid(paymentInfo);
+          return false; // Paystack handles payment validation
         default:
           return false;
       }
@@ -103,7 +102,7 @@ export const useBookingActions = () => {
         (currentStep === 2 && selectedDate && selectedTime) || 
         (currentStep === 3 && selectedTherapist) ||
         (currentStep === 4 && isGuestInfoValid(guestInfo)) ||
-        (currentStep === 5 && isPaymentInfoValid(paymentInfo))
+        (currentStep === 5) // Skip payment validation for Paystack
       ) {
         setCurrentStep(currentStep + 1);
         
@@ -123,7 +122,21 @@ export const useBookingActions = () => {
       }
     };
 
-    // Handle form submission
+    // Handle Paystack payment success
+    const handlePaymentSuccess = (reference: any) => {
+      if (setPaymentReference) {
+        setPaymentReference(reference.reference);
+      }
+      // Move to confirmation step
+      setCurrentStep(6);
+      
+      // Generate password for account creation
+      const generated = generateRandomPassword();
+      setGeneratedPassword(generated);
+      setPassword(generated);
+    };
+
+    // Handle form submission (final booking completion)
     const handleSubmit = async () => {
       // Here you would normally send the booking to your backend
       // For this demo, we'll just simulate a successful booking
@@ -136,9 +149,10 @@ export const useBookingActions = () => {
       isNextDisabled,
       handleNextStep,
       handlePrevStep,
-      handleSubmit
+      handleSubmit,
+      handlePaymentSuccess
     };
-  }, [generateRandomPassword, isGuestInfoValid, isPaymentInfoValid]);
+  }, [generateRandomPassword, isGuestInfoValid]);
 
   return {
     generateTimeSlots,
