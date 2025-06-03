@@ -1,3 +1,4 @@
+
 import React, { useCallback } from 'react';
 import { usePaystackPayment } from 'react-paystack';
 import { Button } from '@/components/ui/button';
@@ -27,12 +28,12 @@ const PaystackPayment: React.FC<PaystackPaymentProps> = ({
 }) => {
   const { toast } = useToast();
 
-  // Paystack public key for demo (replace with your actual public key)
+  // Paystack configuration with your provided public key
   const config = {
     reference: new Date().getTime().toString(),
     email: email,
     amount: amount * 100, // Paystack expects amount in kobo (pesewas for GHS)
-    publicKey: 'pk_test_dcBQaGiO5OEGl7nAYOHj3lJm', // Demo public key
+    publicKey: 'pk_test_8808c1f796840bcc9fbc7d52d737dc3edf015501',
     currency: 'GHS',
     channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money'],
     metadata: {
@@ -54,24 +55,23 @@ const PaystackPayment: React.FC<PaystackPaymentProps> = ({
   const initializePayment = usePaystackPayment(config);
 
   const handlePayment = useCallback(() => {
-    const onSuccessCallback = (reference: any) => {
-      toast({
-        title: "Payment Successful!",
-        description: `Payment completed with reference: ${reference.reference}`,
-      });
-      onSuccess(reference);
-    };
-
-    const onCloseCallback = () => {
-      toast({
-        title: "Payment Cancelled",
-        description: "You cancelled the payment process",
-        variant: "destructive",
-      });
-      onClose();
-    };
-
-    initializePayment(onSuccessCallback, onCloseCallback);
+    initializePayment(
+      (reference: any) => {
+        toast({
+          title: "Payment Successful!",
+          description: `Payment completed with reference: ${reference.reference}`,
+        });
+        onSuccess(reference);
+      },
+      () => {
+        toast({
+          title: "Payment Cancelled",
+          description: "You cancelled the payment process",
+          variant: "destructive",
+        });
+        onClose();
+      }
+    );
   }, [initializePayment, onSuccess, onClose, toast]);
 
   return (
@@ -136,7 +136,7 @@ const PaystackPayment: React.FC<PaystackPaymentProps> = ({
 
       <div className="text-center">
         <p className="text-xs text-gray-500">
-          This is a demo integration. No real charges will be made.
+          Test mode: Use test cards for transactions
         </p>
         <p className="text-xs text-gray-500 mt-1">
           Supported: Cards, Bank Transfer, Mobile Money, USSD
