@@ -1,4 +1,3 @@
-
 import React, { useCallback } from 'react';
 import { usePaystackPayment } from 'react-paystack';
 import { Button } from '@/components/ui/button';
@@ -49,30 +48,28 @@ const PaystackPayment: React.FC<PaystackPaymentProps> = ({
           value: phone
         }
       ]
+    },
+    onClose: () => {
+      toast({
+        title: "Payment Cancelled",
+        description: "You cancelled the payment process",
+        variant: "destructive",
+      });
+      onClose();
     }
   };
 
   const initializePayment = usePaystackPayment(config);
 
   const handlePayment = useCallback(() => {
-    initializePayment(
-      (reference: any) => {
-        toast({
-          title: "Payment Successful!",
-          description: `Payment completed with reference: ${reference.reference}`,
-        });
-        onSuccess(reference);
-      },
-      () => {
-        toast({
-          title: "Payment Cancelled",
-          description: "You cancelled the payment process",
-          variant: "destructive",
-        });
-        onClose();
-      }
-    );
-  }, [initializePayment, onSuccess, onClose, toast]);
+    initializePayment((reference: any) => {
+      toast({
+        title: "Payment Successful!",
+        description: `Payment completed with reference: ${reference.reference}`,
+      });
+      onSuccess(reference);
+    });
+  }, [initializePayment, onSuccess, toast]);
 
   return (
     <div className="max-w-md mx-auto space-y-6">
