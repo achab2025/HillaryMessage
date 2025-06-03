@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, LayoutDashboard } from "lucide-react";
 
 interface MobileHeaderProps {
   isMobileMenuOpen: boolean;
@@ -9,13 +9,12 @@ interface MobileHeaderProps {
 
 export const MobileHeader = ({ isMobileMenuOpen, setIsMobileMenuOpen }: MobileHeaderProps) => {
   return (
-    <header className="bg-white/95 backdrop-blur-xl shadow-2xl border-b border-spa-green/20 p-6 flex justify-between items-center md:hidden relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-spa-green/5 to-spa-green-dark/5 pointer-events-none" />
-      <div className="flex items-center gap-3 relative z-10">
-        <div className="p-2 bg-gradient-to-br from-spa-green to-spa-green-dark rounded-xl shadow-lg">
-          <Sparkles className="h-6 w-6 text-white" />
+    <header className="bg-white shadow-sm border-b border-gray-200/60 px-6 py-4 flex justify-between items-center md:hidden">
+      <div className="flex items-center gap-3">
+        <div className="w-8 h-8 bg-spa-green rounded-lg flex items-center justify-center">
+          <LayoutDashboard className="h-4 w-4 text-white" />
         </div>
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-spa-green to-spa-green-dark bg-clip-text text-transparent">
+        <h1 className="text-xl font-semibold text-gray-900">
           Admin Dashboard
         </h1>
       </div>
@@ -23,9 +22,9 @@ export const MobileHeader = ({ isMobileMenuOpen, setIsMobileMenuOpen }: MobileHe
         variant="ghost" 
         size="icon"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="hover:bg-spa-green/10 transition-all duration-300 rounded-xl p-3 relative z-10"
+        className="hover:bg-gray-100 rounded-lg"
       >
-        {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </Button>
     </header>
   );

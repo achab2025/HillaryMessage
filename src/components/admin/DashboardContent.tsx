@@ -43,73 +43,78 @@ export const DashboardContent = ({
               unreadMessagesCount={contactCount}
             />
             
-            <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-spa-green/20 overflow-hidden transition-all duration-300 hover:shadow-3xl">
-              <div className="bg-gradient-to-r from-spa-green/10 via-spa-green/5 to-transparent p-1">
-                <div className="bg-white/80 backdrop-blur-sm rounded-t-3xl">
-                  <Tabs defaultValue="appointments" className="w-full">
-                    <TabsList className="mb-0 bg-transparent border-b border-spa-green/10 rounded-none w-full justify-start p-0 h-auto">
-                      <TabsTrigger 
-                        value="appointments" 
-                        className="data-[state=active]:bg-spa-green data-[state=active]:text-white data-[state=active]:shadow-lg rounded-none border-b-2 border-transparent data-[state=active]:border-spa-green transition-all duration-300 px-8 py-4 font-semibold"
-                      >
-                        Recent Appointments
-                      </TabsTrigger>
-                      <TabsTrigger 
-                        value="customers"
-                        className="data-[state=active]:bg-spa-green data-[state=active]:text-white data-[state=active]:shadow-lg rounded-none border-b-2 border-transparent data-[state=active]:border-spa-green transition-all duration-300 px-8 py-4 font-semibold"
-                      >
-                        Recent Customers
-                      </TabsTrigger>
-                    </TabsList>
-                  </Tabs>
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200/60 overflow-hidden">
+                <div className="px-6 py-4 border-b border-gray-200/60">
+                  <h3 className="text-lg font-semibold text-gray-900">Recent Appointments</h3>
+                </div>
+                <div className="p-6">
+                  <AppointmentsTab 
+                    appointments={filteredAppointments.slice(0, 5)} 
+                    formatDate={formatDate} 
+                  />
                 </div>
               </div>
               
-              <div className="p-8">
-                <Tabs defaultValue="appointments" className="w-full">
-                  <TabsContent value="appointments" className="mt-0">
-                    <AppointmentsTab 
-                      appointments={filteredAppointments.slice(0, 5)} 
-                      formatDate={formatDate} 
-                    />
-                  </TabsContent>
-                  
-                  <TabsContent value="customers" className="mt-0">
-                    <CustomersTab customers={filteredCustomers.slice(0, 5)} />
-                  </TabsContent>
-                </Tabs>
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200/60 overflow-hidden">
+                <div className="px-6 py-4 border-b border-gray-200/60">
+                  <h3 className="text-lg font-semibold text-gray-900">Recent Customers</h3>
+                </div>
+                <div className="p-6">
+                  <CustomersTab customers={filteredCustomers.slice(0, 5)} />
+                </div>
               </div>
             </div>
           </div>
         );
       case "appointments":
         return (
-          <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-spa-green/20 p-8">
-            <AppointmentsTab appointments={filteredAppointments} formatDate={formatDate} />
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200/60">
+            <div className="px-6 py-4 border-b border-gray-200/60">
+              <h2 className="text-xl font-semibold text-gray-900">All Appointments</h2>
+            </div>
+            <div className="p-6">
+              <AppointmentsTab appointments={filteredAppointments} formatDate={formatDate} />
+            </div>
           </div>
         );
       case "customers":
         return (
-          <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-spa-green/20 p-8">
-            <CustomersTab customers={filteredCustomers} />
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200/60">
+            <div className="px-6 py-4 border-b border-gray-200/60">
+              <h2 className="text-xl font-semibold text-gray-900">All Customers</h2>
+            </div>
+            <div className="p-6">
+              <CustomersTab customers={filteredCustomers} />
+            </div>
           </div>
         );
       case "contact":
         return (
-          <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-spa-green/20 p-8">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200/60">
             <ContactSubmissions />
           </div>
         );
       case "finances":
         return (
-          <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-spa-green/20 p-8">
-            <FinancesTab />
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200/60">
+            <div className="px-6 py-4 border-b border-gray-200/60">
+              <h2 className="text-xl font-semibold text-gray-900">Financial Overview</h2>
+            </div>
+            <div className="p-6">
+              <FinancesTab />
+            </div>
           </div>
         );
       case "settings":
         return (
-          <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-spa-green/20 p-8">
-            <SettingsTab />
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200/60">
+            <div className="px-6 py-4 border-b border-gray-200/60">
+              <h2 className="text-xl font-semibold text-gray-900">Settings</h2>
+            </div>
+            <div className="p-6">
+              <SettingsTab />
+            </div>
           </div>
         );
       default:
@@ -118,16 +123,16 @@ export const DashboardContent = ({
   };
 
   return (
-    <main className="flex-1 p-6 md:p-10">
+    <div className="p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {activeTab === "dashboard" && (
           <DashboardHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         )}
         
-        <div className="animate-fade-in">
+        <div>
           {renderActiveContent()}
         </div>
       </div>
-    </main>
+    </div>
   );
 };

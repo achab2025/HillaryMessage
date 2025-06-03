@@ -21,18 +21,17 @@ export const AdminLayout = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-spa-cream via-white to-spa-beige">
+    <div className="min-h-screen bg-gray-50/50">
       <MobileHeader 
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
       />
 
-      <div className="flex flex-col md:flex-row">
+      <div className="flex">
         <aside className={`
-          bg-white/95 backdrop-blur-xl w-full md:w-72 md:min-h-screen shadow-2xl border-r border-spa-green/20
+          bg-white w-full md:w-80 md:min-h-screen shadow-sm border-r border-gray-200/60
           ${isMobileMenuOpen ? 'block' : 'hidden'} md:block
           fixed md:sticky top-0 md:top-0 z-30 h-screen md:h-auto
-          before:absolute before:inset-0 before:bg-gradient-to-b before:from-spa-green/5 before:to-transparent before:pointer-events-none
         `}>
           <AdminSidebar 
             contactCount={contactCount} 
@@ -42,11 +41,8 @@ export const AdminLayout = ({
           />
         </aside>
 
-        <main className="flex-1 relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-spa-cream/30 pointer-events-none" />
-          <div className="relative z-10">
-            {children}
-          </div>
+        <main className="flex-1 min-h-screen">
+          {children}
         </main>
       </div>
     </div>
