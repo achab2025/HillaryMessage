@@ -39,24 +39,26 @@ const AdminDashboard = () => {
   }
 
   return (
-    <AdminLayout
-      contactCount={contactCount}
-      handleLogout={handleLogout}
-      activeTab={activeTab}
-      setActiveTab={setActiveTab}
-    >
-      <DashboardContent
-        activeTab={activeTab}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        appointments={appointments}
-        customers={customers}
+    <div className="min-h-screen bg-gradient-to-br from-spa-cream via-white to-spa-beige">
+      <AdminLayout
         contactCount={contactCount}
-        filteredAppointments={filteredAppointments}
-        filteredCustomers={filteredCustomers}
-        formatDate={formatDate}
-      />
-    </AdminLayout>
+        handleLogout={handleLogout}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      >
+        <DashboardContent
+          activeTab={activeTab}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          appointments={appointments}
+          customers={customers}
+          contactCount={contactCount}
+          filteredAppointments={filteredAppointments}
+          filteredCustomers={filteredCustomers}
+          formatDate={formatDate}
+        />
+      </AdminLayout>
+    </div>
   );
 };
 
