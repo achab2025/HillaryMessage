@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { CreditCard } from 'lucide-react';
 
 interface PaymentSummaryProps {
   selectedService: {
@@ -10,30 +9,47 @@ interface PaymentSummaryProps {
 }
 
 const PaymentSummary: React.FC<PaymentSummaryProps> = ({ selectedService, formatCurrency }) => {
+  const servicePrice = selectedService?.price || 0;
+  const tax = servicePrice * 0.15;
+  const total = servicePrice + tax;
+
   return (
-    <div className="mt-8 bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 border border-slate-200">
-      <h4 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-3">
-        <CreditCard className="w-5 h-5 text-slate-600" />
-        Payment Summary
-      </h4>
+    <div className="px-8 py-6 bg-white">
+      <h3 className="text-lg font-semibold text-gray-900 mb-6 text-center">Your Receipt</h3>
       
-      <div className="space-y-4">
-        <div className="flex justify-between items-center">
-          <span className="text-slate-600">Service Fee</span>
-          <span className="text-lg font-medium text-slate-900">{formatCurrency(selectedService?.price || 0)}</span>
+      <div className="space-y-3 mb-6">
+        <div className="flex justify-between items-center py-2 border-b border-gray-100">
+          <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">ITEM DESCRIPTION</span>
+          <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">PRICE</span>
         </div>
-        <div className="flex justify-between items-center">
-          <span className="text-slate-600">Tax (VAT 15%)</span>
-          <span className="text-lg font-medium text-slate-900">{formatCurrency((selectedService?.price || 0) * 0.15)}</span>
+        
+        <div className="flex justify-between items-center py-3">
+          <span className="text-gray-900">{selectedService?.name || 'Massage Service'}</span>
+          <span className="text-gray-900">{formatCurrency(servicePrice)}</span>
         </div>
-        <div className="border-t border-slate-300 pt-4">
-          <div className="flex justify-between items-center">
-            <span className="text-xl font-bold text-slate-900">Total Amount</span>
-            <span className="text-2xl font-bold text-emerald-600">
-              {formatCurrency((selectedService?.price || 0) * 1.15)}
-            </span>
-          </div>
+        
+        <div className="flex justify-between items-center py-2">
+          <span className="text-gray-600">Tax and Fees</span>
+          <span className="text-gray-600">{formatCurrency(tax)}</span>
         </div>
+        
+        <div className="flex justify-between items-center py-2">
+          <span className="text-gray-600">Insurance Add-on</span>
+          <span className="text-gray-600">{formatCurrency(0)}</span>
+        </div>
+        
+        <div className="flex justify-between items-center py-2">
+          <span className="text-green-600">First Time Client Discount</span>
+          <span className="text-green-600">-{formatCurrency(0)}</span>
+        </div>
+      </div>
+      
+      <div className="bg-blue-600 text-white rounded-lg p-4 flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className="bg-white text-blue-600 px-2 py-1 rounded text-xs font-semibold">VISA</div>
+          <span className="text-sm">Card ending in •••• 1234</span>
+        </div>
+        <span className="text-xl font-bold">{formatCurrency(total)}</span>
       </div>
     </div>
   );

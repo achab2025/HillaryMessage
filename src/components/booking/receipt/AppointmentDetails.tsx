@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { format } from 'date-fns';
-import { Calendar, Clock } from 'lucide-react';
 
 interface AppointmentDetailsProps {
   selectedService: {
@@ -23,48 +22,24 @@ const AppointmentDetails: React.FC<AppointmentDetailsProps> = ({
   therapists
 }) => {
   return (
-    <div className="px-8 py-8">
-      <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-        <Calendar className="w-6 h-6 text-slate-600" />
-        Appointment Details
-      </h3>
-      
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="divide-y divide-slate-100">
-          <div className="flex justify-between items-center px-6 py-5">
-            <span className="text-slate-600 font-medium">Service</span>
-            <span className="text-lg font-bold text-slate-900">{selectedService?.name}</span>
-          </div>
-          
-          <div className="flex justify-between items-center px-6 py-5">
-            <span className="text-slate-600 font-medium flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              Date
-            </span>
-            <span className="text-lg font-semibold text-slate-900">
-              {selectedDate ? format(selectedDate, "EEEE, MMM do, yyyy") : ""}
-            </span>
-          </div>
-          
-          <div className="flex justify-between items-center px-6 py-5">
-            <span className="text-slate-600 font-medium flex items-center gap-2">
-              <Clock className="w-4 h-4" />
-              Time
-            </span>
-            <span className="text-lg font-semibold text-slate-900">{selectedTime}</span>
-          </div>
-          
-          <div className="flex justify-between items-center px-6 py-5">
-            <span className="text-slate-600 font-medium">Therapist</span>
-            <span className="text-lg font-semibold text-slate-900">
-              {therapists.find(t => t.id === selectedTherapist)?.name}
-            </span>
-          </div>
-          
-          <div className="flex justify-between items-center px-6 py-5">
-            <span className="text-slate-600 font-medium">Duration</span>
-            <span className="text-lg font-semibold text-slate-900">{selectedService?.duration} minutes</span>
-          </div>
+    <div className="px-8 py-6 bg-white">
+      <div className="space-y-4">
+        <div className="bg-green-50 rounded-lg p-4 border-l-4 border-green-400">
+          <h3 className="text-sm font-medium text-green-800 mb-1">START DATE</h3>
+          <p className="text-lg font-semibold text-green-900">
+            {selectedDate ? format(selectedDate, "EEE MMMM do, h:mma") : ""}
+          </p>
+          <p className="text-sm text-green-700">
+            123 Wellness Avenue, Therapy District, TD 10101
+          </p>
+        </div>
+        
+        <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-400">
+          <h3 className="text-sm font-medium text-blue-800 mb-1">SERVICE DETAILS</h3>
+          <p className="text-lg font-semibold text-blue-900">{selectedService?.name}</p>
+          <p className="text-sm text-blue-700">
+            Duration: {selectedService?.duration} minutes • Therapist: {therapists.find(t => t.id === selectedTherapist)?.name}
+          </p>
         </div>
       </div>
     </div>

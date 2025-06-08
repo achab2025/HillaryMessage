@@ -35,10 +35,9 @@ const BookingReceipt: React.FC<BookingReceiptProps> = ({
   const receiptId = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
   
   return (
-    <div className="bg-white max-w-2xl mx-auto" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <div className="bg-white max-w-md mx-auto shadow-lg" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       <ReceiptHeader receiptId={receiptId} bookingDate={bookingDate} />
       <ReceiptConfirmation />
-      <ClientDetails guestInfo={guestInfo} bookingDate={bookingDate} />
       <AppointmentDetails 
         selectedService={selectedService}
         selectedDate={selectedDate}
@@ -47,6 +46,7 @@ const BookingReceipt: React.FC<BookingReceiptProps> = ({
         therapists={therapists}
       />
       <PaymentSummary selectedService={selectedService} formatCurrency={formatCurrency} />
+      <ClientDetails guestInfo={guestInfo} bookingDate={bookingDate} />
       <AccountInfo guestInfo={guestInfo} generatedPassword={generatedPassword} />
       <Guidelines />
       <ReceiptFooter bookingDate={bookingDate} />
