@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -41,80 +40,69 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
     try {
       console.log('Starting PDF generation...');
       
-      // Create a temporary container with proper styling for PDF generation
-      const tempContainer = document.createElement('div');
-      tempContainer.style.position = 'absolute';
-      tempContainer.style.left = '-9999px';
-      tempContainer.style.top = '0';
-      tempContainer.style.width = '800px';
-      tempContainer.style.background = 'white';
-      tempContainer.style.padding = '40px';
-      tempContainer.innerHTML = receiptRef.current.innerHTML;
+      // Wait for any images or content to load
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      document.body.appendChild(tempContainer);
-      
-      // Use html2canvas to create a canvas from the receipt
-      const canvas = await html2canvas(tempContainer, {
+      // Create canvas from the receipt
+      const canvas = await html2canvas(receiptRef.current, {
         scale: 2,
         backgroundColor: '#ffffff',
         useCORS: true,
         allowTaint: true,
-        width: 800,
-        height: tempContainer.scrollHeight + 80
+        logging: false,
+        height: receiptRef.current.scrollHeight,
+        width: receiptRef.current.scrollWidth
       });
-      
-      // Clean up temporary container
-      document.body.removeChild(tempContainer);
       
       console.log('Canvas created, dimensions:', canvas.width, 'x', canvas.height);
       
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
+      // Create PDF
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
       
       // Get PDF dimensions
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
       
-      // Calculate scaling to fit the image in the PDF with some margin
-      const margin = 15;
-      const availableWidth = pdfWidth - (2 * margin);
-      const availableHeight = pdfHeight - (2 * margin);
-      
-      // Calculate the aspect ratio
+      // Calculate image dimensions to fit the page
       const imgAspectRatio = canvas.width / canvas.height;
+      const pdfAspectRatio = pdfWidth / pdfHeight;
       
       let imgWidth, imgHeight;
+      let imgX = 0;
+      let imgY = 0;
       
-      // Scale the image to fit within the available space
-      if (availableWidth / availableHeight > imgAspectRatio) {
-        // Height is the limiting factor
-        imgHeight = availableHeight;
-        imgWidth = imgHeight * imgAspectRatio;
+      if (imgAspectRatio > pdfAspectRatio) {
+        // Image is wider than PDF
+        imgWidth = pdfWidth;
+        imgHeight = pdfWidth / imgAspectRatio;
+        imgY = (pdfHeight - imgHeight) / 2;
       } else {
-        // Width is the limiting factor
-        imgWidth = availableWidth;
-        imgHeight = imgWidth / imgAspectRatio;
+        // Image is taller than PDF
+        imgHeight = pdfHeight;
+        imgWidth = pdfHeight * imgAspectRatio;
+        imgX = (pdfWidth - imgWidth) / 2;
       }
       
-      // Center the image
-      const imgX = (pdfWidth - imgWidth) / 2;
-      const imgY = margin;
+      console.log('Adding image to PDF with dimensions:', imgWidth, 'x', imgHeight);
       
-      console.log('PDF dimensions:', pdfWidth, 'x', pdfHeight);
-      console.log('Image position:', imgX, imgY);
-      console.log('Image size:', imgWidth, 'x', imgHeight);
+      // Add image to PDF
+      pdf.addImage(imgData, 'JPEG', imgX, imgY, imgWidth, imgHeight);
       
-      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth, imgHeight);
-      
-      // Generate filename with current date
+      // Generate filename
       const currentDate = format(new Date(), 'yyyy-MM-dd');
       const filename = `SereneTouch_Receipt_${guestInfo.lastName}_${currentDate}.pdf`;
       
+      // Save the PDF
       pdf.save(filename);
       
       toast({
         title: "Receipt Downloaded",
-        description: "Your booking receipt has been downloaded successfully.",
+        description: "Your booking receipt has been downloaded as a PDF.",
       });
     } catch (error) {
       console.error("Error generating PDF:", error);
@@ -168,7 +156,7 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
             className="bg-spa-green hover:bg-spa-green-dark flex items-center transition-all duration-300 transform hover:scale-105"
           >
             <Download className="h-4 w-4 mr-2" />
-            Download Receipt
+            Download PDF Receipt
           </Button>
           <Button 
             variant="outline" 
@@ -180,7 +168,8 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
           </Button>
         </div>
         
-        <div className="absolute left-[-9999px] top-0">
+        {/* Hidden receipt for PDF generation */}
+        <div style={{ position: 'absolute', left: '-9999px', top: '0', width: '800px' }}>
           <div ref={receiptRef}>
             <BookingReceipt
               selectedService={selectedService}
