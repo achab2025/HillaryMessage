@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -40,13 +41,30 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
     try {
       console.log('Starting PDF generation...');
       
+      // Create a temporary container with proper styling for PDF generation
+      const tempContainer = document.createElement('div');
+      tempContainer.style.position = 'absolute';
+      tempContainer.style.left = '-9999px';
+      tempContainer.style.top = '0';
+      tempContainer.style.width = '800px';
+      tempContainer.style.background = 'white';
+      tempContainer.style.padding = '40px';
+      tempContainer.innerHTML = receiptRef.current.innerHTML;
+      
+      document.body.appendChild(tempContainer);
+      
       // Use html2canvas to create a canvas from the receipt
-      const canvas = await html2canvas(receiptRef.current, {
+      const canvas = await html2canvas(tempContainer, {
         scale: 2,
         backgroundColor: '#ffffff',
         useCORS: true,
-        allowTaint: true
+        allowTaint: true,
+        width: 800,
+        height: tempContainer.scrollHeight + 80
       });
+      
+      // Clean up temporary container
+      document.body.removeChild(tempContainer);
       
       console.log('Canvas created, dimensions:', canvas.width, 'x', canvas.height);
       
@@ -58,7 +76,7 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
       const pdfHeight = pdf.internal.pageSize.getHeight();
       
       // Calculate scaling to fit the image in the PDF with some margin
-      const margin = 10;
+      const margin = 15;
       const availableWidth = pdfWidth - (2 * margin);
       const availableHeight = pdfHeight - (2 * margin);
       
@@ -80,20 +98,19 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
       
       // Center the image
       const imgX = (pdfWidth - imgWidth) / 2;
-      const imgY = (pdfHeight - imgHeight) / 2;
+      const imgY = margin;
       
       console.log('PDF dimensions:', pdfWidth, 'x', pdfHeight);
       console.log('Image position:', imgX, imgY);
       console.log('Image size:', imgWidth, 'x', imgHeight);
       
-      // Ensure coordinates are valid numbers
-      if (isNaN(imgX) || isNaN(imgY) || isNaN(imgWidth) || isNaN(imgHeight) || 
-          imgX < 0 || imgY < 0 || imgWidth <= 0 || imgHeight <= 0) {
-        throw new Error('Invalid image dimensions calculated');
-      }
-      
       pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth, imgHeight);
-      pdf.save(`SereneTouch_Receipt_${guestInfo.lastName}.pdf`);
+      
+      // Generate filename with current date
+      const currentDate = format(new Date(), 'yyyy-MM-dd');
+      const filename = `SereneTouch_Receipt_${guestInfo.lastName}_${currentDate}.pdf`;
+      
+      pdf.save(filename);
       
       toast({
         title: "Receipt Downloaded",
@@ -148,7 +165,7 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
         <div className="flex flex-col md:flex-row gap-3 justify-center mb-6">
           <Button 
             onClick={downloadReceipt}
-            className="bg-spa-green hover:bg-spa-green-dark flex items-center"
+            className="bg-spa-green hover:bg-spa-green-dark flex items-center transition-all duration-300 transform hover:scale-105"
           >
             <Download className="h-4 w-4 mr-2" />
             Download Receipt
@@ -163,7 +180,7 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
           </Button>
         </div>
         
-        <div className="hidden">
+        <div className="absolute left-[-9999px] top-0">
           <div ref={receiptRef}>
             <BookingReceipt
               selectedService={selectedService}
