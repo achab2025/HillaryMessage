@@ -3,6 +3,7 @@ import React from 'react';
 
 interface PaymentSummaryProps {
   selectedService: {
+    name: string;
     price: number;
   };
   formatCurrency: (amount: number) => string;
