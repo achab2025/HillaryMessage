@@ -30,7 +30,7 @@ export const HeroSection = () => {
               and rejuvenating experiences.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
-              <Link to="/booking">
+              <Link to="/book-now">
                 <Button size="lg" className="bg-spa-green hover:bg-spa-green-dark text-lg px-8">
                   Book Now
                   <ChevronRight className="ml-2 h-5 w-5" />
