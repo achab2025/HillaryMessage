@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ServiceCard from "@/components/ServiceCard";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 export const ServicesSection = () => {
   const services = [
@@ -40,34 +41,76 @@ export const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-spa-green-dark">Our Spa Rituals</h2>
-          <p className="text-lg text-spa-gray">
+    <section id="services" className="relative py-24 bg-gradient-to-br from-spa-cream via-white to-spa-beige/30 overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-spa-green rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-40 h-40 bg-spa-green-dark rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-spa-green rounded-full blur-2xl"></div>
+      </div>
+
+      <div className="container relative mx-auto px-4">
+        {/* Header Section */}
+        <div className="max-w-4xl mx-auto text-center mb-20 animate-fade-in">
+          <div className="inline-flex items-center gap-2 bg-spa-green/10 backdrop-blur-sm rounded-full px-6 py-2 mb-6">
+            <Sparkles className="h-4 w-4 text-spa-green" />
+            <span className="text-sm font-medium text-spa-green-dark">Premium Services</span>
+          </div>
+          
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-spa-green-dark leading-tight">
+            Our Spa <span className="text-spa-green italic">Rituals</span>
+          </h2>
+          
+          <div className="w-24 h-1 bg-gradient-to-r from-spa-green to-spa-green-dark mx-auto mb-6 rounded-full"></div>
+          
+          <p className="text-lg md:text-xl text-spa-gray max-w-2xl mx-auto leading-relaxed">
             We offer various types of spa treatments to meet your individual needs,
-            from relaxation to pain relief.
+            from relaxation to pain relief. Each experience is crafted with care and expertise.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {services.map((service) => (
-            <ServiceCard 
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          {services.map((service, index) => (
+            <div
               key={service.id}
-              id={service.id}
-              name={service.name}
-              description={service.description}
-              price={service.price}
-              duration={service.duration}
-              image={service.image}
-            />
+              className="animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <ServiceCard 
+                id={service.id}
+                name={service.name}
+                description={service.description}
+                price={service.price}
+                duration={service.duration}
+                image={service.image}
+              />
+            </div>
           ))}
         </div>
 
+        {/* Call to Action */}
         <div className="text-center">
-          <Link to="/booking">
-            <Button className="bg-spa-green hover:bg-spa-green-dark">View All Services</Button>
-          </Link>
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-spa-beige/30">
+            <div className="text-center sm:text-left">
+              <h3 className="text-xl font-semibold text-spa-green-dark mb-2">
+                Ready to Experience Pure Relaxation?
+              </h3>
+              <p className="text-spa-gray text-sm">
+                Discover our complete range of services and book your perfect spa experience
+              </p>
+            </div>
+            
+            <Link to="/book-now" className="shrink-0">
+              <Button 
+                size="lg" 
+                className="bg-spa-green hover:bg-spa-green-dark text-white shadow-lg hover:shadow-xl transition-all duration-300 group px-8 py-3"
+              >
+                View All Services
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>
