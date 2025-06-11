@@ -1,5 +1,4 @@
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DashboardHeader } from "./DashboardHeader";
 import { DashboardStats } from "./DashboardStats";
 import { AppointmentsTab } from "./AppointmentsTab";
@@ -7,6 +6,16 @@ import { CustomersTab } from "./CustomersTab";
 import { ContactSubmissions } from "./ContactSubmissions";
 import { FinancesTab } from "./FinancesTab";
 import { SettingsTab } from "./SettingsTab";
+import { StaffManagementTab } from "./StaffManagementTab";
+import { AnalyticsTab } from "./AnalyticsTab";
+import { ReviewsTab } from "./ReviewsTab";
+import { PromotionsTab } from "./PromotionsTab";
+import { NotificationsTab } from "./NotificationsTab";
+import { ReportsTab } from "./ReportsTab";
+import { ScheduleTab } from "./ScheduleTab";
+import { GoalsTab } from "./GoalsTab";
+import { AchievementsTab } from "./AchievementsTab";
+import { SecurityTab } from "./SecurityTab";
 
 interface DashboardContentProps {
   activeTab: string;
@@ -44,8 +53,8 @@ export const DashboardContent = ({
             />
             
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200/60 overflow-hidden">
-                <div className="px-6 py-4 border-b border-gray-200/60">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 overflow-hidden backdrop-blur-sm">
+                <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
                   <h3 className="text-lg font-semibold text-gray-900">Recent Appointments</h3>
                 </div>
                 <div className="p-6">
@@ -56,8 +65,8 @@ export const DashboardContent = ({
                 </div>
               </div>
               
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200/60 overflow-hidden">
-                <div className="px-6 py-4 border-b border-gray-200/60">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 overflow-hidden backdrop-blur-sm">
+                <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
                   <h3 className="text-lg font-semibold text-gray-900">Recent Customers</h3>
                 </div>
                 <div className="p-6">
@@ -69,8 +78,8 @@ export const DashboardContent = ({
         );
       case "appointments":
         return (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200/60">
-            <div className="px-6 py-4 border-b border-gray-200/60">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
               <h2 className="text-xl font-semibold text-gray-900">All Appointments</h2>
             </div>
             <div className="p-6">
@@ -80,8 +89,8 @@ export const DashboardContent = ({
         );
       case "customers":
         return (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200/60">
-            <div className="px-6 py-4 border-b border-gray-200/60">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
               <h2 className="text-xl font-semibold text-gray-900">All Customers</h2>
             </div>
             <div className="p-6">
@@ -89,16 +98,21 @@ export const DashboardContent = ({
             </div>
           </div>
         );
-      case "contact":
+      case "staff":
         return (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200/60">
-            <ContactSubmissions />
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+              <h2 className="text-xl font-semibold text-gray-900">Staff Management</h2>
+            </div>
+            <div className="p-6">
+              <StaffManagementTab />
+            </div>
           </div>
         );
       case "finances":
         return (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200/60">
-            <div className="px-6 py-4 border-b border-gray-200/60">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
               <h2 className="text-xl font-semibold text-gray-900">Financial Overview</h2>
             </div>
             <div className="p-6">
@@ -106,11 +120,116 @@ export const DashboardContent = ({
             </div>
           </div>
         );
+      case "analytics":
+        return (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+              <h2 className="text-xl font-semibold text-gray-900">Analytics Dashboard</h2>
+            </div>
+            <div className="p-6">
+              <AnalyticsTab />
+            </div>
+          </div>
+        );
+      case "reviews":
+        return (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+              <h2 className="text-xl font-semibold text-gray-900">Customer Reviews</h2>
+            </div>
+            <div className="p-6">
+              <ReviewsTab />
+            </div>
+          </div>
+        );
+      case "promotions":
+        return (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+              <h2 className="text-xl font-semibold text-gray-900">Promotions & Offers</h2>
+            </div>
+            <div className="p-6">
+              <PromotionsTab />
+            </div>
+          </div>
+        );
+      case "notifications":
+        return (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+              <h2 className="text-xl font-semibold text-gray-900">Notifications Center</h2>
+            </div>
+            <div className="p-6">
+              <NotificationsTab />
+            </div>
+          </div>
+        );
+      case "contact":
+        return (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <ContactSubmissions />
+          </div>
+        );
+      case "reports":
+        return (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+              <h2 className="text-xl font-semibold text-gray-900">Business Reports</h2>
+            </div>
+            <div className="p-6">
+              <ReportsTab />
+            </div>
+          </div>
+        );
+      case "schedule":
+        return (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+              <h2 className="text-xl font-semibold text-gray-900">Schedule Management</h2>
+            </div>
+            <div className="p-6">
+              <ScheduleTab />
+            </div>
+          </div>
+        );
+      case "goals":
+        return (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+              <h2 className="text-xl font-semibold text-gray-900">Business Goals</h2>
+            </div>
+            <div className="p-6">
+              <GoalsTab />
+            </div>
+          </div>
+        );
+      case "achievements":
+        return (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+              <h2 className="text-xl font-semibold text-gray-900">Achievements & Milestones</h2>
+            </div>
+            <div className="p-6">
+              <AchievementsTab />
+            </div>
+          </div>
+        );
+      case "security":
+        return (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+              <h2 className="text-xl font-semibold text-gray-900">Security & Access Control</h2>
+            </div>
+            <div className="p-6">
+              <SecurityTab />
+            </div>
+          </div>
+        );
       case "settings":
         return (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200/60">
-            <div className="px-6 py-4 border-b border-gray-200/60">
-              <h2 className="text-xl font-semibold text-gray-900">Settings</h2>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
+            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+              <h2 className="text-xl font-semibold text-gray-900">System Settings</h2>
             </div>
             <div className="p-6">
               <SettingsTab />
@@ -118,12 +237,17 @@ export const DashboardContent = ({
           </div>
         );
       default:
-        return <div>Content not found</div>;
+        return (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm p-8 text-center">
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Feature Coming Soon</h2>
+            <p className="text-gray-600">This feature is currently under development.</p>
+          </div>
+        );
     }
   };
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="p-6 lg:p-8 bg-gradient-to-br from-gray-50 via-white to-gray-100 min-h-screen">
       <div className="max-w-7xl mx-auto">
         {activeTab === "dashboard" && (
           <DashboardHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} />

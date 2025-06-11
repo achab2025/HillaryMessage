@@ -21,7 +21,7 @@ export const AdminLayout = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
       <MobileHeader 
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
@@ -29,7 +29,7 @@ export const AdminLayout = ({
 
       <div className="flex">
         <aside className={`
-          bg-white w-full md:w-80 md:min-h-screen shadow-sm border-r border-gray-200/60
+          bg-white w-full md:w-80 md:min-h-screen shadow-xl border-r border-gray-200/60
           ${isMobileMenuOpen ? 'block' : 'hidden'} md:block
           fixed md:sticky top-0 md:top-0 z-30 h-screen md:h-auto
         `}>
@@ -41,7 +41,7 @@ export const AdminLayout = ({
           />
         </aside>
 
-        <main className="flex-1 min-h-screen">
+        <main className="flex-1 min-h-screen backdrop-blur-sm">
           {children}
         </main>
       </div>
