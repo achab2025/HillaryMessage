@@ -23,10 +23,7 @@ const Navbar: React.FC = () => {
   ];
   
   const isActive = (path: string) => {
-    // Exact match for home
     if (path === "/" && location.pathname === "/") return true;
-    
-    // For other paths, check if they start with the path
     return path !== "/" && location.pathname.startsWith(path);
   };
   
@@ -35,7 +32,7 @@ const Navbar: React.FC = () => {
   };
   
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-100">
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between h-16">
           <Link to="/" className="text-2xl font-bold text-spa-blue">
@@ -48,7 +45,7 @@ const Navbar: React.FC = () => {
               <Link
                 key={item.label}
                 to={item.href}
-                className={`font-medium transition-colors ${
+                className={`font-medium transition-colors duration-300 ${
                   isActive(item.href) 
                     ? "text-spa-blue" 
                     : "text-foreground hover:text-spa-blue"
@@ -64,19 +61,19 @@ const Navbar: React.FC = () => {
             {isLoggedIn ? (
               <>
                 <Link to="/book-now">
-                  <Button>Book Now</Button>
+                  <Button className="shadow-md hover:shadow-lg transition-all duration-300">Book Now</Button>
                 </Link>
                 <Link to="/dashboard">
-                  <Button variant="outline">Dashboard</Button>
+                  <Button variant="outline" className="shadow-sm hover:shadow-md transition-all duration-300">Dashboard</Button>
                 </Link>
               </>
             ) : (
               <>
                 <Link to="/book-now">
-                  <Button>Book Now</Button>
+                  <Button className="shadow-md hover:shadow-lg transition-all duration-300">Book Now</Button>
                 </Link>
                 <Link to="/login">
-                  <Button variant="outline">Sign In</Button>
+                  <Button variant="outline" className="shadow-sm hover:shadow-md transition-all duration-300">Sign In</Button>
                 </Link>
               </>
             )}
@@ -86,24 +83,30 @@ const Navbar: React.FC = () => {
           <Button 
             variant="ghost" 
             size="icon" 
-            className="md:hidden"
+            className="md:hidden rounded-xl hover:bg-gray-100 transition-all duration-300"
             onClick={toggleMobileMenu}
           >
-            {isMobileMenuOpen ? <X /> : <Menu />}
+            {isMobileMenuOpen ? (
+              <X className="h-5 w-5 transition-transform duration-300 rotate-90" />
+            ) : (
+              <Menu className="h-5 w-5 transition-transform duration-300" />
+            )}
           </Button>
         </nav>
       </div>
       
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-t">
-          <div className="container mx-auto px-4 py-4 space-y-4">
+        <div className="md:hidden fixed inset-0 bg-white/98 backdrop-blur-lg z-50 pt-16">
+          <div className="container mx-auto px-4 py-6 space-y-3 animate-fade-in">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 to={item.href}
-                className={`block py-2 font-medium ${
-                  isActive(item.href) ? "text-spa-blue" : "text-foreground"
+                className={`block p-4 rounded-xl font-medium transition-all duration-300 hover:bg-gray-50 hover:shadow-sm ${
+                  isActive(item.href) 
+                    ? "text-spa-blue bg-spa-blue/5 border-l-4 border-spa-blue" 
+                    : "text-foreground"
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -111,26 +114,41 @@ const Navbar: React.FC = () => {
               </Link>
             ))}
             
-            <div className="pt-4 border-t space-y-3">
+            <div className="pt-6 border-t border-gray-100 space-y-3">
               {isLoggedIn ? (
                 <>
                   <Link to="/book-now" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button className="w-full">Book Now</Button>
+                    <Button className="w-full text-lg py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                      Book Now
+                    </Button>
                   </Link>
                   <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="outline" className="w-full">Dashboard</Button>
+                    <Button variant="outline" className="w-full text-lg py-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                      Dashboard
+                    </Button>
                   </Link>
                 </>
               ) : (
                 <>
                   <Link to="/book-now" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button className="w-full">Book Now</Button>
+                    <Button className="w-full text-lg py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                      Book Now
+                    </Button>
                   </Link>
                   <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="outline" className="w-full">Sign In</Button>
+                    <Button variant="outline" className="w-full text-lg py-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                      Sign In
+                    </Button>
                   </Link>
                 </>
               )}
+            </div>
+            
+            <div className="flex-1 flex items-end justify-center pt-12">
+              <div className="text-center">
+                <p className="text-gray-600 text-sm">Hillar Massage</p>
+                <p className="text-gray-400 text-xs mt-1">Premium Wellness Experience</p>
+              </div>
             </div>
           </div>
         </div>
