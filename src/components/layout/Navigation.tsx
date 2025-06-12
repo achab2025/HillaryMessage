@@ -86,69 +86,73 @@ export const Navigation = ({ isLoggedIn }: NavigationProps) => {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-gradient-to-b from-spa-green-dark/98 via-spa-green/95 to-spa-green-dark/98 backdrop-blur-lg z-40 pt-20 px-4 md:hidden">
-          <div className="flex flex-col space-y-2 animate-fade-in">
+        <div className="fixed inset-0 bg-gradient-to-b from-spa-green-dark/98 via-spa-green/95 to-spa-green-dark/98 backdrop-blur-lg z-40 pt-20 px-6 md:hidden">
+          <div className="flex flex-col space-y-1 animate-fade-in max-w-sm mx-auto">
             <button 
               onClick={() => handleSectionClick('home')} 
-              className="group p-4 rounded-xl border-b border-spa-green/30 text-left transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-sm"
+              className="group relative p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm text-left transition-all duration-300 hover:bg-white/15 hover:border-white/20 hover:shadow-lg hover:transform hover:scale-[1.02] active:scale-[0.98]"
             >
-              <span className="text-lg font-medium text-white group-hover:text-spa-green-light transition-colors">
+              <span className="text-lg font-semibold text-white group-hover:text-spa-green-light transition-colors">
                 Home
               </span>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
             
             <Link 
               to="/services" 
-              className="group p-4 rounded-xl border-b border-spa-green/30 transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-sm" 
+              className="group relative p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-white/15 hover:border-white/20 hover:shadow-lg hover:transform hover:scale-[1.02] active:scale-[0.98]" 
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <span className="text-lg font-medium text-white group-hover:text-spa-green-light transition-colors">
+              <span className="text-lg font-semibold text-white group-hover:text-spa-green-light transition-colors">
                 Services
               </span>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
             
             <Link 
               to="/about" 
-              className="group p-4 rounded-xl border-b border-spa-green/30 transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-sm" 
+              className="group relative p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-white/15 hover:border-white/20 hover:shadow-lg hover:transform hover:scale-[1.02] active:scale-[0.98]" 
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <span className="text-lg font-medium text-white group-hover:text-spa-green-light transition-colors">
+              <span className="text-lg font-semibold text-white group-hover:text-spa-green-light transition-colors">
                 About
               </span>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
             
             <Link 
               to="/contact" 
-              className="group p-4 rounded-xl border-b border-spa-green/30 transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-sm" 
+              className="group relative p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-white/15 hover:border-white/20 hover:shadow-lg hover:transform hover:scale-[1.02] active:scale-[0.98]" 
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <span className="text-lg font-medium text-white group-hover:text-spa-green-light transition-colors">
+              <span className="text-lg font-semibold text-white group-hover:text-spa-green-light transition-colors">
                 Contact
               </span>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
             
             {isLoggedIn ? (
-              <div className="mt-6 space-y-3 px-2">
+              <div className="mt-8 space-y-3 px-2">
                 <Link to="/book-now" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button className="w-full bg-white text-spa-green-dark hover:bg-spa-cream text-lg py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                  <Button className="w-full bg-gradient-to-r from-white to-spa-cream text-spa-green-dark hover:from-spa-cream hover:to-white font-semibold text-lg py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-white/20 hover:transform hover:scale-[1.02] active:scale-[0.98]">
                     Book Now
                   </Button>
                 </Link>
                 <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button variant="outline" className="w-full text-white border-white hover:bg-white/20 text-lg py-4 rounded-xl backdrop-blur-sm">
+                  <Button variant="outline" className="w-full text-white border-2 border-white/30 bg-white/10 hover:bg-white/20 hover:border-white/50 font-semibold text-lg py-6 rounded-2xl backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:scale-[1.02] active:scale-[0.98]">
                     Dashboard
                   </Button>
                 </Link>
               </div>
             ) : (
-              <div className="mt-6 space-y-3 px-2">
+              <div className="mt-8 space-y-3 px-2">
                 <Link to="/book-now" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button className="w-full bg-white text-spa-green-dark hover:bg-spa-cream text-lg py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                  <Button className="w-full bg-gradient-to-r from-white to-spa-cream text-spa-green-dark hover:from-spa-cream hover:to-white font-semibold text-lg py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-white/20 hover:transform hover:scale-[1.02] active:scale-[0.98]">
                     Book Now
                   </Button>
                 </Link>
                 <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button variant="outline" className="w-full text-white border-white hover:bg-white/20 text-lg py-4 rounded-xl backdrop-blur-sm">
+                  <Button variant="outline" className="w-full text-white border-2 border-white/30 bg-white/10 hover:bg-white/20 hover:border-white/50 font-semibold text-lg py-6 rounded-2xl backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:scale-[1.02] active:scale-[0.98]">
                     Login
                   </Button>
                 </Link>

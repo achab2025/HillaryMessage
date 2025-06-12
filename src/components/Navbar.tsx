@@ -98,32 +98,33 @@ const Navbar: React.FC = () => {
       {/* Mobile menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 bg-white/98 backdrop-blur-lg z-50 pt-16">
-          <div className="container mx-auto px-4 py-6 space-y-3 animate-fade-in">
+          <div className="container mx-auto px-6 py-8 space-y-2 animate-fade-in max-w-sm mx-auto">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 to={item.href}
-                className={`block p-4 rounded-xl font-medium transition-all duration-300 hover:bg-gray-50 hover:shadow-sm ${
+                className={`group relative block p-5 rounded-2xl font-semibold transition-all duration-300 border border-gray-100 bg-gray-50/50 hover:bg-gray-100 hover:border-gray-200 hover:shadow-lg hover:transform hover:scale-[1.02] active:scale-[0.98] ${
                   isActive(item.href) 
-                    ? "text-spa-blue bg-spa-blue/5 border-l-4 border-spa-blue" 
+                    ? "text-spa-blue bg-spa-blue/5 border-spa-blue/20 shadow-md" 
                     : "text-foreground"
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {item.label}
+                <span className="relative z-10 text-lg">{item.label}</span>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-spa-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
             ))}
             
-            <div className="pt-6 border-t border-gray-100 space-y-3">
+            <div className="pt-8 space-y-3">
               {isLoggedIn ? (
                 <>
                   <Link to="/book-now" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button className="w-full text-lg py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                    <Button className="w-full bg-gradient-to-r from-spa-blue to-spa-blue/90 text-white font-semibold text-lg py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:transform hover:scale-[1.02] active:scale-[0.98]">
                       Book Now
                     </Button>
                   </Link>
                   <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="outline" className="w-full text-lg py-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                    <Button variant="outline" className="w-full text-spa-blue border-2 border-spa-blue/30 bg-spa-blue/5 hover:bg-spa-blue/10 hover:border-spa-blue/50 font-semibold text-lg py-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:scale-[1.02] active:scale-[0.98]">
                       Dashboard
                     </Button>
                   </Link>
@@ -131,12 +132,12 @@ const Navbar: React.FC = () => {
               ) : (
                 <>
                   <Link to="/book-now" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button className="w-full text-lg py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                    <Button className="w-full bg-gradient-to-r from-spa-blue to-spa-blue/90 text-white font-semibold text-lg py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:transform hover:scale-[1.02] active:scale-[0.98]">
                       Book Now
                     </Button>
                   </Link>
                   <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="outline" className="w-full text-lg py-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                    <Button variant="outline" className="w-full text-spa-blue border-2 border-spa-blue/30 bg-spa-blue/5 hover:bg-spa-blue/10 hover:border-spa-blue/50 font-semibold text-lg py-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:scale-[1.02] active:scale-[0.98]">
                       Sign In
                     </Button>
                   </Link>
