@@ -11,6 +11,8 @@ import TherapistSelector from "@/components/booking/TherapistSelector";
 import ServiceSelectorBooking from "@/components/booking/ServiceSelectorBooking";
 import { useBooking } from "@/contexts/BookingContext";
 import { useToast } from "@/components/ui/use-toast";
+import { sendBookingSMS, saveBookingToDatabase } from "@/utils/smsNotifications";
+import { format } from "date-fns";
 
 interface BookingContentProps {
   navigate: NavigateFunction;
@@ -39,8 +41,8 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
     bookingComplete,
     handleNextStep,
     handlePrevStep,
-    handleSubmit,
-    handlePaymentSuccess,
+    handleSubmit: originalHandleSubmit,
+    handlePaymentSuccess: originalHandlePaymentSuccess,
     isNextDisabled,
     paymentReference
   } = useBooking();
@@ -53,6 +55,91 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
     "Payment",
     "Confirm"
   ];
+
+  // Enhanced payment success handler with SMS integration
+  const handlePaymentSuccess = async (reference: any) => {
+    console.log('Payment successful, processing booking...', reference);
+    
+    // Call original payment success handler
+    originalHandlePaymentSuccess(reference);
+    
+    // Prepare booking data
+    if (selectedService && selectedDate && selectedTime && selectedTherapist && guestInfo.firstName) {
+      const therapist = therapists.find(t => t.id === selectedTherapist);
+      
+      const bookingData = {
+        serviceName: selectedService.name,
+        servicePrice: selectedService.price,
+        appointmentDate: format(selectedDate, 'yyyy-MM-dd'),
+        appointmentTime: selectedTime,
+        therapistName: therapist?.name || 'Staff Member',
+        clientName: `${guestInfo.firstName} ${guestInfo.lastName}`,
+        clientEmail: guestInfo.email,
+        clientPhone: guestInfo.phone,
+        paymentReference: reference.reference,
+        userId: null // For guest bookings
+      };
+
+      try {
+        // Save booking to database
+        const savedBooking = await saveBookingToDatabase(bookingData);
+        
+        if (savedBooking) {
+          // Send SMS notification
+          const smsData = {
+            bookingId: savedBooking.id,
+            phoneNumber: guestInfo.phone,
+            clientName: `${guestInfo.firstName} ${guestInfo.lastName}`,
+            serviceName: selectedService.name,
+            appointmentDate: format(selectedDate, 'EEEE, MMMM do, yyyy'),
+            appointmentTime: selectedTime,
+            therapistName: therapist?.name || 'Staff Member',
+            messageType: 'booking_confirmation' as const
+          };
+
+          const smsSuccess = await sendBookingSMS(smsData);
+          
+          if (smsSuccess) {
+            toast({
+              title: "Booking Confirmed!",
+              description: "Your appointment has been booked and a confirmation SMS has been sent.",
+            });
+          } else {
+            toast({
+              title: "Booking Confirmed!",
+              description: "Your appointment has been booked successfully. SMS notification may be delayed.",
+            });
+          }
+        } else {
+          toast({
+            title: "Payment Processed",
+            description: "Your payment was successful, but there was an issue saving the booking. Please contact support.",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        console.error('Error processing booking:', error);
+        toast({
+          title: "Processing Error",
+          description: "There was an issue processing your booking. Please contact support.",
+          variant: "destructive",
+        });
+      }
+    }
+  };
+
+  // Enhanced submit handler for final confirmation
+  const handleSubmit = async () => {
+    console.log('Final booking submission...');
+    
+    // Call original submit handler
+    await originalHandleSubmit();
+    
+    toast({
+      title: "Booking Complete!",
+      description: "Your appointment has been confirmed and you'll receive SMS updates.",
+    });
+  };
 
   // Redirect to login after successful booking
   useEffect(() => {

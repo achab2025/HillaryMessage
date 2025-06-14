@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Calendar } from "lucide-react";
+import { PlusCircle, Calendar, MessageSquare } from "lucide-react";
 
 interface Appointment {
   id: string;
@@ -11,6 +11,7 @@ interface Appointment {
   duration: number;
   therapist: string;
   status: string;
+  smsStatus?: 'sent' | 'pending' | 'failed';
 }
 
 interface AppointmentsTabProps {
@@ -38,6 +39,7 @@ export const AppointmentsTab = ({ appointments, formatDate }: AppointmentsTabPro
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Therapist</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SMS</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
@@ -63,6 +65,22 @@ export const AppointmentsTab = ({ appointments, formatDate }: AppointmentsTabPro
                     </span>
                   </td>
                   <td className="px-4 py-4 text-sm">
+                    <div className="flex items-center space-x-1">
+                      <MessageSquare className={`h-4 w-4 ${
+                        appointment.smsStatus === 'sent' ? 'text-green-600' :
+                        appointment.smsStatus === 'failed' ? 'text-red-600' :
+                        'text-yellow-600'
+                      }`} />
+                      <span className={`text-xs ${
+                        appointment.smsStatus === 'sent' ? 'text-green-600' :
+                        appointment.smsStatus === 'failed' ? 'text-red-600' :
+                        'text-yellow-600'
+                      }`}>
+                        {appointment.smsStatus || 'pending'}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-4 text-sm">
                     <div className="flex space-x-2">
                       <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">Edit</Button>
                       <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-900">Cancel</Button>
@@ -72,7 +90,7 @@ export const AppointmentsTab = ({ appointments, formatDate }: AppointmentsTabPro
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="px-4 py-12 text-center">
+                <td colSpan={7} className="px-4 py-12 text-center">
                   <div className="text-gray-500">
                     <Calendar className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                     <p className="text-lg font-medium">No appointments found</p>
