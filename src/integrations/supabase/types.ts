@@ -9,7 +9,98 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          appointment_date: string
+          appointment_time: string
+          client_email: string
+          client_name: string
+          client_phone: string
+          created_at: string | null
+          id: string
+          payment_reference: string | null
+          service_name: string
+          service_price: number
+          status: string | null
+          therapist_name: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          appointment_date: string
+          appointment_time: string
+          client_email: string
+          client_name: string
+          client_phone: string
+          created_at?: string | null
+          id?: string
+          payment_reference?: string | null
+          service_name: string
+          service_price: number
+          status?: string | null
+          therapist_name: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          appointment_date?: string
+          appointment_time?: string
+          client_email?: string
+          client_name?: string
+          client_phone?: string
+          created_at?: string | null
+          id?: string
+          payment_reference?: string | null
+          service_name?: string
+          service_price?: number
+          status?: string | null
+          therapist_name?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      sms_notifications: {
+        Row: {
+          booking_id: string | null
+          created_at: string | null
+          id: string
+          message: string
+          message_type: string
+          phone_number: string
+          sent_at: string | null
+          status: string | null
+        }
+        Insert: {
+          booking_id?: string | null
+          created_at?: string | null
+          id?: string
+          message: string
+          message_type: string
+          phone_number: string
+          sent_at?: string | null
+          status?: string | null
+        }
+        Update: {
+          booking_id?: string | null
+          created_at?: string | null
+          id?: string
+          message?: string
+          message_type?: string
+          phone_number?: string
+          sent_at?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sms_notifications_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
