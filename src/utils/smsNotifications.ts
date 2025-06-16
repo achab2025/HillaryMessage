@@ -1,4 +1,3 @@
-
 import { supabase } from "@/integrations/supabase/client";
 
 export interface SMSNotificationData {
@@ -12,12 +11,46 @@ export interface SMSNotificationData {
   messageType: 'booking_confirmation' | 'reminder' | 'cancellation';
 }
 
+const formatPhoneNumber = (phone: string): string => {
+  // Remove all non-digit characters except +
+  let cleaned = phone.replace(/[^\d+]/g, '');
+  
+  // If it starts with +, keep it
+  if (cleaned.startsWith('+')) {
+    return cleaned;
+  }
+  
+  // Remove any leading + that might be left
+  cleaned = cleaned.replace(/^\+/, '');
+  
+  // If it's 10 digits, add US country code
+  if (cleaned.length === 10) {
+    return `+1${cleaned}`;
+  }
+  
+  // If it's 11 digits starting with 1, add +
+  if (cleaned.length === 11 && cleaned.startsWith('1')) {
+    return `+${cleaned}`;
+  }
+  
+  // Otherwise return with + prefix
+  return `+${cleaned}`;
+};
+
 export const sendBookingSMS = async (data: SMSNotificationData): Promise<boolean> => {
   try {
     console.log('Sending SMS notification:', data);
     
+    // Format phone number before sending
+    const formattedData = {
+      ...data,
+      phoneNumber: formatPhoneNumber(data.phoneNumber)
+    };
+    
+    console.log('Formatted phone number:', formattedData.phoneNumber);
+    
     const { data: result, error } = await supabase.functions.invoke('send-booking-sms', {
-      body: data
+      body: formattedData
     });
 
     if (error) {
@@ -26,6 +59,12 @@ export const sendBookingSMS = async (data: SMSNotificationData): Promise<boolean
     }
 
     console.log('SMS function result:', result);
+    
+    if (result?.error) {
+      console.error('SMS function returned error:', result.error);
+      return false;
+    }
+    
     return result?.success || false;
   } catch (error) {
     console.error('Error sending SMS:', error);
@@ -58,7 +97,7 @@ export const saveBookingToDatabase = async (bookingData: {
         therapist_name: bookingData.therapistName,
         client_name: bookingData.clientName,
         client_email: bookingData.clientEmail,
-        client_phone: bookingData.clientPhone,
+        client_phone: formatPhoneNumber(bookingData.clientPhone),
         payment_reference: bookingData.paymentReference,
         user_id: bookingData.userId,
         status: 'confirmed'

@@ -80,11 +80,15 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
         userId: null // For guest bookings
       };
 
+      console.log('Attempting to save booking:', bookingData);
+
       try {
         // Save booking to database
         const savedBooking = await saveBookingToDatabase(bookingData);
         
         if (savedBooking) {
+          console.log('Booking saved, now sending SMS...');
+          
           // Send SMS notification
           const smsData = {
             bookingId: savedBooking.id,
@@ -97,20 +101,25 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
             messageType: 'booking_confirmation' as const
           };
 
+          console.log('SMS data prepared:', smsData);
+          
           const smsSuccess = await sendBookingSMS(smsData);
           
           if (smsSuccess) {
+            console.log('SMS sent successfully');
             toast({
               title: "Booking Confirmed!",
               description: "Your appointment has been booked and a confirmation SMS has been sent.",
             });
           } else {
+            console.log('SMS failed to send');
             toast({
               title: "Booking Confirmed!",
               description: "Your appointment has been booked successfully. SMS notification may be delayed.",
             });
           }
         } else {
+          console.error('Failed to save booking to database');
           toast({
             title: "Payment Processed",
             description: "Your payment was successful, but there was an issue saving the booking. Please contact support.",
@@ -125,6 +134,14 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
           variant: "destructive",
         });
       }
+    } else {
+      console.error('Missing required booking data:', {
+        selectedService: !!selectedService,
+        selectedDate: !!selectedDate,
+        selectedTime: !!selectedTime,
+        selectedTherapist: !!selectedTherapist,
+        guestInfo: guestInfo
+      });
     }
   };
 

@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.0';
 
@@ -11,9 +10,10 @@ const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-const TWILIO_ACCOUNT_SID = "AC55a3f57bb6d1bbb357ea05e201cfda6b";
-const TWILIO_AUTH_TOKEN = "e2f6d5439caa2d1651b1255c74eb4425";
-const TWILIO_PHONE_NUMBER = "+15076235172";
+// Use Supabase secrets for Twilio credentials
+const TWILIO_ACCOUNT_SID = Deno.env.get('TWILIO_ACCOUNT_SID');
+const TWILIO_AUTH_TOKEN = Deno.env.get('TWILIO_AUTH_TOKEN');
+const TWILIO_PHONE_NUMBER = Deno.env.get('TWILIO_PHONE_NUMBER');
 
 interface BookingSMSRequest {
   bookingId: string;
@@ -25,6 +25,29 @@ interface BookingSMSRequest {
   therapistName: string;
   messageType: 'booking_confirmation' | 'reminder' | 'cancellation';
 }
+
+const formatPhoneNumber = (phone: string): string => {
+  // Remove all non-digit characters
+  const digits = phone.replace(/\D/g, '');
+  
+  // If it starts with 1 and has 11 digits, keep as is
+  if (digits.length === 11 && digits.startsWith('1')) {
+    return `+${digits}`;
+  }
+  
+  // If it has 10 digits, add US country code
+  if (digits.length === 10) {
+    return `+1${digits}`;
+  }
+  
+  // If it already has a plus, keep as is
+  if (phone.startsWith('+')) {
+    return phone;
+  }
+  
+  // Default: add + if not present
+  return phone.startsWith('+') ? phone : `+${digits}`;
+};
 
 const formatMessage = (data: BookingSMSRequest): string => {
   const { clientName, serviceName, appointmentDate, appointmentTime, therapistName, messageType } = data;
@@ -44,8 +67,19 @@ const formatMessage = (data: BookingSMSRequest): string => {
   }
 };
 
-const sendSMS = async (phoneNumber: string, message: string): Promise<boolean> => {
+const sendSMS = async (phoneNumber: string, message: string): Promise<{ success: boolean; error?: string }> => {
   try {
+    console.log('Attempting to send SMS to:', phoneNumber);
+    console.log('Message:', message);
+    
+    if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN || !TWILIO_PHONE_NUMBER) {
+      console.error('Missing Twilio credentials');
+      return { success: false, error: 'Missing Twilio credentials' };
+    }
+
+    const formattedPhone = formatPhoneNumber(phoneNumber);
+    console.log('Formatted phone number:', formattedPhone);
+
     const response = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${TWILIO_ACCOUNT_SID}/Messages.json`, {
       method: 'POST',
       headers: {
@@ -54,7 +88,7 @@ const sendSMS = async (phoneNumber: string, message: string): Promise<boolean> =
       },
       body: new URLSearchParams({
         From: TWILIO_PHONE_NUMBER,
-        To: phoneNumber,
+        To: formattedPhone,
         Body: message,
       }),
     });
@@ -62,15 +96,15 @@ const sendSMS = async (phoneNumber: string, message: string): Promise<boolean> =
     if (response.ok) {
       const result = await response.json();
       console.log('SMS sent successfully:', result.sid);
-      return true;
+      return { success: true };
     } else {
       const error = await response.json();
       console.error('Twilio API error:', error);
-      return false;
+      return { success: false, error: error.message || 'Twilio API error' };
     }
   } catch (error) {
     console.error('Error sending SMS:', error);
-    return false;
+    return { success: false, error: error.message };
   }
 };
 
@@ -105,15 +139,15 @@ serve(async (req) => {
     }
 
     // Send the SMS
-    const success = await sendSMS(phoneNumber, message);
+    const result = await sendSMS(phoneNumber, message);
 
     // Update the SMS notification status
-    if (logError === null) {
+    if (!logError) {
       await supabase
         .from('sms_notifications')
         .update({
-          status: success ? 'sent' : 'failed',
-          sent_at: success ? new Date().toISOString() : null
+          status: result.success ? 'sent' : 'failed',
+          sent_at: result.success ? new Date().toISOString() : null
         })
         .eq('booking_id', bookingId)
         .eq('message_type', messageType)
@@ -123,12 +157,13 @@ serve(async (req) => {
 
     return new Response(
       JSON.stringify({ 
-        success, 
-        message: success ? 'SMS sent successfully' : 'Failed to send SMS',
-        messageContent: message
+        success: result.success, 
+        message: result.success ? 'SMS sent successfully' : `Failed to send SMS: ${result.error}`,
+        messageContent: message,
+        error: result.error
       }),
       {
-        status: success ? 200 : 500,
+        status: result.success ? 200 : 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
     );
