@@ -14,7 +14,221 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          appointment_date: string
+          appointment_time: string
+          client_email: string
+          client_name: string
+          client_phone: string
+          created_at: string | null
+          duration: number
+          id: string
+          notes: string | null
+          payment_reference: string | null
+          payment_status: string | null
+          price: number
+          service_id: string | null
+          service_name: string
+          status: string | null
+          therapist_id: string | null
+          therapist_name: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          appointment_date: string
+          appointment_time: string
+          client_email: string
+          client_name: string
+          client_phone: string
+          created_at?: string | null
+          duration: number
+          id?: string
+          notes?: string | null
+          payment_reference?: string | null
+          payment_status?: string | null
+          price: number
+          service_id?: string | null
+          service_name: string
+          status?: string | null
+          therapist_id?: string | null
+          therapist_name: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          appointment_date?: string
+          appointment_time?: string
+          client_email?: string
+          client_name?: string
+          client_phone?: string
+          created_at?: string | null
+          duration?: number
+          id?: string
+          notes?: string | null
+          payment_reference?: string | null
+          payment_status?: string | null
+          price?: number
+          service_id?: string | null
+          service_name?: string
+          status?: string | null
+          therapist_id?: string | null
+          therapist_name?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          phone: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          first_name?: string | null
+          id: string
+          last_name?: string | null
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          active: boolean | null
+          created_at: string | null
+          description: string | null
+          duration: number
+          id: string
+          image: string | null
+          name: string
+          price: number
+        }
+        Insert: {
+          active?: boolean | null
+          created_at?: string | null
+          description?: string | null
+          duration: number
+          id?: string
+          image?: string | null
+          name: string
+          price: number
+        }
+        Update: {
+          active?: boolean | null
+          created_at?: string | null
+          description?: string | null
+          duration?: number
+          id?: string
+          image?: string | null
+          name?: string
+          price?: number
+        }
+        Relationships: []
+      }
+      sms_notifications: {
+        Row: {
+          booking_id: string | null
+          created_at: string | null
+          id: string
+          message: string
+          message_type: string
+          phone_number: string
+          sent_at: string | null
+          status: string | null
+        }
+        Insert: {
+          booking_id?: string | null
+          created_at?: string | null
+          id?: string
+          message: string
+          message_type: string
+          phone_number: string
+          sent_at?: string | null
+          status?: string | null
+        }
+        Update: {
+          booking_id?: string | null
+          created_at?: string | null
+          id?: string
+          message?: string
+          message_type?: string
+          phone_number?: string
+          sent_at?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sms_notifications_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      therapists: {
+        Row: {
+          active: boolean | null
+          created_at: string | null
+          email: string | null
+          id: string
+          name: string
+          phone: string | null
+          specialization: string | null
+        }
+        Insert: {
+          active?: boolean | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          name: string
+          phone?: string | null
+          specialization?: string | null
+        }
+        Update: {
+          active?: boolean | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          name?: string
+          phone?: string | null
+          specialization?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
