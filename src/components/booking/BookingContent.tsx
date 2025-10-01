@@ -70,6 +70,7 @@ const BookingContent: React.FC<BookingContentProps> = ({ navigate }) => {
       const bookingData = {
         serviceName: selectedService.name,
         servicePrice: selectedService.price,
+        serviceDuration: selectedService.duration,
         appointmentDate: format(selectedDate, 'yyyy-MM-dd'),
         appointmentTime: selectedTime,
         therapistName: therapist?.name || 'Staff Member',

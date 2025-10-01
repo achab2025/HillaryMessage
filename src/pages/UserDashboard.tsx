@@ -118,8 +118,8 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-spa-cream via-white to-spa-beige/30">
-      <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="min-h-screen bg-background">
+      <div className="flex h-screen overflow-hidden">
         <DashboardSidebar
           isMobileMenuOpen={isMobileMenuOpen}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
@@ -130,8 +130,8 @@ const UserDashboard = () => {
         />
 
         {/* Main Content */}
-        <main className="flex-1 p-6 md:p-8 lg:p-10">
-          <div className="max-w-6xl mx-auto">
+        <main className="flex-1 overflow-y-auto">
+          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {renderActiveTab()}
           </div>
         </main>

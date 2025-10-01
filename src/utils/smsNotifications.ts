@@ -75,6 +75,7 @@ export const sendBookingSMS = async (data: SMSNotificationData): Promise<boolean
 export const saveBookingToDatabase = async (bookingData: {
   serviceName: string;
   servicePrice: number;
+  serviceDuration: number;
   appointmentDate: string;
   appointmentTime: string;
   therapistName: string;
@@ -89,19 +90,21 @@ export const saveBookingToDatabase = async (bookingData: {
     
     const { data, error } = await supabase
       .from('bookings')
-      .insert({
+      .insert([{
+        user_id: bookingData.userId,
         service_name: bookingData.serviceName,
-        service_price: bookingData.servicePrice,
-        appointment_date: bookingData.appointmentDate,
-        appointment_time: bookingData.appointmentTime,
         therapist_name: bookingData.therapistName,
         client_name: bookingData.clientName,
         client_email: bookingData.clientEmail,
         client_phone: formatPhoneNumber(bookingData.clientPhone),
+        appointment_date: bookingData.appointmentDate,
+        appointment_time: bookingData.appointmentTime,
+        duration: bookingData.serviceDuration,
+        price: bookingData.servicePrice,
+        status: 'confirmed',
         payment_reference: bookingData.paymentReference,
-        user_id: bookingData.userId,
-        status: 'confirmed'
-      })
+        payment_status: bookingData.paymentReference ? 'paid' : 'pending'
+      }])
       .select()
       .single();
 

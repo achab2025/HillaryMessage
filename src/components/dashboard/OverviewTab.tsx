@@ -24,93 +24,87 @@ export const OverviewTab = ({ upcomingAppointments, wellnessData }: OverviewTabP
   };
 
   return (
-    <div className="space-y-8">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Your Wellness Journey</h1>
-        <p className="text-lg text-muted-foreground">Manage your appointments and track your wellness progress</p>
+    <div className="space-y-6">
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        <p className="text-muted-foreground mt-1">Welcome back! Here's your wellness overview.</p>
       </div>
       
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-        <Card className="relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
-          <div className="absolute inset-0 bg-gradient-to-br from-spa-blue/5 to-spa-teal/10"></div>
-          <CardContent className="relative pt-6">
-            <div className="text-center">
-              <div className="inline-flex rounded-2xl p-4 bg-gradient-to-br from-spa-blue to-spa-teal text-white mb-4 shadow-lg group-hover:scale-105 transition-transform duration-200">
-                <Calendar size={28} />
-              </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-1">{upcomingAppointments.length}</h3>
-              <p className="text-muted-foreground font-medium">Upcoming Sessions</p>
-            </div>
+      {/* Stats Grid */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Upcoming</CardTitle>
+            <Calendar className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{upcomingAppointments.length}</div>
+            <p className="text-xs text-muted-foreground">scheduled sessions</p>
           </CardContent>
         </Card>
         
-        <Card className="relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
-          <div className="absolute inset-0 bg-gradient-to-br from-spa-teal/5 to-spa-green/10"></div>
-          <CardContent className="relative pt-6">
-            <div className="text-center">
-              <div className="inline-flex rounded-2xl p-4 bg-gradient-to-br from-spa-teal to-spa-green text-white mb-4 shadow-lg group-hover:scale-105 transition-transform duration-200">
-                <Clock size={28} />
-              </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-1">{wellnessData.totalSessions}</h3>
-              <p className="text-muted-foreground font-medium">Total Sessions</p>
-            </div>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Sessions</CardTitle>
+            <Clock className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{wellnessData.totalSessions}</div>
+            <p className="text-xs text-muted-foreground">all-time bookings</p>
           </CardContent>
         </Card>
         
-        <Card className="relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
-          <div className="absolute inset-0 bg-gradient-to-br from-spa-green/5 to-spa-blue/10"></div>
-          <CardContent className="relative pt-6">
-            <div className="text-center">
-              <div className="inline-flex rounded-2xl p-4 bg-gradient-to-br from-spa-green to-spa-blue text-white mb-4 shadow-lg group-hover:scale-105 transition-transform duration-200">
-                <Star size={28} />
-              </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-1">{wellnessData.wellnessScore}</h3>
-              <p className="text-muted-foreground font-medium">Wellness Score</p>
-            </div>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Wellness Score</CardTitle>
+            <Star className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{wellnessData.wellnessScore}/10</div>
+            <p className="text-xs text-muted-foreground">current rating</p>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/10"></div>
-          <CardContent className="relative pt-6">
-            <div className="text-center">
-              <div className="inline-flex rounded-2xl p-4 bg-gradient-to-br from-purple-500 to-pink-500 text-white mb-4 shadow-lg group-hover:scale-105 transition-transform duration-200">
-                <TrendingUp size={28} />
-              </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-1">{wellnessData.relaxationHours}</h3>
-              <p className="text-muted-foreground font-medium">Relaxation Hours</p>
-            </div>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">This Month</CardTitle>
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{wellnessData.relaxationHours}h</div>
+            <p className="text-xs text-muted-foreground">relaxation time</p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+      {/* Content Grid */}
+      <div className="grid gap-4 md:grid-cols-2">
+        <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-spa-blue" />
-              Next Appointment
-            </CardTitle>
+            <CardTitle className="text-base">Next Appointment</CardTitle>
           </CardHeader>
           <CardContent>
             {upcomingAppointments.length > 0 ? (
               <div className="space-y-4">
-                <div className="bg-spa-beige/20 rounded-xl p-4">
-                  <h4 className="font-semibold text-gray-900">{upcomingAppointments[0].service}</h4>
-                  <p className="text-muted-foreground">{formatDate(upcomingAppointments[0].date)} at {upcomingAppointments[0].time}</p>
-                  <p className="text-sm text-spa-blue">with {upcomingAppointments[0].therapist}</p>
+                <div className="rounded-lg border bg-muted/50 p-4">
+                  <p className="font-medium">{upcomingAppointments[0].service}</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {formatDate(upcomingAppointments[0].date)}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {upcomingAppointments[0].time} • {upcomingAppointments[0].therapist}
+                  </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm">Reschedule</Button>
-                  <Button variant="outline" size="sm">Cancel</Button>
+                  <Button variant="outline" size="sm" className="flex-1">Reschedule</Button>
+                  <Button variant="outline" size="sm" className="flex-1">Cancel</Button>
                 </div>
               </div>
             ) : (
-              <div className="text-center py-4">
-                <p className="text-muted-foreground mb-4">No upcoming appointments</p>
-                <Button asChild>
+              <div className="text-center py-6">
+                <p className="text-sm text-muted-foreground mb-3">No upcoming appointments</p>
+                <Button size="sm" asChild>
                   <Link to="/booking">Book Now</Link>
                 </Button>
               </div>
@@ -118,24 +112,26 @@ export const OverviewTab = ({ upcomingAppointments, wellnessData }: OverviewTabP
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Heart className="h-5 w-5 text-red-500" />
-              Wellness Goal
-            </CardTitle>
+            <CardTitle className="text-base">Monthly Goal</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div>
-                <div className="flex justify-between mb-2">
-                  <span className="text-sm font-medium">Monthly Relaxation Goal</span>
-                  <span className="text-sm text-muted-foreground">{wellnessData.relaxationHours}/{wellnessData.monthlyGoal} hours</span>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium">Relaxation Hours</span>
+                  <span className="text-sm text-muted-foreground">
+                    {wellnessData.relaxationHours}/{wellnessData.monthlyGoal}h
+                  </span>
                 </div>
-                <Progress value={(wellnessData.relaxationHours / wellnessData.monthlyGoal) * 100} className="h-2" />
+                <Progress 
+                  value={(wellnessData.relaxationHours / wellnessData.monthlyGoal) * 100} 
+                  className="h-2"
+                />
               </div>
               <p className="text-sm text-muted-foreground">
-                You're {Math.round((wellnessData.relaxationHours / wellnessData.monthlyGoal) * 100)}% towards your monthly goal!
+                {Math.round((wellnessData.relaxationHours / wellnessData.monthlyGoal) * 100)}% complete
               </p>
             </div>
           </CardContent>
