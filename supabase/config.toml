@@ -1,8 +1,1 @@
-
-project_id = "oawtkllxolkkvvgropfb"
-
-[functions.send-booking-sms]
-verify_jwt = false
-
-[functions.send-reminder-sms]
-verify_jwt = false
+project_id = "mchjekdyanzxxuluedff"
