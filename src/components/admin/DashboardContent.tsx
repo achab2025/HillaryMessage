@@ -1,4 +1,5 @@
 
+import { Card, CardContent } from "@/components/ui/card";
 import { DashboardHeader } from "./DashboardHeader";
 import { DashboardStats } from "./DashboardStats";
 import { AppointmentsTab } from "./AppointmentsTab";
@@ -44,7 +45,7 @@ export const DashboardContent = ({
     switch (activeTab) {
       case "dashboard":
         return (
-          <div className="space-y-8">
+          <div className="space-y-6">
             <DashboardStats 
               appointmentsCount={appointments.length}
               customersCount={customers.length}
@@ -52,51 +53,51 @@ export const DashboardContent = ({
               unreadMessagesCount={contactCount}
             />
             
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 overflow-hidden backdrop-blur-sm">
-                <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
-                  <h3 className="text-lg font-semibold text-gray-900">Recent Appointments</h3>
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+              <Card>
+                <div className="px-4 py-3 border-b border-border">
+                  <h3 className="text-sm font-semibold text-foreground">Recent Appointments</h3>
                 </div>
-                <div className="p-6">
+                <CardContent className="p-4">
                   <AppointmentsTab 
                     appointments={filteredAppointments.slice(0, 5)} 
                     formatDate={formatDate} 
                   />
-                </div>
-              </div>
+                </CardContent>
+              </Card>
               
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 overflow-hidden backdrop-blur-sm">
-                <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
-                  <h3 className="text-lg font-semibold text-gray-900">Recent Customers</h3>
+              <Card>
+                <div className="px-4 py-3 border-b border-border">
+                  <h3 className="text-sm font-semibold text-foreground">Recent Customers</h3>
                 </div>
-                <div className="p-6">
+                <CardContent className="p-4">
                   <CustomersTab customers={filteredCustomers.slice(0, 5)} />
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         );
       case "appointments":
         return (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
-            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
-              <h2 className="text-xl font-semibold text-gray-900">All Appointments</h2>
+          <Card>
+            <div className="px-4 py-3 border-b border-border">
+              <h2 className="text-base font-semibold text-foreground">All Appointments</h2>
             </div>
-            <div className="p-6">
+            <CardContent className="p-4">
               <AppointmentsTab appointments={filteredAppointments} formatDate={formatDate} />
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         );
       case "customers":
         return (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 backdrop-blur-sm">
-            <div className="px-6 py-4 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
-              <h2 className="text-xl font-semibold text-gray-900">All Customers</h2>
+          <Card>
+            <div className="px-4 py-3 border-b border-border">
+              <h2 className="text-base font-semibold text-foreground">All Customers</h2>
             </div>
-            <div className="p-6">
+            <CardContent className="p-4">
               <CustomersTab customers={filteredCustomers} />
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         );
       case "staff":
         return (
@@ -247,7 +248,7 @@ export const DashboardContent = ({
   };
 
   return (
-    <div className="p-6 lg:p-8 bg-gradient-to-br from-gray-50 via-white to-gray-100 min-h-screen">
+    <div className="p-4 lg:p-6 min-h-screen">
       <div className="max-w-7xl mx-auto">
         {activeTab === "dashboard" && (
           <DashboardHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} />

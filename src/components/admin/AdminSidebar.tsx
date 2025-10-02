@@ -43,46 +43,40 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
   };
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-b from-white to-gray-50/80 border-r border-gray-200/60 shadow-xl">
+    <div className="h-full flex flex-col bg-card">
       {/* Header */}
-      <div className="p-6 border-b border-gray-200/60 bg-gradient-to-r from-spa-green to-spa-teal">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center group-hover:bg-white/30 transition-all duration-300 shadow-lg">
-            <LayoutDashboard className="h-6 w-6 text-white" />
+      <div className="p-4 border-b border-border">
+        <Link to="/" className="flex items-center gap-2 group">
+          <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center group-hover:bg-primary/90 transition-colors">
+            <LayoutDashboard className="h-5 w-5 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-white group-hover:text-white/90 transition-colors">
-              Hillary Massage
-            </h1>
-            <p className="text-sm text-white/80">Admin Control Center</p>
+            <h1 className="text-sm font-semibold text-foreground">Hillary Massage</h1>
+            <p className="text-xs text-muted-foreground">Admin</p>
           </div>
         </Link>
       </div>
 
       {/* User Info */}
-      <div className="p-6 border-b border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+      <div className="p-4 border-b border-border">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-spa-blue to-spa-teal rounded-full flex items-center justify-center shadow-md">
-            <span className="text-sm font-bold text-white">
+          <div className="w-9 h-9 bg-primary rounded-full flex items-center justify-center">
+            <span className="text-xs font-semibold text-primary-foreground">
               {user?.email?.charAt(0).toUpperCase()}
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-gray-900 truncate">Administrator</p>
-            <p className="text-xs text-gray-600 truncate">{user?.email}</p>
-            <div className="flex items-center gap-1 mt-1">
-              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-              <span className="text-xs text-green-600 font-medium">Online</span>
-            </div>
+            <p className="text-xs font-medium text-foreground truncate">Administrator</p>
+            <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
           </div>
         </div>
       </div>
       
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1 overflow-y-auto scrollbar-hide">
-        <div className="mb-4">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-3">
-            Main Menu
+      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+        <div className="mb-2">
+          <p className="text-xs font-medium text-muted-foreground px-2 mb-1">
+            Main
           </p>
         </div>
         {menuItems.slice(0, 4).map((item) => {
@@ -91,16 +85,16 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
             <button
               key={item.label}
               onClick={() => handleMenuClick(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group ${
+              className={`w-full flex items-center gap-2 px-2 py-2 text-sm font-medium rounded-md transition-colors ${
                 item.active 
-                  ? 'bg-gradient-to-r from-spa-green to-spa-teal text-white shadow-lg shadow-spa-green/20 scale-[1.02]' 
-                  : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 hover:shadow-md'
+                  ? 'bg-primary text-primary-foreground' 
+                  : 'text-foreground hover:bg-accent hover:text-accent-foreground'
               }`}
             >
-              <Icon size={20} className={item.active ? 'text-white' : 'text-gray-500 group-hover:text-gray-700'} />
+              <Icon size={18} />
               <span className="flex-1 text-left">{item.label}</span>
               {item.badge && item.badge > 0 && (
-                <span className="bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center shadow-md">
+                <span className="bg-destructive text-destructive-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
                   {item.badge}
                 </span>
               )}
@@ -108,9 +102,9 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
           );
         })}
 
-        <div className="my-4">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-3">
-            Business Tools
+        <div className="my-2">
+          <p className="text-xs font-medium text-muted-foreground px-2 mb-1">
+            Business
           </p>
         </div>
         {menuItems.slice(4, 10).map((item) => {
@@ -119,16 +113,16 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
             <button
               key={item.label}
               onClick={() => handleMenuClick(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group ${
+              className={`w-full flex items-center gap-2 px-2 py-2 text-sm font-medium rounded-md transition-colors ${
                 item.active 
-                  ? 'bg-gradient-to-r from-spa-green to-spa-teal text-white shadow-lg shadow-spa-green/20 scale-[1.02]' 
-                  : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 hover:shadow-md'
+                  ? 'bg-primary text-primary-foreground' 
+                  : 'text-foreground hover:bg-accent hover:text-accent-foreground'
               }`}
             >
-              <Icon size={20} className={item.active ? 'text-white' : 'text-gray-500 group-hover:text-gray-700'} />
+              <Icon size={18} />
               <span className="flex-1 text-left">{item.label}</span>
               {item.badge && item.badge > 0 && (
-                <span className="bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center shadow-md">
+                <span className="bg-destructive text-destructive-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
                   {item.badge}
                 </span>
               )}
@@ -136,8 +130,8 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
           );
         })}
 
-        <div className="my-4">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-3">
+        <div className="my-2">
+          <p className="text-xs font-medium text-muted-foreground px-2 mb-1">
             Advanced
           </p>
         </div>
@@ -147,16 +141,16 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
             <button
               key={item.label}
               onClick={() => handleMenuClick(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group ${
+              className={`w-full flex items-center gap-2 px-2 py-2 text-sm font-medium rounded-md transition-colors ${
                 item.active 
-                  ? 'bg-gradient-to-r from-spa-green to-spa-teal text-white shadow-lg shadow-spa-green/20 scale-[1.02]' 
-                  : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 hover:shadow-md'
+                  ? 'bg-primary text-primary-foreground' 
+                  : 'text-foreground hover:bg-accent hover:text-accent-foreground'
               }`}
             >
-              <Icon size={20} className={item.active ? 'text-white' : 'text-gray-500 group-hover:text-gray-700'} />
+              <Icon size={18} />
               <span className="flex-1 text-left">{item.label}</span>
               {item.badge && item.badge > 0 && (
-                <span className="bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center shadow-md">
+                <span className="bg-destructive text-destructive-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
                   {item.badge}
                 </span>
               )}
@@ -166,12 +160,12 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
       </nav>
       
       {/* Logout */}
-      <div className="p-4 border-t border-gray-200/60 bg-gradient-to-r from-gray-50 to-white">
+      <div className="p-3 border-t border-border">
         <button 
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 hover:text-red-700 rounded-xl transition-all duration-200 hover:shadow-md"
+          className="w-full flex items-center gap-2 px-2 py-2 text-sm font-medium text-destructive hover:bg-destructive/10 rounded-md transition-colors"
         >
-          <LogOut size={20} />
+          <LogOut size={18} />
           <span>Sign Out</span>
         </button>
       </div>
