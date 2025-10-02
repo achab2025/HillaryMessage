@@ -43,39 +43,39 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
   };
 
   return (
-    <div className="h-full flex flex-col bg-card">
+    <div className="h-full flex flex-col bg-card border-r border-border">
       {/* Header */}
       <div className="p-4 border-b border-border">
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center group-hover:bg-primary/90 transition-colors">
-            <LayoutDashboard className="h-5 w-5 text-primary-foreground" />
+        <Link to="/" className="flex items-center gap-2.5 group">
+          <div className="w-8 h-8 bg-foreground rounded-md flex items-center justify-center group-hover:bg-foreground/90 transition-colors">
+            <LayoutDashboard className="h-4 w-4 text-background" />
           </div>
           <div>
             <h1 className="text-sm font-semibold text-foreground">Hillary Massage</h1>
-            <p className="text-xs text-muted-foreground">Admin</p>
+            <p className="text-xs text-muted-foreground">Admin Panel</p>
           </div>
         </Link>
       </div>
 
       {/* User Info */}
-      <div className="p-4 border-b border-border">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-primary rounded-full flex items-center justify-center">
-            <span className="text-xs font-semibold text-primary-foreground">
+      <div className="p-3 border-b border-border">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 bg-foreground rounded-full flex items-center justify-center">
+            <span className="text-xs font-semibold text-background">
               {user?.email?.charAt(0).toUpperCase()}
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-medium text-foreground truncate">Administrator</p>
+            <p className="text-xs font-medium text-foreground truncate">Admin</p>
             <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
           </div>
         </div>
       </div>
       
       {/* Navigation */}
-      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-        <div className="mb-2">
-          <p className="text-xs font-medium text-muted-foreground px-2 mb-1">
+      <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto">
+        <div className="mb-2 px-2">
+          <p className="text-xs font-medium text-muted-foreground">
             Main
           </p>
         </div>
@@ -85,16 +85,16 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
             <button
               key={item.label}
               onClick={() => handleMenuClick(item.id)}
-              className={`w-full flex items-center gap-2 px-2 py-2 text-sm font-medium rounded-md transition-colors ${
+              className={`w-full flex items-center gap-2.5 px-2.5 py-2 text-sm font-medium rounded-md transition-colors ${
                 item.active 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'text-foreground hover:bg-accent hover:text-accent-foreground'
+                  ? 'bg-foreground text-background' 
+                  : 'text-foreground hover:bg-accent'
               }`}
             >
-              <Icon size={18} />
-              <span className="flex-1 text-left">{item.label}</span>
+              <Icon size={16} strokeWidth={2} />
+              <span className="flex-1 text-left text-[13px]">{item.label}</span>
               {item.badge && item.badge > 0 && (
-                <span className="bg-destructive text-destructive-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                <span className="bg-destructive text-destructive-foreground text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-semibold">
                   {item.badge}
                 </span>
               )}
@@ -102,8 +102,8 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
           );
         })}
 
-        <div className="my-2">
-          <p className="text-xs font-medium text-muted-foreground px-2 mb-1">
+        <div className="my-2 px-2">
+          <p className="text-xs font-medium text-muted-foreground">
             Business
           </p>
         </div>
@@ -113,16 +113,16 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
             <button
               key={item.label}
               onClick={() => handleMenuClick(item.id)}
-              className={`w-full flex items-center gap-2 px-2 py-2 text-sm font-medium rounded-md transition-colors ${
+              className={`w-full flex items-center gap-2.5 px-2.5 py-2 text-sm font-medium rounded-md transition-colors ${
                 item.active 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'text-foreground hover:bg-accent hover:text-accent-foreground'
+                  ? 'bg-foreground text-background' 
+                  : 'text-foreground hover:bg-accent'
               }`}
             >
-              <Icon size={18} />
-              <span className="flex-1 text-left">{item.label}</span>
+              <Icon size={16} strokeWidth={2} />
+              <span className="flex-1 text-left text-[13px]">{item.label}</span>
               {item.badge && item.badge > 0 && (
-                <span className="bg-destructive text-destructive-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                <span className="bg-destructive text-destructive-foreground text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-semibold">
                   {item.badge}
                 </span>
               )}
@@ -130,8 +130,8 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
           );
         })}
 
-        <div className="my-2">
-          <p className="text-xs font-medium text-muted-foreground px-2 mb-1">
+        <div className="my-2 px-2">
+          <p className="text-xs font-medium text-muted-foreground">
             Advanced
           </p>
         </div>
@@ -141,16 +141,16 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
             <button
               key={item.label}
               onClick={() => handleMenuClick(item.id)}
-              className={`w-full flex items-center gap-2 px-2 py-2 text-sm font-medium rounded-md transition-colors ${
+              className={`w-full flex items-center gap-2.5 px-2.5 py-2 text-sm font-medium rounded-md transition-colors ${
                 item.active 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'text-foreground hover:bg-accent hover:text-accent-foreground'
+                  ? 'bg-foreground text-background' 
+                  : 'text-foreground hover:bg-accent'
               }`}
             >
-              <Icon size={18} />
-              <span className="flex-1 text-left">{item.label}</span>
+              <Icon size={16} strokeWidth={2} />
+              <span className="flex-1 text-left text-[13px]">{item.label}</span>
               {item.badge && item.badge > 0 && (
-                <span className="bg-destructive text-destructive-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                <span className="bg-destructive text-destructive-foreground text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-semibold">
                   {item.badge}
                 </span>
               )}
@@ -160,13 +160,13 @@ export const AdminSidebar = ({ contactCount, handleLogout, activeTab, setActiveT
       </nav>
       
       {/* Logout */}
-      <div className="p-3 border-t border-border">
+      <div className="p-2 border-t border-border">
         <button 
           onClick={handleLogout}
-          className="w-full flex items-center gap-2 px-2 py-2 text-sm font-medium text-destructive hover:bg-destructive/10 rounded-md transition-colors"
+          className="w-full flex items-center gap-2.5 px-2.5 py-2 text-sm font-medium text-destructive hover:bg-destructive/10 rounded-md transition-colors"
         >
-          <LogOut size={18} />
-          <span>Sign Out</span>
+          <LogOut size={16} strokeWidth={2} />
+          <span className="text-[13px]">Sign Out</span>
         </button>
       </div>
     </div>
